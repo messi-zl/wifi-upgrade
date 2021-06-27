@@ -1,10 +1,7 @@
 package com.sim.wifi.upgrade.config;
 
-/*import com.sim.wifi.upgrade.modules.ums.model.UmsResource;
-import com.sim.wifi.upgrade.modules.ums.service.UmsAdminService;
-import com.sim.wifi.upgrade.modules.ums.service.UmsResourceService;*/
+
 import com.sim.wifi.upgrade.modules.permissions.model.AbResource;
-import com.sim.wifi.upgrade.modules.permissions.model.AbUser;
 import com.sim.wifi.upgrade.modules.permissions.service.AbResourceService;
 import com.sim.wifi.upgrade.modules.permissions.service.AbUserService;
 import com.sim.wifi.upgrade.security.component.DynamicSecurityService;
