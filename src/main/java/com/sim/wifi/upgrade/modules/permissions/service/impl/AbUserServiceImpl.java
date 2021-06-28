@@ -21,7 +21,7 @@ import java.util.List;
 
 /**
  * <p>
- *  服务实现类
+ * 服务实现类
  * </p>
  *
  * @author zl
@@ -41,7 +41,7 @@ public class AbUserServiceImpl extends ServiceImpl<AbUserMapper, AbUser> impleme
         AbUser abUser = getUserByUsername(username);
         if (abUser != null) {
             List<AbResource> resourceList = getResourceList(abUser.getId());
-            return new MyUserDetails(abUser,resourceList); //zznote:AdminUserDetails实现了UserDetails，
+            return new MyUserDetails(abUser, resourceList); //zznote:AdminUserDetails实现了UserDetails，
         }
         throw new UsernameNotFoundException("用户名或密码错误");//未查询到
     }
@@ -49,9 +49,9 @@ public class AbUserServiceImpl extends ServiceImpl<AbUserMapper, AbUser> impleme
     @Override
     public AbUser getUserByUsername(String username) {
         AbUser user = userCacheService.getUser(username);
-        if(user!=null) return  user; //zznote：先去redis上拿，不存在再去访问数据库
+        if (user != null) return user; //zznote：先去redis上拿，不存在再去访问数据库
         QueryWrapper<AbUser> wrapper = new QueryWrapper<>();//zznote:QueryWrapper mybaits-plus构造器
-        wrapper.lambda().eq(AbUser::getUsername,username);//zznote：lambda的表达式 :：
+        wrapper.lambda().eq(AbUser::getUsername, username);//zznote：lambda的表达式 :：
         List<AbUser> adminList = list(wrapper);
         if (adminList != null && adminList.size() > 0) {
             user = adminList.get(0);
@@ -64,12 +64,12 @@ public class AbUserServiceImpl extends ServiceImpl<AbUserMapper, AbUser> impleme
     @Override
     public List<AbResource> getResourceList(Integer userId) {
         List<AbResource> resourceList = userCacheService.getResourceList(userId);
-        if(CollUtil.isNotEmpty(resourceList)){
-            return  resourceList;
+        if (CollUtil.isNotEmpty(resourceList)) {
+            return resourceList;
         }
         resourceList = resourceMapper.getResourceList(userId);
-        if(CollUtil.isNotEmpty(resourceList)){
-            userCacheService.setResourceList(userId,resourceList);
+        if (CollUtil.isNotEmpty(resourceList)) {
+            userCacheService.setResourceList(userId, resourceList);
         }
         return resourceList;
     }

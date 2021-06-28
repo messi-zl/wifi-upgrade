@@ -19,8 +19,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * mall-security模块相关配置
- * Created by macro on 2019/11/9.
+ * wifi-upgrade-security模块相关配置
  */
 @Configuration
 @EnableWebSecurity
@@ -33,7 +32,7 @@ public class WifiSecurityConfig extends SecurityConfig {
     private AbResourceService resourceService;
 
     @Bean
-    public UserDetailsService userDetailsService() { //得到了UserDetailsService的Bean，并且对其loadUserByname方法进行了重写
+    public UserDetailsService userDetailsService() {
         //获取登录用户信息
         return userName -> userService.loadUserByUsername(userName);
     }
