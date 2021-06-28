@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
  *
  */
 @Controller
-@Api(tags = "AbViewMenuController", description = "")
+@Api(tags = "AbViewMenuController", description = "菜单管理")
 @RequestMapping("/viewMenu")
 public class AbViewMenuController {
 

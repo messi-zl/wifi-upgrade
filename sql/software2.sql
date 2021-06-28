@@ -11,7 +11,7 @@
  Target Server Version : 50734
  File Encoding         : 65001
 
- Date: 25/06/2021 18:38:53
+ Date: 28/06/2021 19:32:04
 */
 
 SET NAMES utf8mb4;
@@ -280,13 +280,27 @@ CREATE TABLE `ab_role`  (
   `name` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `name`(`name`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of ab_role
 -- ----------------------------
-INSERT INTO `ab_role` VALUES (1, 'Admin');
-INSERT INTO `ab_role` VALUES (2, 'Public');
+INSERT INTO `ab_role` VALUES (8, 'lisi');
+
+-- ----------------------------
+-- Table structure for ab_role_menu
+-- ----------------------------
+DROP TABLE IF EXISTS `ab_role_menu`;
+CREATE TABLE `ab_role_menu`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `role_id` int(11) NULL DEFAULT NULL,
+  `menu_id` int(11) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of ab_role_menu
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for ab_role_resource
@@ -313,7 +327,7 @@ CREATE TABLE `ab_user`  (
   `last_name` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '姓',
   `username` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '用户名',
   `password` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '密码',
-  `active` tinyint(1) NULL DEFAULT NULL COMMENT '是否激活',
+  `active` tinyint(1) NULL DEFAULT NULL COMMENT '是否激活(true:激活;false:未激活)',
   `email` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '邮箱',
   `last_login` datetime NULL DEFAULT NULL COMMENT '上一次登录',
   `login_count` int(11) NULL DEFAULT NULL COMMENT '登录次数',
@@ -329,12 +343,12 @@ CREATE TABLE `ab_user`  (
   INDEX `changed_by_fk`(`changed_by_fk`) USING BTREE,
   CONSTRAINT `ab_user_ibfk_1` FOREIGN KEY (`created_by_fk`) REFERENCES `ab_user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `ab_user_ibfk_2` FOREIGN KEY (`changed_by_fk`) REFERENCES `ab_user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of ab_user
 -- ----------------------------
-INSERT INTO `ab_user` VALUES (1, 'admin', 'user', 'admin', 'pbkdf2:sha256:150000$ONMt8Dtz$85a33fbb7fd72bb9b9d3a3f4cd9f251298374b728a74edbbe8667c06b78dcdaf', 1, 'admin@fab.org', '2021-05-25 12:36:38', 19, 0, '2021-04-15 16:44:44', '2021-04-15 16:44:44', NULL, NULL);
+INSERT INTO `ab_user` VALUES (8, '四', '李', 'lisi', '$2a$10$TfaC8Q0QxTVwSi3/Gvs0re/9ETqHW/gnxQr7MxfNcGmwRwhtPb.Vi', 1, '888@qq.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for ab_user_role
@@ -349,12 +363,12 @@ CREATE TABLE `ab_user_role`  (
   INDEX `role_id`(`role_id`) USING BTREE,
   CONSTRAINT `ab_user_role_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `ab_user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `ab_user_role_ibfk_2` FOREIGN KEY (`role_id`) REFERENCES `ab_role` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of ab_user_role
 -- ----------------------------
-INSERT INTO `ab_user_role` VALUES (1, 1, 1);
+INSERT INTO `ab_user_role` VALUES (8, 8, 8);
 
 -- ----------------------------
 -- Table structure for ab_view_menu

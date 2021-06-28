@@ -20,12 +20,12 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @TableName("ab_role")
-@ApiModel(value="AbRole对象", description="")
+@ApiModel(value="AbRole对象", description="角色")
 public class AbRole implements Serializable {
 
     private static final long serialVersionUID=1L;
 
-    @TableId(value = "id", type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.INPUT)
     private Integer id;
 
     private String name;

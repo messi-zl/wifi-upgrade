@@ -21,7 +21,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @TableName("ab_user")
-@ApiModel(value="AbUser对象", description="")
+@ApiModel(value="AbUser对象", description="后台用户表")
 public class AbUser implements Serializable {
 
     private static final long serialVersionUID=1L;

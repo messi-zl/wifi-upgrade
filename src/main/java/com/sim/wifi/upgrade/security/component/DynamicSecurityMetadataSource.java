@@ -26,13 +26,13 @@ public class DynamicSecurityMetadataSource implements FilterInvocationSecurityMe
     }
 
     public void clearDataSource() {
-        configAttributeMap.clear();
+        if (configAttributeMap != null) configAttributeMap.clear();
         configAttributeMap = null;
     }
 
     @Override
     public Collection<ConfigAttribute> getAttributes(Object o) throws IllegalArgumentException {
-        clearDataSource();//及时load
+        clearDataSource();//及时load资源
         if (configAttributeMap == null) this.loadDataSource();
         List<ConfigAttribute> configAttributes = new ArrayList<>();
         //获取当前访问的路径

@@ -57,6 +57,6 @@ public class MyUserDetails implements UserDetails {//封装用户信息的类（
 
     @Override
     public boolean isEnabled() {
-        return user.getActive().equals(1);//是否激活
+        return user.getActive();//是否激活
     }
 }

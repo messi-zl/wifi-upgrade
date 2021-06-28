@@ -1,5 +1,6 @@
 package com.sim.wifi.upgrade.modules.permissions.service;
 
+import com.sim.wifi.upgrade.modules.permissions.dto.AbUserParam;
 import com.sim.wifi.upgrade.modules.permissions.model.AbResource;
 import com.sim.wifi.upgrade.modules.permissions.model.AbUser;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -27,10 +28,20 @@ public interface AbUserService extends IService<AbUser> {
      */
     UserDetails loadUserByUsername(String username);
 
-    /**
-     * 获取指定用户的可访问资源
-     */
-    List<AbResource> getResourceList(Integer userId);
 
+
+
+    /**
+     * 注册功能
+     */
+    AbUser register(AbUserParam abUserParm);
+
+    /**
+     * 登录功能
+     * @param username 用户名
+     * @param password 密码
+     * @return 生成的JWT的token
+     */
+    String login(String username,String password);
 
 }

@@ -18,9 +18,9 @@ mybatis-plus:
 
 jwt:
   tokenHeader: Authorization #JWT存储的请求头
-  secret: mall-admin-secret #JWT加解密使用的密钥
+  secret: wifi-upgrade-secret #JWT加解密使用的密钥
   expiration: 604800 #JWT的超期限时间(60*60*24*7)
-  tokenHead: 'Bearer '  #JWT负载中拿到开头
+  tokenHead: 'theTest '  #JWT负载中拿到开头
 
 redis:
   database: mall
@@ -33,6 +33,9 @@ redis:
 secure:
   ignored:
     urls: #安全路径白名单
+      - /user/register
+      - /user/login
+      - /user/logout
       - /swagger-ui.html
       - /swagger-resources/**
       - /swagger/**
