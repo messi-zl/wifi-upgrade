@@ -29,10 +29,10 @@ public class AbRoleResource implements Serializable {
     private Long id;
 
     @ApiModelProperty(value = "角色id")
-    private Long roleId;
+    private Integer roleId;
 
     @ApiModelProperty(value = "资源id")
-    private Long resourceId;
+    private Integer resourceId;
 
 
 }

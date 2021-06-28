@@ -11,7 +11,7 @@
  Target Server Version : 50734
  File Encoding         : 65001
 
- Date: 28/06/2021 19:32:04
+ Date: 28/06/2021 20:26:01
 */
 
 SET NAMES utf8mb4;
@@ -307,9 +307,9 @@ CREATE TABLE `ab_role_menu`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `ab_role_resource`;
 CREATE TABLE `ab_role_resource`  (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `role_id` bigint(20) NULL DEFAULT NULL COMMENT '角色id',
-  `resource_id` bigint(20) NULL DEFAULT NULL COMMENT '资源id',
+  `id` int(20) NOT NULL AUTO_INCREMENT,
+  `role_id` int(20) NULL DEFAULT NULL COMMENT '角色id',
+  `resource_id` int(20) NULL DEFAULT NULL COMMENT '资源id',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 

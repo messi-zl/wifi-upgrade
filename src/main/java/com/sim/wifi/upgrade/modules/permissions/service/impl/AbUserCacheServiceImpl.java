@@ -53,7 +53,7 @@ public class AbUserCacheServiceImpl implements AbUserCacheService {
     }
 
     @Override
-    public void delResourceListByRole(Long roleId) {
+    public void delResourceListByRole(Integer roleId) {
         QueryWrapper<AbUserRole> wrapper = new QueryWrapper<>();
         wrapper.lambda().eq(AbUserRole::getRoleId,roleId);
         List<AbUserRole> userRoleList = userRoleService.list(wrapper);
