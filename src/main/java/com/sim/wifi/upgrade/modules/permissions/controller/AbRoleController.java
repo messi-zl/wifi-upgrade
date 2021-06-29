@@ -15,7 +15,7 @@ import java.util.List;
  *
  *
  */
-@Controller
+//@Controller
 @Api(tags = "AbRoleController", description = "角色管理")
 @RequestMapping("/role")
 public class AbRoleController {

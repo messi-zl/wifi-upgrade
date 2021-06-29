@@ -2,6 +2,7 @@ package com.sim.wifi.upgrade.modules.permissions.service;
 
 import com.sim.wifi.upgrade.modules.permissions.model.AbViewMenu;
 import com.baomidou.mybatisplus.extension.service.IService;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -16,4 +17,19 @@ import java.util.List;
 public interface AbViewMenuService extends IService<AbViewMenu> {
 
 
+    /**
+     * 创建后台菜单
+     */
+    boolean create(AbViewMenu viewMenu);
+
+    /**
+     * 由菜单id修改后台菜单
+     */
+    boolean update(Integer menuId, AbViewMenu viewMenu);
+
+
+    /**
+     * 根据菜单id修改菜单显示状态
+     */
+    boolean updateHidden(Integer menuId, Integer hidden);
 }

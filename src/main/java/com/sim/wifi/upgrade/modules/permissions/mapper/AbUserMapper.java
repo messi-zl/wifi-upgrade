@@ -19,5 +19,5 @@ public interface AbUserMapper extends BaseMapper<AbUser> {
     /**
      * 获取资源相关用户ID列表
      */
-    List<Long> getUserIdList(@Param("resourceId") Long resourceId);
+    List<Integer> getUserIdList(@Param("resourceId") Integer resourceId);
 }

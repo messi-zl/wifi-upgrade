@@ -20,13 +20,13 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @TableName("ab_resource")
-@ApiModel(value="AbResource对象", description="")
+@ApiModel(value="AbResource对象", description="资源对象")
 public class AbResource implements Serializable {
 
     private static final long serialVersionUID=1L;
 
     @TableId(value = "id", type = IdType.AUTO)
-    private Long id;
+    private Integer id;
 
     @ApiModelProperty(value = "资源名称")
     private String name;

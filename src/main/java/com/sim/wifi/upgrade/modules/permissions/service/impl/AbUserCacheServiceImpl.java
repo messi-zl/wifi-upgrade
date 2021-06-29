@@ -77,8 +77,8 @@ public class AbUserCacheServiceImpl implements AbUserCacheService {
     }
 
     @Override
-    public void delResourceListByResource(Long resourceId) {
-        List<Long> userIdList = userMapper.getUserIdList(resourceId);
+    public void delResourceListByResource(Integer resourceId) {
+        List<Integer> userIdList = userMapper.getUserIdList(resourceId);
         if (CollUtil.isNotEmpty(userIdList)) {
             String keyPrefix = REDIS_DATABASE + ":" + REDIS_KEY_RESOURCE_LIST + ":";
             List<String> keys = userIdList.stream().map(adminId -> keyPrefix + adminId).collect(Collectors.toList());
