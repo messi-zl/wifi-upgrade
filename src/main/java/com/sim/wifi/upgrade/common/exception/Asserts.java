@@ -4,8 +4,9 @@ package com.sim.wifi.upgrade.common.exception;
 import com.sim.wifi.upgrade.common.api.IErrorCode;
 
 /**
- * 断言处理类，用于抛出各种API异常
- * Created by macro on 2020/2/27.
+ * description: 断言处理类，用于抛出各种API异常
+ * create by: li.zheng871@sim.com
+ * create time: 2021/6/29
  */
 public class Asserts {
     public static void fail(String message) {

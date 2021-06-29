@@ -1,8 +1,10 @@
 package com.sim.wifi.upgrade.common.api;
 
+
 /**
- * 枚举了一些常用API操作码
- * Created by macro on 2019/4/19.
+ * description: 枚举了一些常用API操作码
+ * create by: li.zheng871@sim.com
+ * create time: 2021/6/29
  */
 public enum ResultCode implements IErrorCode {
     SUCCESS(200, "操作成功"),

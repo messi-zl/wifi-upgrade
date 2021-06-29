@@ -7,8 +7,9 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
 /**
- * 全局跨域配置
- * Created by macro on 2019/7/27.
+ * description: 全局跨域配置
+ * create by: li.zheng871@sim.com
+ * create time: 2021/6/29
  */
 @Configuration
 public class GlobalCorsConfig {

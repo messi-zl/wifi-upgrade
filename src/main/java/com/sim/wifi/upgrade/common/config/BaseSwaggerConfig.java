@@ -13,9 +13,11 @@ import springfox.documentation.spring.web.plugins.Docket;
 import java.util.ArrayList;
 import java.util.List;
 
+
 /**
- * Swagger基础配置
- * Created by macro on 2020/7/16.
+ * description: Swagger基础配置
+ * create by: li.zheng871@sim.com
+ * create time: 2021/6/29
  */
 public abstract class BaseSwaggerConfig {
 

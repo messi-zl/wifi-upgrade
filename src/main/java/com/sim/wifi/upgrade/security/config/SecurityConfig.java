@@ -19,7 +19,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 
 /**
- * 对SpringSecurity的配置的扩展，支持自定义白名单资源路径和查询用户逻辑
+ * description: 对SpringSecurity的配置的扩展，支持自定义白名单资源路径和查询用户逻辑
+ * create by: li.zheng871@sim.com
+ * create time: 2021/6/29
  */
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 

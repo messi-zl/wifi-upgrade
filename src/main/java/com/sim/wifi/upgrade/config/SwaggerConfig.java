@@ -6,8 +6,9 @@ import org.springframework.context.annotation.Configuration;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
- * Swagger API文档相关配置
- * Created by macro on 2018/4/26.
+ * description: Swagger API文档相关配置
+ * create by: li.zheng871@sim.com
+ * create time: 2021/6/29
  */
 @Configuration
 @EnableSwagger2

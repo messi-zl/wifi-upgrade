@@ -4,12 +4,9 @@ import com.sim.wifi.upgrade.modules.permissions.model.RomSoftwares;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
- * <p>
- *  服务类
- * </p>
- *
- * @author zl
- * @since 2021-06-22
+ * description:
+ * create by: li.zheng871@sim.com
+ * create time: 2021/6/29
  */
 public interface RomSoftwaresService extends IService<RomSoftwares> {
 

@@ -4,12 +4,9 @@ import com.sim.wifi.upgrade.modules.permissions.model.DeviceInstances;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
- * <p>
- *  Mapper 接口
- * </p>
- *
- * @author zl
- * @since 2021-06-22
+ * description:
+ * create by: li.zheng871@sim.com
+ * create time: 2021/6/29
  */
 public interface DeviceInstancesMapper extends BaseMapper<DeviceInstances> {
 

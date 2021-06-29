@@ -1,9 +1,9 @@
 package com.sim.wifi.upgrade.config;
 
 
-import com.sim.wifi.upgrade.modules.permissions.model.AbResource;
-import com.sim.wifi.upgrade.modules.permissions.service.AbResourceService;
-import com.sim.wifi.upgrade.modules.permissions.service.AbUserService;
+import com.sim.wifi.upgrade.modules.permissions.model.Resource;
+import com.sim.wifi.upgrade.modules.permissions.service.ResourceService;
+import com.sim.wifi.upgrade.modules.permissions.service.UserService;
 import com.sim.wifi.upgrade.security.component.DynamicSecurityService;
 import com.sim.wifi.upgrade.security.config.SecurityConfig;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,9 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * wifi-upgrade-security模块相关配置
+ * description: wifi-upgrade-security模块相关配置
+ * create by: li.zheng871@sim.com
+ * create time: 2021/6/29
  */
 @Configuration
 @EnableWebSecurity
@@ -27,9 +29,9 @@ import java.util.concurrent.ConcurrentHashMap;
 public class WifiSecurityConfig extends SecurityConfig {
 
     @Autowired
-    private AbUserService userService;
+    private UserService userService;
     @Autowired
-    private AbResourceService resourceService;
+    private ResourceService resourceService;
 
     @Bean
     public UserDetailsService userDetailsService() {
@@ -43,8 +45,8 @@ public class WifiSecurityConfig extends SecurityConfig {
             @Override
             public Map<String, ConfigAttribute> loadDataSource() {
                 Map<String, ConfigAttribute> map = new ConcurrentHashMap<>();
-                List<AbResource> resourceList = resourceService.list();
-                for (AbResource resource : resourceList) {
+                List<Resource> resourceList = resourceService.list();
+                for (Resource resource : resourceList) {
                     map.put(resource.getUrl(), new org.springframework.security.access.SecurityConfig(resource.getId() + ":" + resource.getName()));
                 }
                 return map;

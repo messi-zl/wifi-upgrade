@@ -10,8 +10,9 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /**
- * redis操作实现类
- * Created by macro on 2020/3/3.
+ * description: redis操作实现类
+ * create by: li.zheng871@sim.com
+ * create time: 2021/6/29
  */
 public class RedisServiceImpl implements RedisService {
     @Autowired

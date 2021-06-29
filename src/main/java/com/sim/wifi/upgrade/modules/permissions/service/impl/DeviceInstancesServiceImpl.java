@@ -9,14 +9,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 /**
- * <p>
- *  服务实现类
- * </p>
- *
- * @author zl
- * @since 2021-06-22
+ * description:
+ * create by: li.zheng871@sim.com
+ * create time: 2021/6/29
  */
 @Service
 public class DeviceInstancesServiceImpl extends ServiceImpl<DeviceInstancesMapper, DeviceInstances> implements DeviceInstancesService {
-    private static final Logger LOGGER = LoggerFactory.getLogger(DeviceInstancesServiceImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(DeviceInstancesServiceImpl.class);
 }

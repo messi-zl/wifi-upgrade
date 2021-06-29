@@ -6,8 +6,9 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import java.util.List;
 
 /**
- * 分页数据封装类
- * Created by macro on 2019/4/19.
+ * description: 分页数据封装类
+ * create by: li.zheng871@sim.com
+ * create time: 2021/6/29
  */
 public class CommonPage<T> {
     private Integer pageNum;
@@ -24,7 +25,7 @@ public class CommonPage<T> {
         result.setPageNum(Convert.toInt(pageResult.getCurrent()));
         result.setPageSize(Convert.toInt(pageResult.getSize()));
         result.setTotal(pageResult.getTotal());
-        result.setTotalPage(Convert.toInt(pageResult.getTotal()/pageResult.getSize()+1));
+        result.setTotalPage(Convert.toInt(pageResult.getTotal() / pageResult.getSize() + 1));
         result.setList(pageResult.getRecords());
         return result;
     }

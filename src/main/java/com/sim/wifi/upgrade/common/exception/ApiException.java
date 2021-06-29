@@ -4,8 +4,9 @@ package com.sim.wifi.upgrade.common.exception;
 import com.sim.wifi.upgrade.common.api.IErrorCode;
 
 /**
- * 自定义API异常
- * Created by macro on 2020/2/27.
+ * description: 自定义API异常
+ * create by: li.zheng871@sim.com
+ * create time: 2021/6/29
  */
 public class ApiException extends RuntimeException {
     private IErrorCode errorCode;

@@ -1,7 +1,7 @@
 package com.sim.wifi.upgrade.domain;
 
-import com.sim.wifi.upgrade.modules.permissions.model.AbResource;
-import com.sim.wifi.upgrade.modules.permissions.model.AbUser;
+import com.sim.wifi.upgrade.modules.permissions.model.Resource;
+import com.sim.wifi.upgrade.modules.permissions.model.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,13 +11,15 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * SpringSecurity需要的用户详情
+ * description: SpringSecurity需要的用户详情
+ * create by: li.zheng871@sim.com
+ * create time: 2021/6/29
  */
 public class MyUserDetails implements UserDetails {//封装用户信息的类（主要是用户信息和权限）
-    private AbUser user;
-    private List<AbResource> resourceList;
+    private User user;
+    private List<Resource> resourceList;
 
-    public MyUserDetails(AbUser user, List<AbResource> resourceList) {
+    public MyUserDetails(User user, List<Resource> resourceList) {
         this.user = user;
         this.resourceList = resourceList;
     }

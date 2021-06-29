@@ -18,8 +18,9 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
- * MyBatisPlus代码生成器
- * Created by macro on 2020/8/20.
+ * description: MyBatisPlus代码生成器
+ * create by: li.zheng871@sim.com
+ * create time: 2021/6/29
  */
 public class MyBatisPlusGenerator {
 

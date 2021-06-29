@@ -1,8 +1,9 @@
 package com.sim.wifi.upgrade.common.api;
 
 /**
- * 通用返回对象
- * Created by macro on 2019/4/19.
+ * description: 通用返回对象
+ * create by: li.zheng871@sim.com
+ * create time: 2021/6/29
  */
 public class CommonResult<T> {
     private long code;
@@ -30,8 +31,8 @@ public class CommonResult<T> {
     /**
      * 成功返回结果
      *
-     * @param data 获取的数据
-     * @param  message 提示信息
+     * @param data    获取的数据
+     * @param message 提示信息
      */
     public static <T> CommonResult<T> success(T data, String message) {
         return new CommonResult<T>(ResultCode.SUCCESS.getCode(), message, data);
@@ -39,6 +40,7 @@ public class CommonResult<T> {
 
     /**
      * 失败返回结果
+     *
      * @param errorCode 错误码
      */
     public static <T> CommonResult<T> failed(IErrorCode errorCode) {
@@ -47,8 +49,9 @@ public class CommonResult<T> {
 
     /**
      * 失败返回结果
+     *
      * @param errorCode 错误码
-     * @param message 错误信息
+     * @param message   错误信息
      */
     public static <T> CommonResult<T> failed(IErrorCode errorCode, String message) {
         return new CommonResult<T>(errorCode.getCode(), message, null);
@@ -56,6 +59,7 @@ public class CommonResult<T> {
 
     /**
      * 失败返回结果
+     *
      * @param message 提示信息
      */
     public static <T> CommonResult<T> failed(String message) {
@@ -78,6 +82,7 @@ public class CommonResult<T> {
 
     /**
      * 参数验证失败返回结果
+     *
      * @param message 提示信息
      */
     public static <T> CommonResult<T> validateFailed(String message) {
