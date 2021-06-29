@@ -36,6 +36,7 @@ secure:
       - /user/register
       - /user/login
       - /user/logout
+      - /user/info
       - /swagger-ui.html
       - /swagger-resources/**
       - /swagger/**
@@ -47,7 +48,3 @@ secure:
       - /webjars/springfox-swagger-ui/**
       - /actuator/**
       - /druid/**
-      - /admin/login
-      - /admin/register
-      - /admin/info
-      - /admin/logout
