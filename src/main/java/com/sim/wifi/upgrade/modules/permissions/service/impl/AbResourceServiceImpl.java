@@ -42,7 +42,7 @@ public class AbResourceServiceImpl extends ServiceImpl<AbResourceMapper, AbResou
         }
         resourceList = resourceMapper.getResourceList(userId);
         if (CollUtil.isNotEmpty(resourceList)) {
-            userCacheService.setResourceList(userId, resourceList);
+            //userCacheService.setResourceList(userId, resourceList);
         }
         return resourceList;
     }

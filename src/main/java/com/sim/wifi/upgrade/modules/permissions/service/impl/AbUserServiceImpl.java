@@ -75,13 +75,14 @@ public class AbUserServiceImpl extends ServiceImpl<AbUserMapper, AbUser> impleme
     @Override
     public AbUser getUserByUsername(String username) {
         AbUser user = userCacheService.getUser(username);
+        user = null;
         if (user != null) return user;
         QueryWrapper<AbUser> wrapper = new QueryWrapper<>();
         wrapper.lambda().eq(AbUser::getUsername, username);
         List<AbUser> adminList = list(wrapper);
         if (adminList != null && adminList.size() > 0) {
             user = adminList.get(0);
-            userCacheService.setUser(user);
+            //userCacheService.setUser(user);
             return user;
         }
         return null;
