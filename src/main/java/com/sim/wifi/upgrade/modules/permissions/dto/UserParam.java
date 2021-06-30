@@ -31,4 +31,14 @@ public class UserParam {
     @ApiModelProperty(value = "邮箱", required = true)
     private String email;
 
+    @Override
+    public String toString() {
+        return "UserParam{" +
+                "username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
 }

@@ -83,17 +83,17 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
 
     @Override
-    public User register(UserParam abUserParm) {
-        logger.info("开始注册！！！");
+    public User register(UserParam userParm) {
+        logger.info("开始注册！！！注册参数为{}",userParm.toString());
         User user = new User();
-        BeanUtils.copyProperties(abUserParm, user);
+        BeanUtils.copyProperties(userParm, user);
         user.setActive(true);
         //查询是否有相同用户名的用户
         QueryWrapper<User> wrapper = new QueryWrapper<>();
         wrapper.lambda().eq(User::getUsername, user.getUsername());
         List<User> userList = list(wrapper);
         if (userList.size() > 0) {
-            logger.error("Abuser中已经有了用户名：" + user.getUsername());
+            logger.error("User表中已经有了用户名：{}，导致注册失败！" + user.getUsername());
             return null;
         }
         //将密码进行加密操作
@@ -115,13 +115,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         userRole.setRoleId(roleList.get(0).getId());
         userRole.setId(userList.get(0).getId());
         userRoleMapper.insert(userRole);
-        logger.info("注册成功！！！");
         return user;
     }
 
     @Override
     public String login(String username, String password) {
-        logger.info("开始login");
+        logger.info("开始登录，用户名：{}，密码：{}",username,password);
         String token = null;
         //密码需要客户端加密后传递
         try {
@@ -140,7 +139,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         } catch (AuthenticationException e) {
             logger.warn("登录异常:{}", e.getMessage());
         }
-        logger.info("login完毕,返回token");
         return token;
     }
 

@@ -27,6 +27,7 @@ public class RoleResourceServiceImpl extends ServiceImpl<RoleResourceMapper, Rol
 
     @Override
     public int allocResource(Integer userId, List<Integer> resourceIds) {
+        logger.info("开始给用户分配资源。用户id：{}，分配的资源id集{}",userId,resourceIds.toString());
         //先删除原有关系
         QueryWrapper<RoleResource> wrapper = new QueryWrapper<>();
         wrapper.lambda().eq(RoleResource::getRoleId, userId);
@@ -41,6 +42,7 @@ public class RoleResourceServiceImpl extends ServiceImpl<RoleResourceMapper, Rol
         }
         saveBatch(relationList);
         userCacheService.delResourceListByRole(userId);
+        logger.info("给用户分配资源成功");
         return resourceIds.size();
     }
 }

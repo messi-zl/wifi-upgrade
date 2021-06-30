@@ -23,6 +23,7 @@ public class RoleMenuServiceImpl extends ServiceImpl<RoleMenuMapper, RoleMenu> i
 
     @Override
     public int allocMenu(Integer userId, List<Integer> menuIds) {
+        logger.info("开始给用户分配菜单。用户id：{}，分配的菜单id集{}",userId,menuIds.toString());
         //先删除原有关系
         QueryWrapper<RoleMenu> wrapper = new QueryWrapper<>();
         wrapper.lambda().eq(RoleMenu::getRoleId, userId);
@@ -36,6 +37,7 @@ public class RoleMenuServiceImpl extends ServiceImpl<RoleMenuMapper, RoleMenu> i
             relationList.add(relation);
         }
         saveBatch(relationList);
+        logger.info("给用户分配菜单成功");
         return menuIds.size();
     }
 }

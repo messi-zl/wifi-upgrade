@@ -6,6 +6,8 @@ import com.sim.wifi.upgrade.modules.permissions.model.ViewMenu;
 import com.sim.wifi.upgrade.modules.permissions.service.ViewMenuService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +23,8 @@ import java.util.List;
 @Api(tags = "ViewMenuController", description = "菜单管理")
 @RequestMapping("/viewMenu")
 public class ViewMenuController {
+    private static final Logger logger = LoggerFactory.getLogger(ViewMenuController.class);
+
     @Autowired
     private ViewMenuService viewMenuService;
 
@@ -29,10 +33,13 @@ public class ViewMenuController {
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult create(@RequestBody ViewMenu viewMenu) {
+        logger.info("开始添加菜单，参数为{}", viewMenu.toString());
         boolean success = viewMenuService.create(viewMenu);
         if (success) {
+            logger.info("添加菜单成功");
             return CommonResult.success(null);
         } else {
+            logger.error("添加菜单失败");
             return CommonResult.failed();
         }
     }
@@ -42,10 +49,13 @@ public class ViewMenuController {
     @ResponseBody
     public CommonResult update(@PathVariable Integer menuId,
                                @RequestBody ViewMenu viewMenu) {
+        logger.info("开始修改menuId为{}的菜单，参数ViewMenu{}", menuId, viewMenu.toString());
         boolean success = viewMenuService.update(menuId, viewMenu);
         if (success) {
+            logger.info("修改菜单成功");
             return CommonResult.success(null);
         } else {
+            logger.error("修改菜单失败");
             return CommonResult.failed();
         }
     }
@@ -54,7 +64,9 @@ public class ViewMenuController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @ResponseBody
     public CommonResult<ViewMenu> getItem(@PathVariable Integer menuId) {
+        logger.info("开始获取menuId为{}，的菜单详情", menuId);
         ViewMenu viewMenu = viewMenuService.getById(menuId);
+        logger.info("获取菜单详情成功");
         return CommonResult.success(viewMenu);
     }
 
@@ -62,10 +74,13 @@ public class ViewMenuController {
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult delete(@PathVariable Integer menuId) {
+        logger.info("开始删除menuId为{}，的菜单", menuId);
         boolean success = viewMenuService.removeById(menuId);
         if (success) {
+            logger.info("删除菜单成功");
             return CommonResult.success(null);
         } else {
+            logger.error("删除菜单失败");
             return CommonResult.failed();
         }
     }
@@ -74,7 +89,9 @@ public class ViewMenuController {
     @RequestMapping(value = "/listAll", method = RequestMethod.GET)
     @ResponseBody
     public CommonResult<List<ViewMenu>> listAll() {
+        logger.info("开始查询所有菜单");
         List<ViewMenu> viewMenuList = viewMenuService.list();
+        logger.info("查询所有菜单成功");
         return CommonResult.success(viewMenuList);
     }
 
