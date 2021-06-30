@@ -17,7 +17,7 @@ import java.util.List;
  * create time: 2021/6/29
  */
 @Controller
-@Api(tags = "RoleResourceController", description = "资源分配管理")
+@Api(tags = "RoleResourceController", description = "资源对应关系管理")
 @RequestMapping("/roleResource")
 public class RoleResourceController {
     @Autowired
