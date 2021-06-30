@@ -19,7 +19,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @TableName("view_menu")
-@ApiModel(value = "ViewMenu对象", description = "")
+@ApiModel(value = "ViewMenu对象", description = "菜单对象")
 public class ViewMenu implements Serializable {
 
     private static final long serialVersionUID = 1L;

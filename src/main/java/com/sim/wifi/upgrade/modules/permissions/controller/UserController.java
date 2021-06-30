@@ -29,7 +29,7 @@ import java.util.Map;
  * create time: 2021/6/29
  */
 @Controller
-@Api(tags = "UserController", description = "wifi-upgrade后台用户管理")
+@Api(tags = "UserController", description = "后台用户管理")
 @RequestMapping("/user")
 public class UserController {
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);

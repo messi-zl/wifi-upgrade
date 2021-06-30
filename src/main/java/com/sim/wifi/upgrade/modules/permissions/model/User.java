@@ -22,7 +22,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @TableName("user")
-@ApiModel(value = "User对象", description = "后台用户表")
+@ApiModel(value = "User对象", description = "后台用户对象")
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -30,16 +30,22 @@ public class User implements Serializable {
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
+    @ApiModelProperty(value = "姓")
     private String firstName;
 
+    @ApiModelProperty(value = "名")
     private String lastName;
 
+    @ApiModelProperty(value = "用户名")
     private String username;
 
+    @ApiModelProperty(value = "密码")
     private String password;
 
+    @ApiModelProperty(value = "是否激活(true:激活；false:未激活)")
     private Boolean active;
 
+    @ApiModelProperty(value = "邮箱")
     private String email;
 
     private Date lastLogin;
