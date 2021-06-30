@@ -1,6 +1,8 @@
 package com.sim.wifi.upgrade.security.component;
 
 import cn.hutool.core.collection.CollUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.access.AccessDecisionManager;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.ConfigAttribute;
@@ -17,6 +19,7 @@ import java.util.Iterator;
  * create time: 2021/6/29
  */
 public class DynamicAccessDecisionManager implements AccessDecisionManager {
+    private static final Logger logger = LoggerFactory.getLogger(DynamicAccessDecisionManager.class);
 
     @Override
     public void decide(Authentication authentication, Object object,
@@ -32,10 +35,12 @@ public class DynamicAccessDecisionManager implements AccessDecisionManager {
             String needAuthority = configAttribute.getAttribute();
             for (GrantedAuthority grantedAuthority : authentication.getAuthorities()) {
                 if (needAuthority.trim().equals(grantedAuthority.getAuthority())) {
+                    logger.info("configAttributes中有元素={}，与当前用户有权限的元素={}相等，放行",needAuthority.trim(),grantedAuthority.getAuthority());
                     return;
                 }
             }
         }
+        logger.warn("sorry,无权限");
         throw new AccessDeniedException("抱歉小盆友，您没有访问权限");
     }
 
