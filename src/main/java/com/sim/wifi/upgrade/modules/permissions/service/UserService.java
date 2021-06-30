@@ -37,4 +37,11 @@ public interface UserService extends IService<User> {
      */
     String login(String username, String password);
 
+    /**
+     * 刷新token的功能
+     *
+     * @param oldToken 旧的token
+     */
+    String refreshToken(String oldToken);
+
 }

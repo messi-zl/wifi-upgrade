@@ -143,4 +143,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         logger.info("login完毕,返回token");
         return token;
     }
+
+    @Override
+    public String refreshToken(String oldToken) {
+        return jwtTokenUtil.refreshHeadToken(oldToken);
+    }
 }
