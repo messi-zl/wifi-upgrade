@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -58,14 +59,14 @@ public class UserCacheServiceImpl implements UserCacheService {
 
     @Override
     public void delResourceListByRole(Integer roleId) {
-        QueryWrapper<UserRole> wrapper = new QueryWrapper<>();
+ /*       QueryWrapper<UserRole> wrapper = new QueryWrapper<>();
         wrapper.lambda().eq(UserRole::getRoleId, roleId);
         List<UserRole> userRoleList = userRoleService.list(wrapper);
         if (CollUtil.isNotEmpty(userRoleList)) {
             String keyPrefix = REDIS_DATABASE + ":" + REDIS_KEY_RESOURCE_LIST + ":";
             List<String> keys = userRoleList.stream().map(relation -> keyPrefix + relation.getUserId()).collect(Collectors.toList());
             redisService.del(keys);
-        }
+        }*/
     }
 
     @Override
@@ -82,30 +83,33 @@ public class UserCacheServiceImpl implements UserCacheService {
 
     @Override
     public void delResourceListByResource(Integer resourceId) {
-        List<Integer> userIdList = userMapper.getUserIdList(resourceId);
+/*        List<Integer> userIdList = userMapper.getUserIdList(resourceId);
         if (CollUtil.isNotEmpty(userIdList)) {
             String keyPrefix = REDIS_DATABASE + ":" + REDIS_KEY_RESOURCE_LIST + ":";
             List<String> keys = userIdList.stream().map(adminId -> keyPrefix + adminId).collect(Collectors.toList());
             redisService.del(keys);
-        }
+        }*/
     }
 
     @Override
     public User getUser(String userName) {
-        String key = REDIS_DATABASE + ":" + REDIS_KEY_ADMIN + ":" + userName;//mall:ums:admin:
-        return (User) redisService.get(key);
+       /* String key = REDIS_DATABASE + ":" + REDIS_KEY_ADMIN + ":" + userName;//mall:ums:admin:
+        return (User) redisService.get(key);*/
+        return null;
     }
 
     @Override
     public void setUser(User user) {
-        String key = REDIS_DATABASE + ":" + REDIS_KEY_ADMIN + ":" + user.getUsername();
-        redisService.set(key, user, REDIS_EXPIRE);
+        /*String key = REDIS_DATABASE + ":" + REDIS_KEY_ADMIN + ":" + user.getUsername();
+        redisService.set(key, user, REDIS_EXPIRE);*/
     }
 
     @Override
     public List<Resource> getResourceList(Integer userId) {
-        String key = REDIS_DATABASE + ":" + REDIS_KEY_RESOURCE_LIST + ":" + userId;
-        return (List<Resource>) redisService.get(key);
+/*        String key = REDIS_DATABASE + ":" + REDIS_KEY_RESOURCE_LIST + ":" + userId;
+        return (List<Resource>) redisService.get(key);*/
+        List<Resource> list = new ArrayList<>();
+        return list;
     }
 
     @Override

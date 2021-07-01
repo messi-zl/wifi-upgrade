@@ -68,7 +68,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     public User getUserByUsername(String username) {
         User user = userCacheService.getUser(username);
-        user = null;
         if (user != null) return user;
         QueryWrapper<User> wrapper = new QueryWrapper<>();
         wrapper.lambda().eq(User::getUsername, username);
