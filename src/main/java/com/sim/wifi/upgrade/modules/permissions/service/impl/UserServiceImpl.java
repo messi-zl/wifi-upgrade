@@ -74,7 +74,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         List<User> adminList = list(wrapper);
         if (adminList != null && adminList.size() > 0) {
             user = adminList.get(0);
-            //userCacheService.setUser(user);
+            userCacheService.setUser(user);
             return user;
         }
         return null;

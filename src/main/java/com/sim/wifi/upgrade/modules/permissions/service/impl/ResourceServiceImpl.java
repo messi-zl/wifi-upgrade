@@ -34,7 +34,7 @@ public class ResourceServiceImpl extends ServiceImpl<ResourceMapper, Resource> i
         }
         resourceList = resourceMapper.getResourceList(userId);
         if (CollUtil.isNotEmpty(resourceList)) {
-            //userCacheService.setResourceList(userId, resourceList);
+            userCacheService.setResourceList(userId, resourceList);
         }
         return resourceList;
     }

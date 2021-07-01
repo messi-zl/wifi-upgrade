@@ -114,7 +114,7 @@ public class UserCacheServiceImpl implements UserCacheService {
 
     @Override
     public void setResourceList(Integer userId, List<Resource> resourceList) {
-        String key = REDIS_DATABASE + ":" + REDIS_KEY_RESOURCE_LIST + ":" + userId;
-        redisService.set(key, resourceList, REDIS_EXPIRE);
+        /*String key = REDIS_DATABASE + ":" + REDIS_KEY_RESOURCE_LIST + ":" + userId;
+        redisService.set(key, resourceList, REDIS_EXPIRE);*/
     }
 }
