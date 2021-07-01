@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
  * create by: li.zheng871@sim.com
  * create time: 2021/6/29
  */
-@EnableCaching
+//@EnableCaching
 @Configuration
 public class RedisConfig extends BaseRedisConfig {
 

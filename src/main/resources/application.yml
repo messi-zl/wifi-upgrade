@@ -49,7 +49,7 @@ secure:
       - /actuator/**
       - /druid/**
 
-#关闭redis健康检测
+# 禁止Actuator监控Redis连接
 management:
   health:
     redis:
