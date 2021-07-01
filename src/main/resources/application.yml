@@ -48,3 +48,9 @@ secure:
       - /webjars/springfox-swagger-ui/**
       - /actuator/**
       - /druid/**
+
+#关闭redis健康检测
+management:
+  health:
+    redis:
+      enabled: false
