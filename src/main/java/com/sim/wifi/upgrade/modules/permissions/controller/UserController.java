@@ -2,6 +2,7 @@ package com.sim.wifi.upgrade.modules.permissions.controller;
 
 
 import com.sim.wifi.upgrade.common.api.CommonResult;
+import com.sim.wifi.upgrade.modules.permissions.dto.UpdateUserPasswordParam;
 import com.sim.wifi.upgrade.modules.permissions.dto.UserLoginParam;
 import com.sim.wifi.upgrade.modules.permissions.dto.UserParam;
 import com.sim.wifi.upgrade.modules.permissions.mapper.ViewMenuMapper;
@@ -126,6 +127,37 @@ public class UserController {
         logger.info("刷新token成功");
         return CommonResult.success(tokenMap);
     }
+
+
+    @ApiOperation("根据UserId修改用户信息")
+    @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
+    @ResponseBody
+    public CommonResult update(@PathVariable Integer userId, @RequestBody User user) {
+        boolean success = userService.update(userId, user);
+        if (success) {
+            return CommonResult.success(null);
+        }
+        return CommonResult.failed();
+    }
+
+    @ApiOperation("修改登录密码")
+    @RequestMapping(value = "/updatePassword", method = RequestMethod.POST)
+    @ResponseBody
+    public CommonResult updatePassword(@Validated @RequestBody UpdateUserPasswordParam updatePasswordParam) {
+        int status = userService.updatePassword(updatePasswordParam);
+        if (status > 0) {
+            return CommonResult.success(status);
+        } else if (status == -1) {
+            return CommonResult.failed("提交参数不合法");
+        } else if (status == -2) {
+            return CommonResult.failed("找不到该用户");
+        } else if (status == -3) {
+            return CommonResult.failed("旧密码错误");
+        } else {
+            return CommonResult.failed();
+        }
+    }
+
 
 }
 

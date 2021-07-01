@@ -43,12 +43,12 @@ public class UserCacheServiceImpl implements UserCacheService {
     private String REDIS_KEY_RESOURCE_LIST;
 
     @Override
-    public void delUser(Long userId) {
-        User user = userService.getById(userId);
+    public void delUser(Integer userId) {
+/*        User user = userService.getById(userId);
         if (user != null) {
             String key = REDIS_DATABASE + ":" + REDIS_KEY_ADMIN + ":" + user.getUsername();
             redisService.del(key);
-        }
+        }*/
     }
 
     @Override

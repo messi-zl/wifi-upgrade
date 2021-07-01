@@ -1,5 +1,6 @@
 package com.sim.wifi.upgrade.modules.permissions.service;
 
+import com.sim.wifi.upgrade.modules.permissions.dto.UpdateUserPasswordParam;
 import com.sim.wifi.upgrade.modules.permissions.dto.UserParam;
 import com.sim.wifi.upgrade.modules.permissions.model.User;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -43,5 +44,15 @@ public interface UserService extends IService<User> {
      * @param oldToken 旧的token
      */
     String refreshToken(String oldToken);
+
+    /**
+     * 修改指定用户信息
+     */
+    boolean update(Integer userId, User user);
+
+    /**
+     * 修改密码
+     */
+    int updatePassword(UpdateUserPasswordParam updateUserPasswordParam);
 
 }

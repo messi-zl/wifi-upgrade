@@ -1,8 +1,11 @@
 package com.sim.wifi.upgrade.modules.permissions.service.impl;
 
+import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.sim.wifi.upgrade.common.exception.Asserts;
 import com.sim.wifi.upgrade.domain.MyUserDetails;
+import com.sim.wifi.upgrade.modules.permissions.dto.UpdateUserPasswordParam;
 import com.sim.wifi.upgrade.modules.permissions.dto.UserParam;
 import com.sim.wifi.upgrade.modules.permissions.mapper.RoleMapper;
 import com.sim.wifi.upgrade.modules.permissions.mapper.UserRoleMapper;
@@ -144,5 +147,48 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     public String refreshToken(String oldToken) {
         return jwtTokenUtil.refreshHeadToken(oldToken);
+    }
+
+    @Override
+    public boolean update(Integer userId, User user) {
+        user.setId(userId);
+        User rawUser = getById(userId);
+        if(rawUser.getPassword().equals(user.getPassword())){
+            //与原加密密码相同的不需要修改
+            user.setPassword(null);
+        }else{
+            //与原加密密码不同的需要加密修改
+            if(StrUtil.isEmpty(user.getPassword())){
+                user.setPassword(null);
+            }else{
+                user.setPassword(passwordEncoder.encode(user.getPassword()));
+            }
+        }
+        boolean success = updateById(user);
+        userCacheService.delUser(userId);
+        return success;
+    }
+
+    @Override
+    public int updatePassword(UpdateUserPasswordParam updateUserPasswordParam) {
+        if(StrUtil.isEmpty(updateUserPasswordParam.getUsername())
+                ||StrUtil.isEmpty(updateUserPasswordParam.getOldPassword())
+                ||StrUtil.isEmpty(updateUserPasswordParam.getNewPassword())){
+            return -1;
+        }
+        QueryWrapper<User> wrapper = new QueryWrapper<>();
+        wrapper.lambda().eq(User::getUsername,updateUserPasswordParam.getUsername());
+        List<User> userList = list(wrapper);
+        if(CollUtil.isEmpty(userList)){
+            return -2;
+        }
+        User user = userList.get(0);
+        if(!passwordEncoder.matches(updateUserPasswordParam.getOldPassword(),user.getPassword())){
+            return -3;
+        }
+        user.setPassword(passwordEncoder.encode(updateUserPasswordParam.getNewPassword()));
+        updateById(user);
+        userCacheService.delUser(user.getId());
+        return 1;
     }
 }

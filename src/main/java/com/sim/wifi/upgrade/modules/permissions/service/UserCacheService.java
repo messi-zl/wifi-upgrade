@@ -15,7 +15,7 @@ public interface UserCacheService {
     /**
      * 删除后台用户缓存
      */
-    void delUser(Long userId);
+    void delUser(Integer userId);
 
     /**
      * 删除后台用户资源列表缓存
