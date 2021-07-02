@@ -1,0 +1,27 @@
+注册用户 --user、role、user_role
+增加菜单 --view_menu
+为用户分配菜单 --role_menu
+增加资源 --resource
+为用户分配资源 --role_resource
+
+验证是否能执行：
+options 放行
+白名单 放行
+除去上面两种，都会到鉴权方法。其实会有2个判定：
+												1.上下文authentication（包含了userDatails，也就包含了getAuthorities）必须要有值。  --其在login和jwtFilter（有头且token没过期才赋）中赋值  无值会报没登录或者token过期
+												2.真实权限判定。加载，得到configAttributeMap（resourceUrl，resourceId:zl:resourceName）--资源表ab_resource中所有的数据
+																遍历configAttributeMap，若当前url在其中有匹配的，将map的value值加入到configAttributes中
+																如果configAttributes为空，直接放行
+																不为空，则遍历得到的configAttributes，得到一个个的元素，只要其中有一个元素trim后能在上下文authentication找到相等的，则放行
+									
+												getAuthorities 在自定义UserDtails中实现，但需与MallSecurityConfig对应
+												
+												
+												
+测试服数据说明：
+两个用户：王五(11)  赵六(12)
+菜单：菜单1（40）    菜单2（41）
+资源：/viewMenu/listAll
+对应关系：王五设置映射-可以  赵六无设置-不行
+
+  
