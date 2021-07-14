@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sim.device.modules.mapper.DeviceInstancesMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.sim.device.modules.model.DeviceInstances">
+        <id column="id" property="id" />
+        <result column="type_id" property="typeId" />
+        <result column="model_id" property="modelId" />
+        <result column="mac" property="mac" />
+        <result column="sn" property="sn" />
+        <result column="uuid" property="uuid" />
+        <result column="created_on" property="createdOn" />
+    </resultMap>
+
+</mapper>
