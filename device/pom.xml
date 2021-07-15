@@ -8,7 +8,7 @@
         <version>2.3.9.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.sim</groupId>
+    <groupId>com.sim.wifi</groupId>
     <artifactId>device</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>device</name>
@@ -113,7 +113,6 @@
             <artifactId>slf4j-api</artifactId>
             <version>${slf4j.version}</version>
         </dependency>
-
         <!-- logback 依赖 -->
         <dependency>
             <groupId>ch.qos.logback</groupId>

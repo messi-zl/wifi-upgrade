@@ -2,6 +2,7 @@ package com.sim.wifi.authority.security.securityExpand;
 
 import com.sim.wifi.authority.permission.model.Permissions;
 import com.sim.wifi.authority.permission.model.Users;
+import com.sim.wifi.authority.permission.service.UsersService;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -37,12 +38,12 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public String getPassword() {
-        return null;
+        return users.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return null;
+        return users.getUsername();
     }
 
     @Override
@@ -63,9 +64,17 @@ public class CustomUserDetails implements UserDetails {
     @Override
     public boolean isEnabled() {
         Boolean flag = true;
-        if (0 == users.getStatus()){
+        if (UsersService.STATUS_DISABLE == users.getStatus()){
             flag = false;
         }
         return flag;
+    }
+
+    public Users getUsers() {
+        return users;
+    }
+
+    public void setUsers(Users users) {
+        this.users = users;
     }
 }

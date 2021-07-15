@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.sim.device.modules.mapper.DeviceModelAttributesMapper">
+<mapper namespace="com.sim.wifi.device.mapper.DeviceModelAttributesMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.sim.device.modules.model.DeviceModelAttributes">
+    <resultMap id="BaseResultMap" type="com.sim.wifi.device.model.DeviceModelAttributes">
         <id column="id" property="id" />
         <result column="model_id" property="modelId" />
         <result column="show_in_statistics" property="showInStatistics" />

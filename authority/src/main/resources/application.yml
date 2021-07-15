@@ -57,6 +57,6 @@ management:
 
 #账户锁定配置信息 (eg:30min内5次失败，锁定60min)
 login-lock-info:
-  range-time: 30          #允许最多失败次数的时间范围，min
+  range-time: 15          #允许最多失败次数的时间范围，min
   max-fail-count: 5       #允许的最多失败次数
-  maintain-lock-time: 60    #锁定维持的时间，min
+  maintain-lock-time: 30    #锁定维持的时间，min

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.sim.device.modules.mapper.DeviceUpgradeLogsMapper">
+<mapper namespace="com.sim.wifi.device.mapper.DeviceUpgradeLogsMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.sim.device.modules.model.DeviceUpgradeLogs">
+    <resultMap id="BaseResultMap" type="com.sim.wifi.device.model.DeviceUpgradeLogs">
         <id column="id" property="id" />
         <result column="device_id" property="deviceId" />
         <result column="auto_detection_flag" property="autoDetectionFlag" />

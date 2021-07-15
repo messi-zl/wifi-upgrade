@@ -1,9 +1,8 @@
 package com.sim.wifi.authority.permission.model;
 
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.*;
+
 import java.util.Date;
-import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -48,6 +47,7 @@ public class Users implements Serializable {
     @ApiModelProperty(value = "状态(0:禁用；1:启用)")
     private Integer status;
 
+    @TableField(value = "locking_time",updateStrategy = FieldStrategy.IGNORED)
     @ApiModelProperty(value = "锁定时间")
     private Date lockingTime;
 

@@ -1,26 +1,34 @@
 package com.sim.wifi.authority.permission.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.date.DatePattern;
 import cn.hutool.core.date.DateTime;
+import cn.hutool.core.date.DateUnit;
 import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.date.format.DateParser;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.sim.wifi.authority.common.exception.ApiException;
 import com.sim.wifi.authority.common.exception.Asserts;
 import com.sim.wifi.authority.dto.UpdateUsersPasswordParam;
 import com.sim.wifi.authority.dto.UsersParam;
+import com.sim.wifi.authority.permission.model.LoginLogs;
 import com.sim.wifi.authority.permission.model.Permissions;
 import com.sim.wifi.authority.permission.model.Users;
 import com.sim.wifi.authority.permission.mapper.UsersMapper;
+import com.sim.wifi.authority.permission.service.LoginLogsService;
 import com.sim.wifi.authority.permission.service.PermissionsService;
 import com.sim.wifi.authority.permission.service.UsersService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.sim.wifi.authority.security.securityExpand.CustomUserDetails;
 import com.sim.wifi.authority.security.util.JwtTokenUtil;
+import io.lettuce.core.protocol.TransactionalCommand;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -28,11 +36,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionDefinition;
+import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.text.DateFormat;
+import java.util.*;
 
 /**
  * description: 用户表 服务实现类
@@ -46,7 +57,7 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
 
 
     @Value("${login-lock-info.range-time}")
-    private String rangeTime;
+    private Integer rangeTime;
     @Value("${login-lock-info.max-fail-count}")
     private Integer maxFailCount;
     @Value("${login-lock-info.maintain-lock-time}")
@@ -57,6 +68,9 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
     private PasswordEncoder passwordEncoder;
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
+    @Autowired
+    private LoginLogsService loginLogsService;
+
 
     @Override
     public UserDetails loadUserByUsername(String username) {
@@ -65,7 +79,7 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
             List<Permissions> permissionsList = permissionsService.getPermissionsList(users.getId(), PermissionsService.TYPE_BUTTON);
             return new CustomUserDetails(users, permissionsList);
         }
-        throw new UsernameNotFoundException("由用户名未找到正确用户，用户名或密码错误！");
+        throw new UsernameNotFoundException("用户名错误，请重新输入！");
     }
 
     @Override
@@ -82,28 +96,56 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
 
 
     @Override
-    public String login(String username, String password) {
+    public Map<String, String> login(String username, String password) {
         logger.info("开始登录，用户名：{}，密码：{}", username, password);
+        Map<String, String> map = new HashMap<>();
         String token = null;
         //密码需要客户端加密后传递
+        UserDetails userDetails = null;
         try {
-            UserDetails userDetails = loadUserByUsername(username);
-            if (!passwordEncoder.matches(password, userDetails.getPassword())) {
-                //todo 只有密码错误次数需记录
-                Asserts.fail("密码错误，请重新输入！");
-            }
-            if (!userDetails.isEnabled()) {
-                Asserts.fail("您的账户已禁用，如需恢复请与管理员联系！");
-            }
-            UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-            token = jwtTokenUtil.generateToken(userDetails);
-//            updateLoginTimeByUsername(username);
-//            insertLoginLog(username);
+            userDetails = loadUserByUsername(username);
         } catch (AuthenticationException e) {
-            logger.warn("登录异常:{}", e.getMessage());
+            map.put("errorMessage", e.getMessage());
+            return map;
         }
-        return token;
+        Date now = DateUtil.parse(DateUtil.now(), DatePattern.NORM_DATETIME_PATTERN);
+        //判断是否在锁定时间内
+        CustomUserDetails customUserDetails = (CustomUserDetails) userDetails;
+        Users user = customUserDetails.getUsers();
+        Integer flag = checkInLockingTime(user, now);
+        switch (flag) {
+            case -1:
+                String info = "";
+                if (DateUtil.between(user.getLockingTime(), now, DateUnit.MINUTE) != 0) {
+                    info = DateUtil.between(user.getLockingTime(), now, DateUnit.MINUTE) + "分钟";
+                } else {
+                    info = DateUtil.between(user.getLockingTime(), now, DateUnit.SECOND) + "秒";
+                }
+                map.put("errorMessage", "因连续输入密码次数过多账号锁定中，请" + info + "之后再操作！");
+                return map;
+            case 0:
+                break;
+            case 1:
+                restoreAll(user);
+                break;
+            default:
+        }
+        if (!passwordEncoder.matches(password, userDetails.getPassword())) {
+            passwordFailDeal(user, now);
+            //Asserts.fail("密码错误，请重新输入！");移到controller，否则事务会回滚,登录日志不会save
+            map.put("errorMessage", "密码错误，请重新输入！");
+            return map;
+        }
+        restoreFailLoginCount(user, now);
+        if (!userDetails.isEnabled()) {
+            map.put("errorMessage", "您的账户已禁用，如需恢复请与管理员联系！");
+            return map;
+        }
+        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        token = jwtTokenUtil.generateToken(userDetails);
+        map.put("token", token);
+        return map;
     }
 
 
@@ -178,34 +220,72 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
     }
 
 
-    //密码错误-失败次数增加
-    public void addFailLoginCount(Users user) {
-        Integer failLoginCount = user.getFailLoginCount();
-        user.setFailLoginCount(failLoginCount + 1);
-        //当规定时间内失败次数已到次数，则需要增加截止时间
-        if (user.getFailLoginCount()  == maxFailCount && true){
-            //在30min内失败次数达到5次
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTime(DateUtil.date());
-            calendar.add(Calendar.MINUTE,maintainLockTime);
-            user.setLockingTime(DateUtil.date(calendar));//限制截止时间
+    //入口校验，由用户名判断其是否在登录截止时间之内
+    private Integer checkInLockingTime(Users user, Date now) {
+        Date lockingTime = user.getLockingTime();
+        if (lockingTime == null) {
+            return 0;
         }
-        save(user);
+        if (now.after(lockingTime)) {
+            //已超锁定时间
+            return 1;
+        } else {
+            //仍在锁定时间范围内,包含等于
+            return -1;
+        }
+
     }
 
-
-
-    //失败限制还原
-    public void restore(Users user) {
+    //已过锁定时间--失败限制还原
+    private void restoreAll(Users user) {
         //失败次数+截止时间
         user.setFailLoginCount(0);
         user.setLockingTime(null);
         updateById(user);
+
     }
 
-    //入口校验  是否在截止时间之内
-    public void check() {
-        //过了截止时间   清零次数+截止时间还原
+    //密码正确--失败次数清零,登录日志新加
+    private void restoreFailLoginCount(Users user, Date now) {
+        user.setFailLoginCount(0);
+        updateById(user);
+        LoginLogs loginLogs = new LoginLogs();
+        loginLogs.setLoginTime(now);
+        loginLogs.setUseId(user.getId());
+        loginLogs.setStatus(LoginLogsService.STATUS_SUCCESS);
+        loginLogsService.save(loginLogs);
+    }
+
+
+    //密码错误处理
+    private void passwordFailDeal(Users user, Date now) {
+        //加到失败日志表中,用于判断是否规定时间内的错误
+        LoginLogs loginLogs = new LoginLogs();
+        loginLogs.setLoginTime(now);
+        loginLogs.setUseId(user.getId());
+        loginLogs.setStatus(LoginLogsService.STATUS_FAIL);
+        loginLogsService.save(loginLogs);
+
+        Integer failLoginCount = user.getFailLoginCount();
+        user.setFailLoginCount(failLoginCount + 1);
+        //当规定时间内失败次数已到次数，则需要增加截止时间
+        if (user.getFailLoginCount() >= maxFailCount && checkErrorNum(user.getId(), now)) {
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(now);
+            calendar.add(Calendar.MINUTE, maintainLockTime);
+            user.setLockingTime(DateUtil.date(calendar));//限制截止时间
+        }
+        updateById(user);
+    }
+
+    //判断规定时间范围内连续错误次数是否超过规定次数
+    private Boolean checkErrorNum(Integer userId, Date now) {
+        Boolean flag = false;
+        List<LoginLogs> loginLogsList = loginLogsService.lockNode(userId, rangeTime, now, LoginLogsService.STATUS_FAIL);
+        if (loginLogsList != null && loginLogsList.size() >= maxFailCount) {
+            flag = true;
+        }
+        return flag;
     }
 
 

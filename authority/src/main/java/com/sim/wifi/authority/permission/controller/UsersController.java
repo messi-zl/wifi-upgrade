@@ -2,6 +2,7 @@ package com.sim.wifi.authority.permission.controller;
 
 
 import com.sim.wifi.authority.common.api.CommonResult;
+import com.sim.wifi.authority.common.exception.Asserts;
 import com.sim.wifi.authority.common.logSettle.CustomOperationLog;
 import com.sim.wifi.authority.dto.UpdateUsersPasswordParam;
 import com.sim.wifi.authority.dto.UsersLoginParam;
@@ -63,13 +64,12 @@ public class UsersController {
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult login(@Validated @RequestBody UsersLoginParam usersLoginParam) {
-        String token = usersService.login(usersLoginParam.getUsername(), usersLoginParam.getPassword());
-        if (token == null) {
-            return CommonResult.validateFailed("用户名或密码错误，请重新输入！");
+        Map<String,String> map = usersService.login(usersLoginParam.getUsername(), usersLoginParam.getPassword());
+        if (map.get("errorMessage") != null){
+            Asserts.fail(map.get("errorMessage"));
         }
-        //todo 登录成功清除错误次数
         Map<String, String> tokenMap = new HashMap<>();
-        tokenMap.put("token", token);
+        tokenMap.put("token", map.get("token"));
         tokenMap.put("tokenHead", tokenHead);
         return CommonResult.success(tokenMap);
     }

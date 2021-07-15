@@ -6,6 +6,8 @@ import com.sim.wifi.authority.permission.model.Users;
 import com.baomidou.mybatisplus.extension.service.IService;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Map;
+
 /**
  * description: 用户表 服务类
  * create by: li.zheng871@sim.com
@@ -35,7 +37,7 @@ public interface UsersService extends IService<Users> {
      * @param password 密码
      * @return 生成的JWT的token
      */
-    String login(String username, String password);
+    Map<String,String> login(String username, String password);
 
     /**
      * 注册功能
