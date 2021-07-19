@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--日志配置-->
+<configuration>
+    <property name="logFile" value="logs/firmware"/>
+    <property name="maxFileSize" value="30MB"/>
+
+    <!--控制台日志-->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d %-5level---[%+8thread] %-50logger{50} : %msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!--滚动文件日志-->
+    <appender name="FileLogs" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${logFile}.log</file>
+        <encoder>
+            <pattern>%d %-5level---[%+8thread] - [%file:%line]: %msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${logFile}.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <maxFileSize>${maxFileSize}</maxFileSize>
+        </rollingPolicy>
+    </appender>
+
+    <!--创建一个具体的日志输出-->
+    <logger name="com.sim" level="info" additivity="true">
+        <appender-ref ref="FileLogs"/>
+    </logger>
+
+    <!--基础的日志输出-->
+    <root level="info">
+        <appender-ref ref="STDOUT"/>
+    </root>
+</configuration>
