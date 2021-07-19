@@ -19,5 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class PermissionsController {
     private static final Logger logger = LoggerFactory.getLogger(PermissionsController.class);
 
+    //权限增删改查
 }
 

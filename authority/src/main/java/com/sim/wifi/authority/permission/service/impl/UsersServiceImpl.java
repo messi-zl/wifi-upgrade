@@ -121,7 +121,7 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
                 } else {
                     info = DateUtil.between(user.getLockingTime(), now, DateUnit.SECOND) + "秒";
                 }
-                map.put("errorMessage", "因连续输入密码次数过多账号锁定中，请" + info + "之后再操作！");
+                map.put("errorMessage", "密码错误已超过" + maxFailCount + "次，请" + info + "之后再次登陆！");
                 return map;
             case 0:
                 break;
@@ -167,6 +167,7 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
         //将密码进行加密操作
         String encodePassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encodePassword);
+        user.setCreatedOn(DateUtil.parse(DateUtil.now(),DatePattern.NORM_DATETIME_PATTERN));
         baseMapper.insert(user);
         return user;
     }
@@ -191,6 +192,8 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
                 user.setPassword(passwordEncoder.encode(user.getPassword()));
             }
         }
+        user.setChangedOn(DateUtil.parse(DateUtil.now(),DatePattern.NORM_DATETIME_PATTERN));
+        //todo 修改人
         boolean success = updateById(user);
         //userCacheService.delUser(userId);
         return success;
@@ -214,6 +217,8 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
             return -3;
         }
         user.setPassword(passwordEncoder.encode(updateUsersPasswordParam.getNewPassword()));
+        user.setChangedOn(DateUtil.parse(DateUtil.now(),DatePattern.NORM_DATETIME_PATTERN));
+        //todo  修改人
         updateById(user);
         //userCacheService.delUser(user.getId());
         return 1;
