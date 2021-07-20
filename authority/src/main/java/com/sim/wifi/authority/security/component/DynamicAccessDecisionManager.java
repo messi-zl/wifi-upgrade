@@ -35,7 +35,7 @@ public class DynamicAccessDecisionManager implements AccessDecisionManager {
             String needAuthority = configAttribute.getAttribute();
             for (GrantedAuthority grantedAuthority : authentication.getAuthorities()) {
                 if (needAuthority.trim().equals(grantedAuthority.getAuthority())) {
-                    logger.info("configAttributes中有元素={}，与当前用户有权限的元素={}相等，放行",needAuthority.trim(),grantedAuthority.getAuthority());
+                    logger.info("configAttributes中有元素={}，与当前用户有权限的元素={}相等，放行", needAuthority.trim(), grantedAuthority.getAuthority());
                     return;
                 }
             }

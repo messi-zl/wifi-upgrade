@@ -1,13 +1,13 @@
 package com.sim.wifi.authority.permission.model;
 
 import com.baomidou.mybatisplus.annotation.*;
-
-import java.util.Date;
-import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
+import java.io.Serializable;
+import java.util.Date;
 
 /**
  * description: 用户表
@@ -17,10 +17,10 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @TableName("users")
-@ApiModel(value="Users对象", description="用户表")
+@ApiModel(value = "Users对象", description = "用户表")
 public class Users implements Serializable {
 
-    private static final long serialVersionUID=1L;
+    private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "用户id")
     @TableId(value = "id", type = IdType.AUTO)
@@ -47,7 +47,7 @@ public class Users implements Serializable {
     @ApiModelProperty(value = "状态(0:禁用；1:启用)")
     private Integer status;
 
-    @TableField(value = "locking_time",updateStrategy = FieldStrategy.IGNORED)
+    @TableField(value = "locking_time", updateStrategy = FieldStrategy.IGNORED)
     @ApiModelProperty(value = "锁定时间")
     private Date lockingTime;
 

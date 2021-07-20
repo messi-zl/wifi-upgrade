@@ -1,7 +1,7 @@
 package com.sim.wifi.authority.permission.mapper;
 
-import com.sim.wifi.authority.permission.model.Areas;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.sim.wifi.authority.permission.model.Areas;
 
 /**
  * description: 地区表 Mapper 接口

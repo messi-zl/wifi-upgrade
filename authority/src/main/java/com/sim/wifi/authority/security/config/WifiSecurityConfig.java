@@ -1,4 +1,4 @@
-package com.sim.wifi.authority.security.securityExpand;
+package com.sim.wifi.authority.security.config;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -6,7 +6,6 @@ import com.sim.wifi.authority.permission.model.Permissions;
 import com.sim.wifi.authority.permission.service.PermissionsService;
 import com.sim.wifi.authority.permission.service.UsersService;
 import com.sim.wifi.authority.security.component.DynamicSecurityService;
-import com.sim.wifi.authority.security.config.SecurityConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -45,8 +44,8 @@ public class WifiSecurityConfig extends SecurityConfig {
             @Override
             public Map<String, ConfigAttribute> loadDataSource() {
                 Map<String, ConfigAttribute> map = new ConcurrentHashMap<>();
-                QueryWrapper<Permissions> wrapper =new QueryWrapper<>();
-                wrapper.lambda().eq(Permissions::getType,PermissionsService.TYPE_BUTTON);
+                QueryWrapper<Permissions> wrapper = new QueryWrapper<>();
+                wrapper.lambda().eq(Permissions::getType, PermissionsService.TYPE_BUTTON);
                 List<Permissions> permissionsList = permissionsService.list(wrapper);
                 for (Permissions permission : permissionsList) {
                     map.put(permission.getUrl(), new org.springframework.security.access.SecurityConfig(permission.getId() + ":" + permission.getName()));

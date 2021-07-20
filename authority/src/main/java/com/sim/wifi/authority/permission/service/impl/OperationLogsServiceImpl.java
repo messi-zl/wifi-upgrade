@@ -1,9 +1,9 @@
 package com.sim.wifi.authority.permission.service.impl;
 
-import com.sim.wifi.authority.permission.model.OperationLogs;
-import com.sim.wifi.authority.permission.mapper.OperationLogsMapper;
-import com.sim.wifi.authority.permission.service.OperationLogsService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.sim.wifi.authority.permission.mapper.OperationLogsMapper;
+import com.sim.wifi.authority.permission.model.OperationLogs;
+import com.sim.wifi.authority.permission.service.OperationLogsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;

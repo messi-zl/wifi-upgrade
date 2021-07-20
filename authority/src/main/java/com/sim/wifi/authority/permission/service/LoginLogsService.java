@@ -1,7 +1,7 @@
 package com.sim.wifi.authority.permission.service;
 
-import com.sim.wifi.authority.permission.model.LoginLogs;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.sim.wifi.authority.permission.model.LoginLogs;
 
 import java.util.Date;
 import java.util.List;
@@ -19,5 +19,5 @@ public interface LoginLogsService extends IService<LoginLogs> {
     public static Integer STATUS_FAIL = 0;
 
     //找出endDate往前rangeTime分钟内，状态为status的LoginLogs的记录
-    public List<LoginLogs> lockNode(Integer userId,Integer rangeTime, Date endDate, Integer status);
+    public List<LoginLogs> lockNode(Integer userId, Integer rangeTime, Date endDate, Integer status);
 }

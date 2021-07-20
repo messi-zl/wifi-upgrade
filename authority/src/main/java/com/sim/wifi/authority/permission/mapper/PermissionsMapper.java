@@ -1,7 +1,7 @@
 package com.sim.wifi.authority.permission.mapper;
 
-import com.sim.wifi.authority.permission.model.Permissions;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.sim.wifi.authority.permission.model.Permissions;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -18,5 +18,5 @@ public interface PermissionsMapper extends BaseMapper<Permissions> {
     /**
      * 由UserId得到该用户不同权限类型的权限列表
      */
-    List<Permissions> getPermissionsList(@Param("userId") Integer userId,@Param("type") Integer type);
+    List<Permissions> getPermissionsList(@Param("userId") Integer userId, @Param("type") Integer type);
 }

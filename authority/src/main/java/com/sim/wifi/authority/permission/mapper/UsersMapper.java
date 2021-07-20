@@ -1,7 +1,7 @@
 package com.sim.wifi.authority.permission.mapper;
 
-import com.sim.wifi.authority.permission.model.Users;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.sim.wifi.authority.permission.model.Users;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

@@ -1,9 +1,10 @@
 package com.sim.wifi.authority.permission.service;
 
-import com.sim.wifi.authority.permission.model.Permissions;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.sim.wifi.authority.permission.model.Permissions;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * description: 权限表 服务类
@@ -24,4 +25,26 @@ public interface PermissionsService extends IService<Permissions> {
      * @Date 2021/7/9
      **/
     List<Permissions> getPermissionsList(Integer userId, Integer type);
+
+
+    /**
+     * 添加权限Permission
+     */
+    boolean create(Permissions permission);
+
+
+    /**
+     * 修改权限
+     */
+    boolean update(Integer permissionId, Permissions permission);
+
+    /**
+     * 删除权限
+     */
+    boolean delete(Integer permissionId);
+
+    /**
+     *
+     **/
+    Map<String, Object> listAll();
 }

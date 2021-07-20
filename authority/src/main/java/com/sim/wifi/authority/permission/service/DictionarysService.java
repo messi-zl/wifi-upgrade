@@ -1,7 +1,7 @@
 package com.sim.wifi.authority.permission.service;
 
-import com.sim.wifi.authority.permission.model.Dictionarys;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.sim.wifi.authority.permission.model.Dictionarys;
 
 /**
  * description: 数据字典表 服务类

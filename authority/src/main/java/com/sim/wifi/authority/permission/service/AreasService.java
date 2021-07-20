@@ -1,7 +1,7 @@
 package com.sim.wifi.authority.permission.service;
 
-import com.sim.wifi.authority.permission.model.Areas;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.sim.wifi.authority.permission.model.Areas;
 
 
 /**

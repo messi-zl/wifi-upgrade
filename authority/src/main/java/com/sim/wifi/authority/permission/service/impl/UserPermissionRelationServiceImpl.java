@@ -1,10 +1,10 @@
 package com.sim.wifi.authority.permission.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.sim.wifi.authority.permission.model.UserPermissionRelation;
-import com.sim.wifi.authority.permission.mapper.UserPermissionRelationMapper;
-import com.sim.wifi.authority.permission.service.UserPermissionRelationService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.sim.wifi.authority.permission.mapper.UserPermissionRelationMapper;
+import com.sim.wifi.authority.permission.model.UserPermissionRelation;
+import com.sim.wifi.authority.permission.service.UserPermissionRelationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;

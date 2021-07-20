@@ -36,7 +36,7 @@ secure:
       - /permission/users/register
       - /permission/users/login
       - /permission/users/logout
-      - /user/info
+      - /permission/users/info
       - /swagger-ui.html
       - /swagger-resources/**
       - /swagger/**

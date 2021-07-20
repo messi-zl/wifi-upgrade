@@ -2,8 +2,8 @@ package com.sim.wifi.authority.permission.controller;
 
 
 import com.sim.wifi.authority.common.api.CommonResult;
+import com.sim.wifi.authority.common.log.CustomOperationLog;
 import com.sim.wifi.authority.permission.service.UserModelRelationService;
-import com.sim.wifi.authority.permission.service.UserPermissionRelationService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -32,6 +32,7 @@ public class UserModelRelationController {
     @Autowired
     private UserModelRelationService userModelRelationService;
 
+    @CustomOperationLog
     @ApiOperation("给用户分配型号")
     @RequestMapping(value = "/allocModel", method = RequestMethod.POST)
     @ResponseBody

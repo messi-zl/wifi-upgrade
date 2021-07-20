@@ -3,7 +3,7 @@ package com.sim.wifi.authority.permission.controller;
 
 import com.sim.wifi.authority.common.api.CommonResult;
 import com.sim.wifi.authority.common.exception.Asserts;
-import com.sim.wifi.authority.common.logSettle.CustomOperationLog;
+import com.sim.wifi.authority.common.log.CustomOperationLog;
 import com.sim.wifi.authority.dto.UpdateUsersPasswordParam;
 import com.sim.wifi.authority.dto.UsersLoginParam;
 import com.sim.wifi.authority.dto.UsersParam;
@@ -64,8 +64,8 @@ public class UsersController {
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult login(@Validated @RequestBody UsersLoginParam usersLoginParam) {
-        Map<String,String> map = usersService.login(usersLoginParam.getUsername(), usersLoginParam.getPassword());
-        if (map.get("errorMessage") != null){
+        Map<String, String> map = usersService.login(usersLoginParam.getUsername(), usersLoginParam.getPassword());
+        if (map.get("errorMessage") != null) {
             Asserts.fail(map.get("errorMessage"));
         }
         Map<String, String> tokenMap = new HashMap<>();
@@ -82,8 +82,9 @@ public class UsersController {
         return CommonResult.success(null);
     }
 
+
     @CustomOperationLog
-    @ApiOperation(value = "获取当前登录用户的信息")
+    @ApiOperation(value = "获取当前登录用户的信息")//用户渲染
     @RequestMapping(value = "/info", method = RequestMethod.GET)
     @ResponseBody
     public CommonResult getUserInfo(Principal principal) {
@@ -92,21 +93,7 @@ public class UsersController {
             return CommonResult.unauthorized(null);
         }
         String username = principal.getName();
-        Users user = usersService.getUserByUserName(username);
-        Map<String, Object> data = new HashMap<>();
-        data.put("username", user.getUsername());
-        logger.info("由用户id：{}，获取其有权限的menu", user.getId());
-        data.put("menus", permissionsService.getPermissionsList(user.getId(), PermissionsService.TYPE_MENU));
-        logger.info("由用户id：{}，获取其有权限的button", user.getId());
-        data.put("resources", permissionsService.getPermissionsList(user.getId(), PermissionsService.TYPE_BUTTON));
-/*        data.put("icon", umsAdmin.getIcon());
-        List<UmsRole> roleList = adminService.getRoleList(umsAdmin.getId());
-        if(CollUtil.isNotEmpty(roleList)){
-            List<String> roles = roleList.stream().map(UmsRole::getName).collect(Collectors.toList());
-            data.put("roles",roles);
-        }*/
-        logger.info("获取当前登录用户的信息成功");
-        return CommonResult.success(data);
+        return usersService.getUserInfo(username);
     }
 
     @CustomOperationLog

@@ -1,7 +1,7 @@
 package com.sim.wifi.authority.permission.mapper;
 
-import com.sim.wifi.authority.permission.model.DictionaryItems;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.sim.wifi.authority.permission.model.DictionaryItems;
 
 /**
  * description: 字典条目表 Mapper 接口

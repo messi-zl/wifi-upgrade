@@ -1,9 +1,9 @@
 package com.sim.wifi.authority.permission.service.impl;
 
-import com.sim.wifi.authority.permission.model.Dictionarys;
-import com.sim.wifi.authority.permission.mapper.DictionarysMapper;
-import com.sim.wifi.authority.permission.service.DictionarysService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.sim.wifi.authority.permission.mapper.DictionarysMapper;
+import com.sim.wifi.authority.permission.model.Dictionarys;
+import com.sim.wifi.authority.permission.service.DictionarysService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;

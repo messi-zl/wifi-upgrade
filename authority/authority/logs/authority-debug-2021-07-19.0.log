@@ -1,0 +1,331 @@
+2021-07-19 14:49:27.598 [main] DEBUG c.s.w.a.permission.controller.UsersControllerTest - Running with Spring Boot v2.3.0.RELEASE, Spring v5.2.6.RELEASE
+2021-07-19 14:49:33.055 [main] DEBUG c.s.w.a.p.mapper.PermissionsMapper.selectList - ==>  Preparing: SELECT id,parent_id,name,url,type,status,sort,created_on,changed_on,created_by,changed_by FROM permissions WHERE (type = ?) 
+2021-07-19 14:49:33.080 [main] DEBUG c.s.w.a.p.mapper.PermissionsMapper.selectList - ==> Parameters: 2(Integer)
+2021-07-19 14:49:33.100 [main] DEBUG c.s.w.a.p.mapper.PermissionsMapper.selectList - <==      Total: 0
+2021-07-19 14:50:08.461 [main] DEBUG c.s.w.a.permission.controller.UsersControllerTest - Running with Spring Boot v2.3.0.RELEASE, Spring v5.2.6.RELEASE
+2021-07-19 14:50:14.498 [main] DEBUG c.s.w.a.p.mapper.PermissionsMapper.selectList - ==>  Preparing: SELECT id,parent_id,name,url,type,status,sort,created_on,changed_on,created_by,changed_by FROM permissions WHERE (type = ?) 
+2021-07-19 14:50:14.520 [main] DEBUG c.s.w.a.p.mapper.PermissionsMapper.selectList - ==> Parameters: 2(Integer)
+2021-07-19 14:50:14.540 [main] DEBUG c.s.w.a.p.mapper.PermissionsMapper.selectList - <==      Total: 0
+2021-07-19 14:52:21.756 [main] DEBUG c.s.w.a.permission.controller.UsersControllerTest - Running with Spring Boot v2.3.0.RELEASE, Spring v5.2.6.RELEASE
+2021-07-19 14:52:27.814 [main] DEBUG c.s.w.a.p.mapper.PermissionsMapper.selectList - ==>  Preparing: SELECT id,parent_id,name,url,type,status,sort,created_on,changed_on,created_by,changed_by FROM permissions WHERE (type = ?) 
+2021-07-19 14:52:27.836 [main] DEBUG c.s.w.a.p.mapper.PermissionsMapper.selectList - ==> Parameters: 2(Integer)
+2021-07-19 14:52:27.856 [main] DEBUG c.s.w.a.p.mapper.PermissionsMapper.selectList - <==      Total: 0
+2021-07-19 14:52:35.392 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.selectList - ==>  Preparing: SELECT id,username,password,employee_no,phone,department,name,status,locking_time,fail_login_count,created_on,changed_on,created_by,changed_by FROM users WHERE (username = ?) 
+2021-07-19 14:52:35.393 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.selectList - ==> Parameters: zl(String)
+2021-07-19 14:52:35.397 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.selectList - <==      Total: 1
+2021-07-19 14:52:35.400 [main] DEBUG c.s.w.a.p.m.PermissionsMapper.getPermissionsList - ==>  Preparing: SELECT b.id id, b.url url, b.`name` `name`, b.parent_id parent_id FROM user_permission_relation a LEFT JOIN permissions b ON a.permission_id = b.id WHERE a.user_id = ? AND b.type = ? AND b.`status` = 1 AND b.id IS NOT NULL ORDER BY b.sort 
+2021-07-19 14:52:35.400 [main] DEBUG c.s.w.a.p.m.PermissionsMapper.getPermissionsList - ==> Parameters: 9(Integer), 2(Integer)
+2021-07-19 14:52:35.402 [main] DEBUG c.s.w.a.p.m.PermissionsMapper.getPermissionsList - <==      Total: 0
+2021-07-19 14:52:41.018 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.updateById - ==>  Preparing: UPDATE users SET username=?, password=?, employee_no=?, status=?, locking_time=?, fail_login_count=? WHERE id=? 
+2021-07-19 14:52:41.019 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.updateById - ==> Parameters: zl(String), $2a$10$v9mQ3VGE7SjSL0QDbcW.reA2kSnxnWf1TVAjFvkWwfWk/VMfDaMxu(String), 00222(String), 1(Integer), null, 0(Integer), 9(Integer)
+2021-07-19 14:52:41.020 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.updateById - <==    Updates: 1
+2021-07-19 14:52:41.083 [main] DEBUG c.s.w.a.permission.mapper.LoginLogsMapper.insert - ==>  Preparing: INSERT INTO login_logs ( use_id, status, login_time ) VALUES ( ?, ?, ? ) 
+2021-07-19 14:52:41.085 [main] DEBUG c.s.w.a.permission.mapper.LoginLogsMapper.insert - ==> Parameters: 9(Integer), 0(Integer), 2021-07-19 14:52:35.0(Timestamp)
+2021-07-19 14:52:41.087 [main] DEBUG c.s.w.a.permission.mapper.LoginLogsMapper.insert - <==    Updates: 1
+2021-07-19 14:52:41.090 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.updateById - ==>  Preparing: UPDATE users SET username=?, password=?, employee_no=?, status=?, locking_time=?, fail_login_count=? WHERE id=? 
+2021-07-19 14:52:41.091 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.updateById - ==> Parameters: zl(String), $2a$10$v9mQ3VGE7SjSL0QDbcW.reA2kSnxnWf1TVAjFvkWwfWk/VMfDaMxu(String), 00222(String), 1(Integer), null, 1(Integer), 9(Integer)
+2021-07-19 14:52:41.150 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.updateById - <==    Updates: 1
+2021-07-19 14:52:41.230 [main] DEBUG c.s.w.a.p.mapper.OperationLogsMapper.insert - ==>  Preparing: INSERT INTO operation_logs ( description, action, request_path, json, ip_addr, created_on, created_by ) VALUES ( ?, ?, ?, ?, ?, ?, ? ) 
+2021-07-19 14:52:41.230 [main] DEBUG c.s.w.a.p.mapper.OperationLogsMapper.insert - ==> Parameters: 登录以后返回token(String), login(String), (String), com.sim.wifi.authority.dto.UsersLoginParam@35ef158f(String), 127.0.0.1(String), 2021-07-19 14:52:41.0(Timestamp), 8888(Integer)
+2021-07-19 14:52:41.259 [main] DEBUG c.s.w.a.p.mapper.OperationLogsMapper.insert - <==    Updates: 1
+2021-07-19 14:53:42.906 [main] DEBUG c.s.w.a.permission.controller.UsersControllerTest - Running with Spring Boot v2.3.0.RELEASE, Spring v5.2.6.RELEASE
+2021-07-19 14:53:48.274 [main] DEBUG c.s.w.a.p.mapper.PermissionsMapper.selectList - ==>  Preparing: SELECT id,parent_id,name,url,type,status,sort,created_on,changed_on,created_by,changed_by FROM permissions WHERE (type = ?) 
+2021-07-19 14:53:48.299 [main] DEBUG c.s.w.a.p.mapper.PermissionsMapper.selectList - ==> Parameters: 2(Integer)
+2021-07-19 14:53:48.319 [main] DEBUG c.s.w.a.p.mapper.PermissionsMapper.selectList - <==      Total: 0
+2021-07-19 14:53:49.727 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.selectList - ==>  Preparing: SELECT id,username,password,employee_no,phone,department,name,status,locking_time,fail_login_count,created_on,changed_on,created_by,changed_by FROM users WHERE (username = ?) 
+2021-07-19 14:53:49.729 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.selectList - ==> Parameters: zl(String)
+2021-07-19 14:53:49.733 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.selectList - <==      Total: 1
+2021-07-19 14:53:49.736 [main] DEBUG c.s.w.a.p.m.PermissionsMapper.getPermissionsList - ==>  Preparing: SELECT b.id id, b.url url, b.`name` `name`, b.parent_id parent_id FROM user_permission_relation a LEFT JOIN permissions b ON a.permission_id = b.id WHERE a.user_id = ? AND b.type = ? AND b.`status` = 1 AND b.id IS NOT NULL ORDER BY b.sort 
+2021-07-19 14:53:49.737 [main] DEBUG c.s.w.a.p.m.PermissionsMapper.getPermissionsList - ==> Parameters: 9(Integer), 2(Integer)
+2021-07-19 14:53:49.740 [main] DEBUG c.s.w.a.p.m.PermissionsMapper.getPermissionsList - <==      Total: 0
+2021-07-19 14:53:49.849 [main] DEBUG c.s.w.a.permission.mapper.LoginLogsMapper.insert - ==>  Preparing: INSERT INTO login_logs ( use_id, status, login_time ) VALUES ( ?, ?, ? ) 
+2021-07-19 14:53:49.851 [main] DEBUG c.s.w.a.permission.mapper.LoginLogsMapper.insert - ==> Parameters: 9(Integer), 0(Integer), 2021-07-19 14:53:49.0(Timestamp)
+2021-07-19 14:53:49.853 [main] DEBUG c.s.w.a.permission.mapper.LoginLogsMapper.insert - <==    Updates: 1
+2021-07-19 14:53:49.859 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.updateById - ==>  Preparing: UPDATE users SET username=?, password=?, employee_no=?, status=?, locking_time=?, fail_login_count=? WHERE id=? 
+2021-07-19 14:53:49.860 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.updateById - ==> Parameters: zl(String), $2a$10$v9mQ3VGE7SjSL0QDbcW.reA2kSnxnWf1TVAjFvkWwfWk/VMfDaMxu(String), 00222(String), 1(Integer), null, 2(Integer), 9(Integer)
+2021-07-19 14:53:49.861 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.updateById - <==    Updates: 1
+2021-07-19 14:53:49.919 [main] DEBUG c.s.w.a.p.mapper.OperationLogsMapper.insert - ==>  Preparing: INSERT INTO operation_logs ( description, action, request_path, json, ip_addr, created_on, created_by ) VALUES ( ?, ?, ?, ?, ?, ?, ? ) 
+2021-07-19 14:53:49.920 [main] DEBUG c.s.w.a.p.mapper.OperationLogsMapper.insert - ==> Parameters: 登录以后返回token(String), login(String), (String), com.sim.wifi.authority.dto.UsersLoginParam@2ba0b95f(String), 127.0.0.1(String), 2021-07-19 14:53:49.0(Timestamp), 8888(Integer)
+2021-07-19 14:53:49.960 [main] DEBUG c.s.w.a.p.mapper.OperationLogsMapper.insert - <==    Updates: 1
+2021-07-19 15:02:20.816 [main] DEBUG c.s.w.a.permission.controller.UsersControllerTest - Running with Spring Boot v2.3.0.RELEASE, Spring v5.2.6.RELEASE
+2021-07-19 15:02:26.045 [main] DEBUG c.s.w.a.p.mapper.PermissionsMapper.selectList - ==>  Preparing: SELECT id,parent_id,name,url,type,status,sort,created_on,changed_on,created_by,changed_by FROM permissions WHERE (type = ?) 
+2021-07-19 15:02:26.069 [main] DEBUG c.s.w.a.p.mapper.PermissionsMapper.selectList - ==> Parameters: 2(Integer)
+2021-07-19 15:02:26.089 [main] DEBUG c.s.w.a.p.mapper.PermissionsMapper.selectList - <==      Total: 0
+2021-07-19 15:02:27.365 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.selectList - ==>  Preparing: SELECT id,username,password,employee_no,phone,department,name,status,locking_time,fail_login_count,created_on,changed_on,created_by,changed_by FROM users WHERE (username = ?) 
+2021-07-19 15:02:27.367 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.selectList - ==> Parameters: zl(String)
+2021-07-19 15:02:27.370 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.selectList - <==      Total: 1
+2021-07-19 15:02:27.374 [main] DEBUG c.s.w.a.p.m.PermissionsMapper.getPermissionsList - ==>  Preparing: SELECT b.id id, b.url url, b.`name` `name`, b.parent_id parent_id FROM user_permission_relation a LEFT JOIN permissions b ON a.permission_id = b.id WHERE a.user_id = ? AND b.type = ? AND b.`status` = 1 AND b.id IS NOT NULL ORDER BY b.sort 
+2021-07-19 15:02:27.375 [main] DEBUG c.s.w.a.p.m.PermissionsMapper.getPermissionsList - ==> Parameters: 9(Integer), 2(Integer)
+2021-07-19 15:02:27.377 [main] DEBUG c.s.w.a.p.m.PermissionsMapper.getPermissionsList - <==      Total: 0
+2021-07-19 15:02:27.476 [main] DEBUG c.s.w.a.permission.mapper.LoginLogsMapper.insert - ==>  Preparing: INSERT INTO login_logs ( use_id, status, login_time ) VALUES ( ?, ?, ? ) 
+2021-07-19 15:02:27.477 [main] DEBUG c.s.w.a.permission.mapper.LoginLogsMapper.insert - ==> Parameters: 9(Integer), 0(Integer), 2021-07-19 15:02:27.0(Timestamp)
+2021-07-19 15:02:27.479 [main] DEBUG c.s.w.a.permission.mapper.LoginLogsMapper.insert - <==    Updates: 1
+2021-07-19 15:02:27.483 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.updateById - ==>  Preparing: UPDATE users SET username=?, password=?, employee_no=?, status=?, locking_time=?, fail_login_count=? WHERE id=? 
+2021-07-19 15:02:27.484 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.updateById - ==> Parameters: zl(String), $2a$10$v9mQ3VGE7SjSL0QDbcW.reA2kSnxnWf1TVAjFvkWwfWk/VMfDaMxu(String), 00222(String), 1(Integer), null, 3(Integer), 9(Integer)
+2021-07-19 15:02:27.485 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.updateById - <==    Updates: 1
+2021-07-19 15:02:27.542 [main] DEBUG c.s.w.a.p.mapper.OperationLogsMapper.insert - ==>  Preparing: INSERT INTO operation_logs ( description, action, request_path, json, ip_addr, created_on, created_by ) VALUES ( ?, ?, ?, ?, ?, ?, ? ) 
+2021-07-19 15:02:27.543 [main] DEBUG c.s.w.a.p.mapper.OperationLogsMapper.insert - ==> Parameters: 登录以后返回token(String), login(String), (String), com.sim.wifi.authority.dto.UsersLoginParam@5f81507a(String), 127.0.0.1(String), 2021-07-19 15:02:27.0(Timestamp), 8888(Integer)
+2021-07-19 15:02:27.575 [main] DEBUG c.s.w.a.p.mapper.OperationLogsMapper.insert - <==    Updates: 1
+2021-07-19 15:08:44.640 [main] DEBUG c.s.w.a.permission.controller.UsersControllerTest - Running with Spring Boot v2.3.0.RELEASE, Spring v5.2.6.RELEASE
+2021-07-19 15:08:49.522 [main] DEBUG c.s.w.a.p.mapper.PermissionsMapper.selectList - ==>  Preparing: SELECT id,parent_id,name,url,type,status,sort,created_on,changed_on,created_by,changed_by FROM permissions WHERE (type = ?) 
+2021-07-19 15:08:49.545 [main] DEBUG c.s.w.a.p.mapper.PermissionsMapper.selectList - ==> Parameters: 2(Integer)
+2021-07-19 15:08:49.563 [main] DEBUG c.s.w.a.p.mapper.PermissionsMapper.selectList - <==      Total: 0
+2021-07-19 15:08:50.851 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.selectList - ==>  Preparing: SELECT id,username,password,employee_no,phone,department,name,status,locking_time,fail_login_count,created_on,changed_on,created_by,changed_by FROM users WHERE (username = ?) 
+2021-07-19 15:08:50.852 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.selectList - ==> Parameters: zl(String)
+2021-07-19 15:08:50.855 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.selectList - <==      Total: 1
+2021-07-19 15:08:50.858 [main] DEBUG c.s.w.a.p.m.PermissionsMapper.getPermissionsList - ==>  Preparing: SELECT b.id id, b.url url, b.`name` `name`, b.parent_id parent_id FROM user_permission_relation a LEFT JOIN permissions b ON a.permission_id = b.id WHERE a.user_id = ? AND b.type = ? AND b.`status` = 1 AND b.id IS NOT NULL ORDER BY b.sort 
+2021-07-19 15:08:50.859 [main] DEBUG c.s.w.a.p.m.PermissionsMapper.getPermissionsList - ==> Parameters: 9(Integer), 2(Integer)
+2021-07-19 15:08:50.861 [main] DEBUG c.s.w.a.p.m.PermissionsMapper.getPermissionsList - <==      Total: 0
+2021-07-19 15:08:50.960 [main] DEBUG c.s.w.a.permission.mapper.LoginLogsMapper.insert - ==>  Preparing: INSERT INTO login_logs ( use_id, status, login_time ) VALUES ( ?, ?, ? ) 
+2021-07-19 15:08:50.962 [main] DEBUG c.s.w.a.permission.mapper.LoginLogsMapper.insert - ==> Parameters: 9(Integer), 0(Integer), 2021-07-19 15:08:50.0(Timestamp)
+2021-07-19 15:08:50.964 [main] DEBUG c.s.w.a.permission.mapper.LoginLogsMapper.insert - <==    Updates: 1
+2021-07-19 15:08:50.967 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.updateById - ==>  Preparing: UPDATE users SET username=?, password=?, employee_no=?, status=?, locking_time=?, fail_login_count=? WHERE id=? 
+2021-07-19 15:08:50.968 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.updateById - ==> Parameters: zl(String), $2a$10$v9mQ3VGE7SjSL0QDbcW.reA2kSnxnWf1TVAjFvkWwfWk/VMfDaMxu(String), 00222(String), 1(Integer), null, 4(Integer), 9(Integer)
+2021-07-19 15:08:50.969 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.updateById - <==    Updates: 1
+2021-07-19 15:08:51.134 [main] DEBUG c.s.w.a.p.mapper.OperationLogsMapper.insert - ==>  Preparing: INSERT INTO operation_logs ( description, action, request_path, json, ip_addr, created_on, created_by ) VALUES ( ?, ?, ?, ?, ?, ?, ? ) 
+2021-07-19 15:08:51.135 [main] DEBUG c.s.w.a.p.mapper.OperationLogsMapper.insert - ==> Parameters: 登录以后返回token(String), login(String), (String), com.sim.wifi.authority.dto.UsersLoginParam@766db6f9(String), 127.0.0.1(String), 2021-07-19 15:08:51.0(Timestamp), 8888(Integer)
+2021-07-19 15:08:51.160 [main] DEBUG c.s.w.a.p.mapper.OperationLogsMapper.insert - <==    Updates: 1
+2021-07-19 15:10:49.775 [main] DEBUG c.s.w.a.permission.controller.UsersControllerTest - Running with Spring Boot v2.3.0.RELEASE, Spring v5.2.6.RELEASE
+2021-07-19 15:10:54.944 [main] DEBUG c.s.w.a.p.mapper.PermissionsMapper.selectList - ==>  Preparing: SELECT id,parent_id,name,url,type,status,sort,created_on,changed_on,created_by,changed_by FROM permissions WHERE (type = ?) 
+2021-07-19 15:10:54.967 [main] DEBUG c.s.w.a.p.mapper.PermissionsMapper.selectList - ==> Parameters: 2(Integer)
+2021-07-19 15:10:54.988 [main] DEBUG c.s.w.a.p.mapper.PermissionsMapper.selectList - <==      Total: 0
+2021-07-19 15:10:56.315 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.selectList - ==>  Preparing: SELECT id,username,password,employee_no,phone,department,name,status,locking_time,fail_login_count,created_on,changed_on,created_by,changed_by FROM users WHERE (username = ?) 
+2021-07-19 15:10:56.316 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.selectList - ==> Parameters: zl(String)
+2021-07-19 15:10:56.321 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.selectList - <==      Total: 1
+2021-07-19 15:10:56.324 [main] DEBUG c.s.w.a.p.m.PermissionsMapper.getPermissionsList - ==>  Preparing: SELECT b.id id, b.url url, b.`name` `name`, b.parent_id parent_id FROM user_permission_relation a LEFT JOIN permissions b ON a.permission_id = b.id WHERE a.user_id = ? AND b.type = ? AND b.`status` = 1 AND b.id IS NOT NULL ORDER BY b.sort 
+2021-07-19 15:10:56.325 [main] DEBUG c.s.w.a.p.m.PermissionsMapper.getPermissionsList - ==> Parameters: 9(Integer), 2(Integer)
+2021-07-19 15:10:56.327 [main] DEBUG c.s.w.a.p.m.PermissionsMapper.getPermissionsList - <==      Total: 0
+2021-07-19 15:10:56.425 [main] DEBUG c.s.w.a.permission.mapper.LoginLogsMapper.insert - ==>  Preparing: INSERT INTO login_logs ( use_id, status, login_time ) VALUES ( ?, ?, ? ) 
+2021-07-19 15:10:56.426 [main] DEBUG c.s.w.a.permission.mapper.LoginLogsMapper.insert - ==> Parameters: 9(Integer), 0(Integer), 2021-07-19 15:10:56.0(Timestamp)
+2021-07-19 15:10:56.428 [main] DEBUG c.s.w.a.permission.mapper.LoginLogsMapper.insert - <==    Updates: 1
+2021-07-19 15:10:56.434 [main] DEBUG c.s.w.a.p.mapper.LoginLogsMapper.selectList - ==>  Preparing: SELECT id,use_id,status,login_time FROM login_logs WHERE (use_id = ? AND login_time BETWEEN ? AND ?) 
+2021-07-19 15:10:56.434 [main] DEBUG c.s.w.a.p.mapper.LoginLogsMapper.selectList - ==> Parameters: 9(Integer), 2021-07-19 15:08:56.0(Timestamp), 2021-07-19 15:10:56.0(Timestamp)
+2021-07-19 15:10:56.435 [main] DEBUG c.s.w.a.p.mapper.LoginLogsMapper.selectList - <==      Total: 1
+2021-07-19 15:10:56.438 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.updateById - ==>  Preparing: UPDATE users SET username=?, password=?, employee_no=?, status=?, locking_time=?, fail_login_count=? WHERE id=? 
+2021-07-19 15:10:56.438 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.updateById - ==> Parameters: zl(String), $2a$10$v9mQ3VGE7SjSL0QDbcW.reA2kSnxnWf1TVAjFvkWwfWk/VMfDaMxu(String), 00222(String), 1(Integer), null, 5(Integer), 9(Integer)
+2021-07-19 15:10:56.439 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.updateById - <==    Updates: 1
+2021-07-19 15:10:56.505 [main] DEBUG c.s.w.a.p.mapper.OperationLogsMapper.insert - ==>  Preparing: INSERT INTO operation_logs ( description, action, request_path, json, ip_addr, created_on, created_by ) VALUES ( ?, ?, ?, ?, ?, ?, ? ) 
+2021-07-19 15:10:56.506 [main] DEBUG c.s.w.a.p.mapper.OperationLogsMapper.insert - ==> Parameters: 登录以后返回token(String), login(String), (String), com.sim.wifi.authority.dto.UsersLoginParam@b889cb6(String), 127.0.0.1(String), 2021-07-19 15:10:56.0(Timestamp), 8888(Integer)
+2021-07-19 15:10:56.548 [main] DEBUG c.s.w.a.p.mapper.OperationLogsMapper.insert - <==    Updates: 1
+2021-07-19 15:12:40.128 [main] DEBUG c.s.w.a.permission.controller.UsersControllerTest - Running with Spring Boot v2.3.0.RELEASE, Spring v5.2.6.RELEASE
+2021-07-19 15:12:45.400 [main] DEBUG c.s.w.a.p.mapper.PermissionsMapper.selectList - ==>  Preparing: SELECT id,parent_id,name,url,type,status,sort,created_on,changed_on,created_by,changed_by FROM permissions WHERE (type = ?) 
+2021-07-19 15:12:45.423 [main] DEBUG c.s.w.a.p.mapper.PermissionsMapper.selectList - ==> Parameters: 2(Integer)
+2021-07-19 15:12:45.442 [main] DEBUG c.s.w.a.p.mapper.PermissionsMapper.selectList - <==      Total: 0
+2021-07-19 15:12:46.719 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.selectList - ==>  Preparing: SELECT id,username,password,employee_no,phone,department,name,status,locking_time,fail_login_count,created_on,changed_on,created_by,changed_by FROM users WHERE (username = ?) 
+2021-07-19 15:12:46.720 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.selectList - ==> Parameters: zl(String)
+2021-07-19 15:12:46.724 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.selectList - <==      Total: 1
+2021-07-19 15:12:46.728 [main] DEBUG c.s.w.a.p.m.PermissionsMapper.getPermissionsList - ==>  Preparing: SELECT b.id id, b.url url, b.`name` `name`, b.parent_id parent_id FROM user_permission_relation a LEFT JOIN permissions b ON a.permission_id = b.id WHERE a.user_id = ? AND b.type = ? AND b.`status` = 1 AND b.id IS NOT NULL ORDER BY b.sort 
+2021-07-19 15:12:46.730 [main] DEBUG c.s.w.a.p.m.PermissionsMapper.getPermissionsList - ==> Parameters: 9(Integer), 2(Integer)
+2021-07-19 15:12:46.732 [main] DEBUG c.s.w.a.p.m.PermissionsMapper.getPermissionsList - <==      Total: 0
+2021-07-19 15:12:46.837 [main] DEBUG c.s.w.a.permission.mapper.LoginLogsMapper.insert - ==>  Preparing: INSERT INTO login_logs ( use_id, status, login_time ) VALUES ( ?, ?, ? ) 
+2021-07-19 15:12:46.839 [main] DEBUG c.s.w.a.permission.mapper.LoginLogsMapper.insert - ==> Parameters: 9(Integer), 0(Integer), 2021-07-19 15:12:46.0(Timestamp)
+2021-07-19 15:12:46.840 [main] DEBUG c.s.w.a.permission.mapper.LoginLogsMapper.insert - <==    Updates: 1
+2021-07-19 15:12:46.847 [main] DEBUG c.s.w.a.p.mapper.LoginLogsMapper.selectList - ==>  Preparing: SELECT id,use_id,status,login_time FROM login_logs WHERE (use_id = ? AND login_time BETWEEN ? AND ?) 
+2021-07-19 15:12:46.847 [main] DEBUG c.s.w.a.p.mapper.LoginLogsMapper.selectList - ==> Parameters: 9(Integer), 2021-07-19 15:10:46.0(Timestamp), 2021-07-19 15:12:46.0(Timestamp)
+2021-07-19 15:12:46.849 [main] DEBUG c.s.w.a.p.mapper.LoginLogsMapper.selectList - <==      Total: 2
+2021-07-19 15:12:46.851 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.updateById - ==>  Preparing: UPDATE users SET username=?, password=?, employee_no=?, status=?, locking_time=?, fail_login_count=? WHERE id=? 
+2021-07-19 15:12:46.852 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.updateById - ==> Parameters: zl(String), $2a$10$v9mQ3VGE7SjSL0QDbcW.reA2kSnxnWf1TVAjFvkWwfWk/VMfDaMxu(String), 00222(String), 1(Integer), null, 6(Integer), 9(Integer)
+2021-07-19 15:12:46.853 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.updateById - <==    Updates: 1
+2021-07-19 15:12:47.077 [main] DEBUG c.s.w.a.p.mapper.OperationLogsMapper.insert - ==>  Preparing: INSERT INTO operation_logs ( description, action, request_path, json, ip_addr, created_on, created_by ) VALUES ( ?, ?, ?, ?, ?, ?, ? ) 
+2021-07-19 15:12:47.078 [main] DEBUG c.s.w.a.p.mapper.OperationLogsMapper.insert - ==> Parameters: 登录以后返回token(String), login(String), (String), com.sim.wifi.authority.dto.UsersLoginParam@4fc2933e(String), 127.0.0.1(String), 2021-07-19 15:12:47.0(Timestamp), 8888(Integer)
+2021-07-19 15:12:47.139 [main] DEBUG c.s.w.a.p.mapper.OperationLogsMapper.insert - <==    Updates: 1
+2021-07-19 15:15:15.432 [main] DEBUG c.s.w.a.permission.controller.UsersControllerTest - Running with Spring Boot v2.3.0.RELEASE, Spring v5.2.6.RELEASE
+2021-07-19 15:15:20.507 [main] DEBUG c.s.w.a.p.mapper.PermissionsMapper.selectList - ==>  Preparing: SELECT id,parent_id,name,url,type,status,sort,created_on,changed_on,created_by,changed_by FROM permissions WHERE (type = ?) 
+2021-07-19 15:15:20.532 [main] DEBUG c.s.w.a.p.mapper.PermissionsMapper.selectList - ==> Parameters: 2(Integer)
+2021-07-19 15:15:20.555 [main] DEBUG c.s.w.a.p.mapper.PermissionsMapper.selectList - <==      Total: 0
+2021-07-19 15:15:21.919 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.selectList - ==>  Preparing: SELECT id,username,password,employee_no,phone,department,name,status,locking_time,fail_login_count,created_on,changed_on,created_by,changed_by FROM users WHERE (username = ?) 
+2021-07-19 15:15:21.920 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.selectList - ==> Parameters: zl(String)
+2021-07-19 15:15:21.924 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.selectList - <==      Total: 1
+2021-07-19 15:15:21.927 [main] DEBUG c.s.w.a.p.m.PermissionsMapper.getPermissionsList - ==>  Preparing: SELECT b.id id, b.url url, b.`name` `name`, b.parent_id parent_id FROM user_permission_relation a LEFT JOIN permissions b ON a.permission_id = b.id WHERE a.user_id = ? AND b.type = ? AND b.`status` = 1 AND b.id IS NOT NULL ORDER BY b.sort 
+2021-07-19 15:15:21.928 [main] DEBUG c.s.w.a.p.m.PermissionsMapper.getPermissionsList - ==> Parameters: 9(Integer), 2(Integer)
+2021-07-19 15:15:21.929 [main] DEBUG c.s.w.a.p.m.PermissionsMapper.getPermissionsList - <==      Total: 0
+2021-07-19 15:15:22.036 [main] DEBUG c.s.w.a.permission.mapper.LoginLogsMapper.insert - ==>  Preparing: INSERT INTO login_logs ( use_id, status, login_time ) VALUES ( ?, ?, ? ) 
+2021-07-19 15:15:22.038 [main] DEBUG c.s.w.a.permission.mapper.LoginLogsMapper.insert - ==> Parameters: 9(Integer), 0(Integer), 2021-07-19 15:15:21.0(Timestamp)
+2021-07-19 15:15:22.040 [main] DEBUG c.s.w.a.permission.mapper.LoginLogsMapper.insert - <==    Updates: 1
+2021-07-19 15:15:22.046 [main] DEBUG c.s.w.a.p.mapper.LoginLogsMapper.selectList - ==>  Preparing: SELECT id,use_id,status,login_time FROM login_logs WHERE (use_id = ? AND login_time BETWEEN ? AND ?) 
+2021-07-19 15:15:22.047 [main] DEBUG c.s.w.a.p.mapper.LoginLogsMapper.selectList - ==> Parameters: 9(Integer), 2021-07-19 15:13:21.0(Timestamp), 2021-07-19 15:15:21.0(Timestamp)
+2021-07-19 15:15:22.048 [main] DEBUG c.s.w.a.p.mapper.LoginLogsMapper.selectList - <==      Total: 1
+2021-07-19 15:15:22.051 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.updateById - ==>  Preparing: UPDATE users SET username=?, password=?, employee_no=?, status=?, locking_time=?, fail_login_count=? WHERE id=? 
+2021-07-19 15:15:22.052 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.updateById - ==> Parameters: zl(String), $2a$10$v9mQ3VGE7SjSL0QDbcW.reA2kSnxnWf1TVAjFvkWwfWk/VMfDaMxu(String), 00222(String), 1(Integer), null, 7(Integer), 9(Integer)
+2021-07-19 15:15:22.053 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.updateById - <==    Updates: 1
+2021-07-19 15:15:22.117 [main] DEBUG c.s.w.a.p.mapper.OperationLogsMapper.insert - ==>  Preparing: INSERT INTO operation_logs ( description, action, request_path, json, ip_addr, created_on, created_by ) VALUES ( ?, ?, ?, ?, ?, ?, ? ) 
+2021-07-19 15:15:22.118 [main] DEBUG c.s.w.a.p.mapper.OperationLogsMapper.insert - ==> Parameters: 登录以后返回token(String), login(String), (String), com.sim.wifi.authority.dto.UsersLoginParam@1d6a0962(String), 127.0.0.1(String), 2021-07-19 15:15:22.0(Timestamp), 8888(Integer)
+2021-07-19 15:15:22.170 [main] DEBUG c.s.w.a.p.mapper.OperationLogsMapper.insert - <==    Updates: 1
+2021-07-19 15:23:55.403 [main] DEBUG c.s.w.a.permission.controller.UsersControllerTest - Running with Spring Boot v2.3.0.RELEASE, Spring v5.2.6.RELEASE
+2021-07-19 15:24:00.447 [main] DEBUG c.s.w.a.p.mapper.PermissionsMapper.selectList - ==>  Preparing: SELECT id,parent_id,name,url,type,status,sort,created_on,changed_on,created_by,changed_by FROM permissions WHERE (type = ?) 
+2021-07-19 15:24:00.470 [main] DEBUG c.s.w.a.p.mapper.PermissionsMapper.selectList - ==> Parameters: 2(Integer)
+2021-07-19 15:24:00.491 [main] DEBUG c.s.w.a.p.mapper.PermissionsMapper.selectList - <==      Total: 0
+2021-07-19 15:24:01.804 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.selectList - ==>  Preparing: SELECT id,username,password,employee_no,phone,department,name,status,locking_time,fail_login_count,created_on,changed_on,created_by,changed_by FROM users WHERE (username = ?) 
+2021-07-19 15:24:01.806 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.selectList - ==> Parameters: zl(String)
+2021-07-19 15:24:01.810 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.selectList - <==      Total: 1
+2021-07-19 15:24:01.813 [main] DEBUG c.s.w.a.p.m.PermissionsMapper.getPermissionsList - ==>  Preparing: SELECT b.id id, b.url url, b.`name` `name`, b.parent_id parent_id FROM user_permission_relation a LEFT JOIN permissions b ON a.permission_id = b.id WHERE a.user_id = ? AND b.type = ? AND b.`status` = 1 AND b.id IS NOT NULL ORDER BY b.sort 
+2021-07-19 15:24:01.813 [main] DEBUG c.s.w.a.p.m.PermissionsMapper.getPermissionsList - ==> Parameters: 9(Integer), 2(Integer)
+2021-07-19 15:24:01.816 [main] DEBUG c.s.w.a.p.m.PermissionsMapper.getPermissionsList - <==      Total: 0
+2021-07-19 15:24:01.919 [main] DEBUG c.s.w.a.permission.mapper.LoginLogsMapper.insert - ==>  Preparing: INSERT INTO login_logs ( use_id, status, login_time ) VALUES ( ?, ?, ? ) 
+2021-07-19 15:24:01.921 [main] DEBUG c.s.w.a.permission.mapper.LoginLogsMapper.insert - ==> Parameters: 9(Integer), 0(Integer), 2021-07-19 15:24:01.0(Timestamp)
+2021-07-19 15:24:01.923 [main] DEBUG c.s.w.a.permission.mapper.LoginLogsMapper.insert - <==    Updates: 1
+2021-07-19 15:24:01.932 [main] DEBUG c.s.w.a.p.mapper.LoginLogsMapper.selectList - ==>  Preparing: SELECT id,use_id,status,login_time FROM login_logs WHERE (use_id = ? AND login_time BETWEEN ? AND ?) 
+2021-07-19 15:24:01.932 [main] DEBUG c.s.w.a.p.mapper.LoginLogsMapper.selectList - ==> Parameters: 9(Integer), 2021-07-19 15:22:01.0(Timestamp), 2021-07-19 15:24:01.0(Timestamp)
+2021-07-19 15:24:01.934 [main] DEBUG c.s.w.a.p.mapper.LoginLogsMapper.selectList - <==      Total: 1
+2021-07-19 15:24:01.936 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.updateById - ==>  Preparing: UPDATE users SET username=?, password=?, employee_no=?, status=?, locking_time=?, fail_login_count=? WHERE id=? 
+2021-07-19 15:24:01.937 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.updateById - ==> Parameters: zl(String), $2a$10$v9mQ3VGE7SjSL0QDbcW.reA2kSnxnWf1TVAjFvkWwfWk/VMfDaMxu(String), 00222(String), 1(Integer), null, 8(Integer), 9(Integer)
+2021-07-19 15:24:01.938 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.updateById - <==    Updates: 1
+2021-07-19 15:24:01.997 [main] DEBUG c.s.w.a.p.mapper.OperationLogsMapper.insert - ==>  Preparing: INSERT INTO operation_logs ( description, action, request_path, json, ip_addr, created_on, created_by ) VALUES ( ?, ?, ?, ?, ?, ?, ? ) 
+2021-07-19 15:24:01.998 [main] DEBUG c.s.w.a.p.mapper.OperationLogsMapper.insert - ==> Parameters: 登录以后返回token(String), login(String), (String), com.sim.wifi.authority.dto.UsersLoginParam@2f2d8770(String), 127.0.0.1(String), 2021-07-19 15:24:01.0(Timestamp), 8888(Integer)
+2021-07-19 15:24:02.039 [main] DEBUG c.s.w.a.p.mapper.OperationLogsMapper.insert - <==    Updates: 1
+2021-07-19 15:25:22.360 [main] DEBUG c.s.w.a.permission.controller.UsersControllerTest - Running with Spring Boot v2.3.0.RELEASE, Spring v5.2.6.RELEASE
+2021-07-19 15:25:27.427 [main] DEBUG c.s.w.a.p.mapper.PermissionsMapper.selectList - ==>  Preparing: SELECT id,parent_id,name,url,type,status,sort,created_on,changed_on,created_by,changed_by FROM permissions WHERE (type = ?) 
+2021-07-19 15:25:27.449 [main] DEBUG c.s.w.a.p.mapper.PermissionsMapper.selectList - ==> Parameters: 2(Integer)
+2021-07-19 15:25:27.470 [main] DEBUG c.s.w.a.p.mapper.PermissionsMapper.selectList - <==      Total: 0
+2021-07-19 15:25:28.749 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.selectList - ==>  Preparing: SELECT id,username,password,employee_no,phone,department,name,status,locking_time,fail_login_count,created_on,changed_on,created_by,changed_by FROM users WHERE (username = ?) 
+2021-07-19 15:25:28.751 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.selectList - ==> Parameters: zl(String)
+2021-07-19 15:25:28.756 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.selectList - <==      Total: 1
+2021-07-19 15:25:28.759 [main] DEBUG c.s.w.a.p.m.PermissionsMapper.getPermissionsList - ==>  Preparing: SELECT b.id id, b.url url, b.`name` `name`, b.parent_id parent_id FROM user_permission_relation a LEFT JOIN permissions b ON a.permission_id = b.id WHERE a.user_id = ? AND b.type = ? AND b.`status` = 1 AND b.id IS NOT NULL ORDER BY b.sort 
+2021-07-19 15:25:28.760 [main] DEBUG c.s.w.a.p.m.PermissionsMapper.getPermissionsList - ==> Parameters: 9(Integer), 2(Integer)
+2021-07-19 15:25:28.762 [main] DEBUG c.s.w.a.p.m.PermissionsMapper.getPermissionsList - <==      Total: 0
+2021-07-19 15:25:28.862 [main] DEBUG c.s.w.a.permission.mapper.LoginLogsMapper.insert - ==>  Preparing: INSERT INTO login_logs ( use_id, status, login_time ) VALUES ( ?, ?, ? ) 
+2021-07-19 15:25:28.864 [main] DEBUG c.s.w.a.permission.mapper.LoginLogsMapper.insert - ==> Parameters: 9(Integer), 0(Integer), 2021-07-19 15:25:28.0(Timestamp)
+2021-07-19 15:25:28.866 [main] DEBUG c.s.w.a.permission.mapper.LoginLogsMapper.insert - <==    Updates: 1
+2021-07-19 15:25:28.871 [main] DEBUG c.s.w.a.p.mapper.LoginLogsMapper.selectList - ==>  Preparing: SELECT id,use_id,status,login_time FROM login_logs WHERE (use_id = ? AND login_time BETWEEN ? AND ?) 
+2021-07-19 15:25:28.871 [main] DEBUG c.s.w.a.p.mapper.LoginLogsMapper.selectList - ==> Parameters: 9(Integer), 2021-07-19 15:23:28.0(Timestamp), 2021-07-19 15:25:28.0(Timestamp)
+2021-07-19 15:25:28.873 [main] DEBUG c.s.w.a.p.mapper.LoginLogsMapper.selectList - <==      Total: 2
+2021-07-19 15:25:28.875 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.updateById - ==>  Preparing: UPDATE users SET username=?, password=?, employee_no=?, status=?, locking_time=?, fail_login_count=? WHERE id=? 
+2021-07-19 15:25:28.876 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.updateById - ==> Parameters: zl(String), $2a$10$v9mQ3VGE7SjSL0QDbcW.reA2kSnxnWf1TVAjFvkWwfWk/VMfDaMxu(String), 00222(String), 1(Integer), null, 9(Integer), 9(Integer)
+2021-07-19 15:25:28.876 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.updateById - <==    Updates: 1
+2021-07-19 15:25:29.069 [main] DEBUG c.s.w.a.p.mapper.OperationLogsMapper.insert - ==>  Preparing: INSERT INTO operation_logs ( description, action, request_path, json, ip_addr, created_on, created_by ) VALUES ( ?, ?, ?, ?, ?, ?, ? ) 
+2021-07-19 15:25:29.069 [main] DEBUG c.s.w.a.p.mapper.OperationLogsMapper.insert - ==> Parameters: 登录以后返回token(String), login(String), (String), com.sim.wifi.authority.dto.UsersLoginParam@d28a235(String), 127.0.0.1(String), 2021-07-19 15:25:29.0(Timestamp), 8888(Integer)
+2021-07-19 15:25:29.105 [main] DEBUG c.s.w.a.p.mapper.OperationLogsMapper.insert - <==    Updates: 1
+2021-07-19 15:26:51.477 [main] DEBUG c.s.w.a.permission.controller.UsersControllerTest - Running with Spring Boot v2.3.0.RELEASE, Spring v5.2.6.RELEASE
+2021-07-19 15:26:56.520 [main] DEBUG c.s.w.a.p.mapper.PermissionsMapper.selectList - ==>  Preparing: SELECT id,parent_id,name,url,type,status,sort,created_on,changed_on,created_by,changed_by FROM permissions WHERE (type = ?) 
+2021-07-19 15:26:56.544 [main] DEBUG c.s.w.a.p.mapper.PermissionsMapper.selectList - ==> Parameters: 2(Integer)
+2021-07-19 15:26:56.564 [main] DEBUG c.s.w.a.p.mapper.PermissionsMapper.selectList - <==      Total: 0
+2021-07-19 15:26:57.911 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.selectList - ==>  Preparing: SELECT id,username,password,employee_no,phone,department,name,status,locking_time,fail_login_count,created_on,changed_on,created_by,changed_by FROM users WHERE (username = ?) 
+2021-07-19 15:26:57.913 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.selectList - ==> Parameters: zl(String)
+2021-07-19 15:26:57.917 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.selectList - <==      Total: 1
+2021-07-19 15:26:57.921 [main] DEBUG c.s.w.a.p.m.PermissionsMapper.getPermissionsList - ==>  Preparing: SELECT b.id id, b.url url, b.`name` `name`, b.parent_id parent_id FROM user_permission_relation a LEFT JOIN permissions b ON a.permission_id = b.id WHERE a.user_id = ? AND b.type = ? AND b.`status` = 1 AND b.id IS NOT NULL ORDER BY b.sort 
+2021-07-19 15:26:57.922 [main] DEBUG c.s.w.a.p.m.PermissionsMapper.getPermissionsList - ==> Parameters: 9(Integer), 2(Integer)
+2021-07-19 15:26:57.924 [main] DEBUG c.s.w.a.p.m.PermissionsMapper.getPermissionsList - <==      Total: 0
+2021-07-19 15:26:58.034 [main] DEBUG c.s.w.a.permission.mapper.LoginLogsMapper.insert - ==>  Preparing: INSERT INTO login_logs ( use_id, status, login_time ) VALUES ( ?, ?, ? ) 
+2021-07-19 15:26:58.037 [main] DEBUG c.s.w.a.permission.mapper.LoginLogsMapper.insert - ==> Parameters: 9(Integer), 0(Integer), 2021-07-19 15:26:57.0(Timestamp)
+2021-07-19 15:26:58.038 [main] DEBUG c.s.w.a.permission.mapper.LoginLogsMapper.insert - <==    Updates: 1
+2021-07-19 15:26:58.044 [main] DEBUG c.s.w.a.p.mapper.LoginLogsMapper.selectList - ==>  Preparing: SELECT id,use_id,status,login_time FROM login_logs WHERE (use_id = ? AND login_time BETWEEN ? AND ?) 
+2021-07-19 15:26:58.045 [main] DEBUG c.s.w.a.p.mapper.LoginLogsMapper.selectList - ==> Parameters: 9(Integer), 2021-07-19 15:24:57.0(Timestamp), 2021-07-19 15:26:57.0(Timestamp)
+2021-07-19 15:26:58.046 [main] DEBUG c.s.w.a.p.mapper.LoginLogsMapper.selectList - <==      Total: 2
+2021-07-19 15:26:58.048 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.updateById - ==>  Preparing: UPDATE users SET username=?, password=?, employee_no=?, status=?, locking_time=?, fail_login_count=? WHERE id=? 
+2021-07-19 15:26:58.049 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.updateById - ==> Parameters: zl(String), $2a$10$v9mQ3VGE7SjSL0QDbcW.reA2kSnxnWf1TVAjFvkWwfWk/VMfDaMxu(String), 00222(String), 1(Integer), null, 10(Integer), 9(Integer)
+2021-07-19 15:26:58.095 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.updateById - <==    Updates: 1
+2021-07-19 15:26:58.173 [main] DEBUG c.s.w.a.p.mapper.OperationLogsMapper.insert - ==>  Preparing: INSERT INTO operation_logs ( description, action, request_path, json, ip_addr, created_on, created_by ) VALUES ( ?, ?, ?, ?, ?, ?, ? ) 
+2021-07-19 15:26:58.174 [main] DEBUG c.s.w.a.p.mapper.OperationLogsMapper.insert - ==> Parameters: 登录以后返回token(String), login(String), (String), com.sim.wifi.authority.dto.UsersLoginParam@2d41bb5a(String), 127.0.0.1(String), 2021-07-19 15:26:58.0(Timestamp), 8888(Integer)
+2021-07-19 15:26:58.203 [main] DEBUG c.s.w.a.p.mapper.OperationLogsMapper.insert - <==    Updates: 1
+2021-07-19 15:26:58.205 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.selectList - ==>  Preparing: SELECT id,username,password,employee_no,phone,department,name,status,locking_time,fail_login_count,created_on,changed_on,created_by,changed_by FROM users WHERE (username = ?) 
+2021-07-19 15:26:58.206 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.selectList - ==> Parameters: zl(String)
+2021-07-19 15:26:58.207 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.selectList - <==      Total: 1
+2021-07-19 15:26:58.207 [main] DEBUG c.s.w.a.p.m.PermissionsMapper.getPermissionsList - ==>  Preparing: SELECT b.id id, b.url url, b.`name` `name`, b.parent_id parent_id FROM user_permission_relation a LEFT JOIN permissions b ON a.permission_id = b.id WHERE a.user_id = ? AND b.type = ? AND b.`status` = 1 AND b.id IS NOT NULL ORDER BY b.sort 
+2021-07-19 15:26:58.208 [main] DEBUG c.s.w.a.p.m.PermissionsMapper.getPermissionsList - ==> Parameters: 9(Integer), 2(Integer)
+2021-07-19 15:26:58.208 [main] DEBUG c.s.w.a.p.m.PermissionsMapper.getPermissionsList - <==      Total: 0
+2021-07-19 15:26:58.263 [main] DEBUG c.s.w.a.permission.mapper.LoginLogsMapper.insert - ==>  Preparing: INSERT INTO login_logs ( use_id, status, login_time ) VALUES ( ?, ?, ? ) 
+2021-07-19 15:26:58.263 [main] DEBUG c.s.w.a.permission.mapper.LoginLogsMapper.insert - ==> Parameters: 9(Integer), 0(Integer), 2021-07-19 15:26:58.0(Timestamp)
+2021-07-19 15:26:58.264 [main] DEBUG c.s.w.a.permission.mapper.LoginLogsMapper.insert - <==    Updates: 1
+2021-07-19 15:26:58.265 [main] DEBUG c.s.w.a.p.mapper.LoginLogsMapper.selectList - ==>  Preparing: SELECT id,use_id,status,login_time FROM login_logs WHERE (use_id = ? AND login_time BETWEEN ? AND ?) 
+2021-07-19 15:26:58.266 [main] DEBUG c.s.w.a.p.mapper.LoginLogsMapper.selectList - ==> Parameters: 9(Integer), 2021-07-19 15:24:58.0(Timestamp), 2021-07-19 15:26:58.0(Timestamp)
+2021-07-19 15:26:58.267 [main] DEBUG c.s.w.a.p.mapper.LoginLogsMapper.selectList - <==      Total: 3
+2021-07-19 15:26:58.268 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.updateById - ==>  Preparing: UPDATE users SET username=?, password=?, employee_no=?, status=?, locking_time=?, fail_login_count=? WHERE id=? 
+2021-07-19 15:26:58.268 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.updateById - ==> Parameters: zl(String), $2a$10$v9mQ3VGE7SjSL0QDbcW.reA2kSnxnWf1TVAjFvkWwfWk/VMfDaMxu(String), 00222(String), 1(Integer), null, 11(Integer), 9(Integer)
+2021-07-19 15:26:58.269 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.updateById - <==    Updates: 1
+2021-07-19 15:26:58.300 [main] DEBUG c.s.w.a.p.mapper.OperationLogsMapper.insert - ==>  Preparing: INSERT INTO operation_logs ( description, action, request_path, json, ip_addr, created_on, created_by ) VALUES ( ?, ?, ?, ?, ?, ?, ? ) 
+2021-07-19 15:26:58.300 [main] DEBUG c.s.w.a.p.mapper.OperationLogsMapper.insert - ==> Parameters: 登录以后返回token(String), login(String), (String), com.sim.wifi.authority.dto.UsersLoginParam@2d41bb5a(String), 127.0.0.1(String), 2021-07-19 15:26:58.0(Timestamp), 8888(Integer)
+2021-07-19 15:26:58.337 [main] DEBUG c.s.w.a.p.mapper.OperationLogsMapper.insert - <==    Updates: 1
+2021-07-19 15:26:58.344 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.selectList - ==>  Preparing: SELECT id,username,password,employee_no,phone,department,name,status,locking_time,fail_login_count,created_on,changed_on,created_by,changed_by FROM users WHERE (username = ?) 
+2021-07-19 15:26:58.344 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.selectList - ==> Parameters: zl(String)
+2021-07-19 15:26:58.346 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.selectList - <==      Total: 1
+2021-07-19 15:26:58.347 [main] DEBUG c.s.w.a.p.m.PermissionsMapper.getPermissionsList - ==>  Preparing: SELECT b.id id, b.url url, b.`name` `name`, b.parent_id parent_id FROM user_permission_relation a LEFT JOIN permissions b ON a.permission_id = b.id WHERE a.user_id = ? AND b.type = ? AND b.`status` = 1 AND b.id IS NOT NULL ORDER BY b.sort 
+2021-07-19 15:26:58.347 [main] DEBUG c.s.w.a.p.m.PermissionsMapper.getPermissionsList - ==> Parameters: 9(Integer), 2(Integer)
+2021-07-19 15:26:58.348 [main] DEBUG c.s.w.a.p.m.PermissionsMapper.getPermissionsList - <==      Total: 0
+2021-07-19 15:26:58.403 [main] DEBUG c.s.w.a.permission.mapper.LoginLogsMapper.insert - ==>  Preparing: INSERT INTO login_logs ( use_id, status, login_time ) VALUES ( ?, ?, ? ) 
+2021-07-19 15:26:58.404 [main] DEBUG c.s.w.a.permission.mapper.LoginLogsMapper.insert - ==> Parameters: 9(Integer), 0(Integer), 2021-07-19 15:26:58.0(Timestamp)
+2021-07-19 15:26:58.405 [main] DEBUG c.s.w.a.permission.mapper.LoginLogsMapper.insert - <==    Updates: 1
+2021-07-19 15:26:58.406 [main] DEBUG c.s.w.a.p.mapper.LoginLogsMapper.selectList - ==>  Preparing: SELECT id,use_id,status,login_time FROM login_logs WHERE (use_id = ? AND login_time BETWEEN ? AND ?) 
+2021-07-19 15:26:58.407 [main] DEBUG c.s.w.a.p.mapper.LoginLogsMapper.selectList - ==> Parameters: 9(Integer), 2021-07-19 15:24:58.0(Timestamp), 2021-07-19 15:26:58.0(Timestamp)
+2021-07-19 15:26:58.408 [main] DEBUG c.s.w.a.p.mapper.LoginLogsMapper.selectList - <==      Total: 4
+2021-07-19 15:26:58.408 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.updateById - ==>  Preparing: UPDATE users SET username=?, password=?, employee_no=?, status=?, locking_time=?, fail_login_count=? WHERE id=? 
+2021-07-19 15:26:58.409 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.updateById - ==> Parameters: zl(String), $2a$10$v9mQ3VGE7SjSL0QDbcW.reA2kSnxnWf1TVAjFvkWwfWk/VMfDaMxu(String), 00222(String), 1(Integer), null, 12(Integer), 9(Integer)
+2021-07-19 15:26:58.409 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.updateById - <==    Updates: 1
+2021-07-19 15:26:58.448 [main] DEBUG c.s.w.a.p.mapper.OperationLogsMapper.insert - ==>  Preparing: INSERT INTO operation_logs ( description, action, request_path, json, ip_addr, created_on, created_by ) VALUES ( ?, ?, ?, ?, ?, ?, ? ) 
+2021-07-19 15:26:58.449 [main] DEBUG c.s.w.a.p.mapper.OperationLogsMapper.insert - ==> Parameters: 登录以后返回token(String), login(String), (String), com.sim.wifi.authority.dto.UsersLoginParam@2d41bb5a(String), 127.0.0.1(String), 2021-07-19 15:26:58.0(Timestamp), 8888(Integer)
+2021-07-19 15:26:58.472 [main] DEBUG c.s.w.a.p.mapper.OperationLogsMapper.insert - <==    Updates: 1
+2021-07-19 15:26:58.474 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.selectList - ==>  Preparing: SELECT id,username,password,employee_no,phone,department,name,status,locking_time,fail_login_count,created_on,changed_on,created_by,changed_by FROM users WHERE (username = ?) 
+2021-07-19 15:26:58.474 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.selectList - ==> Parameters: zl(String)
+2021-07-19 15:26:58.475 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.selectList - <==      Total: 1
+2021-07-19 15:26:58.476 [main] DEBUG c.s.w.a.p.m.PermissionsMapper.getPermissionsList - ==>  Preparing: SELECT b.id id, b.url url, b.`name` `name`, b.parent_id parent_id FROM user_permission_relation a LEFT JOIN permissions b ON a.permission_id = b.id WHERE a.user_id = ? AND b.type = ? AND b.`status` = 1 AND b.id IS NOT NULL ORDER BY b.sort 
+2021-07-19 15:26:58.476 [main] DEBUG c.s.w.a.p.m.PermissionsMapper.getPermissionsList - ==> Parameters: 9(Integer), 2(Integer)
+2021-07-19 15:26:58.477 [main] DEBUG c.s.w.a.p.m.PermissionsMapper.getPermissionsList - <==      Total: 0
+2021-07-19 15:26:58.531 [main] DEBUG c.s.w.a.permission.mapper.LoginLogsMapper.insert - ==>  Preparing: INSERT INTO login_logs ( use_id, status, login_time ) VALUES ( ?, ?, ? ) 
+2021-07-19 15:26:58.532 [main] DEBUG c.s.w.a.permission.mapper.LoginLogsMapper.insert - ==> Parameters: 9(Integer), 0(Integer), 2021-07-19 15:26:58.0(Timestamp)
+2021-07-19 15:26:58.533 [main] DEBUG c.s.w.a.permission.mapper.LoginLogsMapper.insert - <==    Updates: 1
+2021-07-19 15:26:58.534 [main] DEBUG c.s.w.a.p.mapper.LoginLogsMapper.selectList - ==>  Preparing: SELECT id,use_id,status,login_time FROM login_logs WHERE (use_id = ? AND login_time BETWEEN ? AND ?) 
+2021-07-19 15:26:58.535 [main] DEBUG c.s.w.a.p.mapper.LoginLogsMapper.selectList - ==> Parameters: 9(Integer), 2021-07-19 15:24:58.0(Timestamp), 2021-07-19 15:26:58.0(Timestamp)
+2021-07-19 15:26:58.536 [main] DEBUG c.s.w.a.p.mapper.LoginLogsMapper.selectList - <==      Total: 5
+2021-07-19 15:26:58.537 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.updateById - ==>  Preparing: UPDATE users SET username=?, password=?, employee_no=?, status=?, locking_time=?, fail_login_count=? WHERE id=? 
+2021-07-19 15:26:58.538 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.updateById - ==> Parameters: zl(String), $2a$10$v9mQ3VGE7SjSL0QDbcW.reA2kSnxnWf1TVAjFvkWwfWk/VMfDaMxu(String), 00222(String), 1(Integer), 2021-07-19 15:29:58.0(Timestamp), 13(Integer), 9(Integer)
+2021-07-19 15:26:58.538 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.updateById - <==    Updates: 1
+2021-07-19 15:26:58.572 [main] DEBUG c.s.w.a.p.mapper.OperationLogsMapper.insert - ==>  Preparing: INSERT INTO operation_logs ( description, action, request_path, json, ip_addr, created_on, created_by ) VALUES ( ?, ?, ?, ?, ?, ?, ? ) 
+2021-07-19 15:26:58.573 [main] DEBUG c.s.w.a.p.mapper.OperationLogsMapper.insert - ==> Parameters: 登录以后返回token(String), login(String), (String), com.sim.wifi.authority.dto.UsersLoginParam@2d41bb5a(String), 127.0.0.1(String), 2021-07-19 15:26:58.0(Timestamp), 8888(Integer)
+2021-07-19 15:26:58.596 [main] DEBUG c.s.w.a.p.mapper.OperationLogsMapper.insert - <==    Updates: 1
+2021-07-19 15:26:58.598 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.selectList - ==>  Preparing: SELECT id,username,password,employee_no,phone,department,name,status,locking_time,fail_login_count,created_on,changed_on,created_by,changed_by FROM users WHERE (username = ?) 
+2021-07-19 15:26:58.598 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.selectList - ==> Parameters: zl(String)
+2021-07-19 15:26:58.600 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.selectList - <==      Total: 1
+2021-07-19 15:26:58.601 [main] DEBUG c.s.w.a.p.m.PermissionsMapper.getPermissionsList - ==>  Preparing: SELECT b.id id, b.url url, b.`name` `name`, b.parent_id parent_id FROM user_permission_relation a LEFT JOIN permissions b ON a.permission_id = b.id WHERE a.user_id = ? AND b.type = ? AND b.`status` = 1 AND b.id IS NOT NULL ORDER BY b.sort 
+2021-07-19 15:26:58.601 [main] DEBUG c.s.w.a.p.m.PermissionsMapper.getPermissionsList - ==> Parameters: 9(Integer), 2(Integer)
+2021-07-19 15:26:58.602 [main] DEBUG c.s.w.a.p.m.PermissionsMapper.getPermissionsList - <==      Total: 0
+2021-07-19 15:26:58.605 [main] DEBUG c.s.w.a.p.mapper.OperationLogsMapper.insert - ==>  Preparing: INSERT INTO operation_logs ( description, action, request_path, json, ip_addr, created_on, created_by ) VALUES ( ?, ?, ?, ?, ?, ?, ? ) 
+2021-07-19 15:26:58.606 [main] DEBUG c.s.w.a.p.mapper.OperationLogsMapper.insert - ==> Parameters: 登录以后返回token(String), login(String), (String), com.sim.wifi.authority.dto.UsersLoginParam@2d41bb5a(String), 127.0.0.1(String), 2021-07-19 15:26:58.0(Timestamp), 8888(Integer)
+2021-07-19 15:26:58.636 [main] DEBUG c.s.w.a.p.mapper.OperationLogsMapper.insert - <==    Updates: 1
+2021-07-19 15:28:35.877 [main] DEBUG c.s.w.a.permission.controller.UsersControllerTest - Running with Spring Boot v2.3.0.RELEASE, Spring v5.2.6.RELEASE
+2021-07-19 15:28:41.106 [main] DEBUG c.s.w.a.p.mapper.PermissionsMapper.selectList - ==>  Preparing: SELECT id,parent_id,name,url,type,status,sort,created_on,changed_on,created_by,changed_by FROM permissions WHERE (type = ?) 
+2021-07-19 15:28:41.128 [main] DEBUG c.s.w.a.p.mapper.PermissionsMapper.selectList - ==> Parameters: 2(Integer)
+2021-07-19 15:28:41.147 [main] DEBUG c.s.w.a.p.mapper.PermissionsMapper.selectList - <==      Total: 0
+2021-07-19 15:28:42.418 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.selectList - ==>  Preparing: SELECT id,username,password,employee_no,phone,department,name,status,locking_time,fail_login_count,created_on,changed_on,created_by,changed_by FROM users WHERE (username = ?) 
+2021-07-19 15:28:42.419 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.selectList - ==> Parameters: zl(String)
+2021-07-19 15:28:42.423 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.selectList - <==      Total: 1
+2021-07-19 15:28:42.426 [main] DEBUG c.s.w.a.p.m.PermissionsMapper.getPermissionsList - ==>  Preparing: SELECT b.id id, b.url url, b.`name` `name`, b.parent_id parent_id FROM user_permission_relation a LEFT JOIN permissions b ON a.permission_id = b.id WHERE a.user_id = ? AND b.type = ? AND b.`status` = 1 AND b.id IS NOT NULL ORDER BY b.sort 
+2021-07-19 15:28:42.427 [main] DEBUG c.s.w.a.p.m.PermissionsMapper.getPermissionsList - ==> Parameters: 9(Integer), 2(Integer)
+2021-07-19 15:28:42.428 [main] DEBUG c.s.w.a.p.m.PermissionsMapper.getPermissionsList - <==      Total: 0
+2021-07-19 15:28:42.499 [main] DEBUG c.s.w.a.p.mapper.OperationLogsMapper.insert - ==>  Preparing: INSERT INTO operation_logs ( description, action, request_path, json, ip_addr, created_on, created_by ) VALUES ( ?, ?, ?, ?, ?, ?, ? ) 
+2021-07-19 15:28:42.501 [main] DEBUG c.s.w.a.p.mapper.OperationLogsMapper.insert - ==> Parameters: 登录以后返回token(String), login(String), (String), com.sim.wifi.authority.dto.UsersLoginParam@41bbdd8a(String), 127.0.0.1(String), 2021-07-19 15:28:42.0(Timestamp), 8888(Integer)
+2021-07-19 15:28:42.526 [main] DEBUG c.s.w.a.p.mapper.OperationLogsMapper.insert - <==    Updates: 1
+2021-07-19 15:28:42.530 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.selectList - ==>  Preparing: SELECT id,username,password,employee_no,phone,department,name,status,locking_time,fail_login_count,created_on,changed_on,created_by,changed_by FROM users WHERE (username = ?) 
+2021-07-19 15:28:42.530 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.selectList - ==> Parameters: zl(String)
+2021-07-19 15:28:42.532 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.selectList - <==      Total: 1
+2021-07-19 15:28:42.533 [main] DEBUG c.s.w.a.p.m.PermissionsMapper.getPermissionsList - ==>  Preparing: SELECT b.id id, b.url url, b.`name` `name`, b.parent_id parent_id FROM user_permission_relation a LEFT JOIN permissions b ON a.permission_id = b.id WHERE a.user_id = ? AND b.type = ? AND b.`status` = 1 AND b.id IS NOT NULL ORDER BY b.sort 
+2021-07-19 15:28:42.533 [main] DEBUG c.s.w.a.p.m.PermissionsMapper.getPermissionsList - ==> Parameters: 9(Integer), 2(Integer)
+2021-07-19 15:28:42.534 [main] DEBUG c.s.w.a.p.m.PermissionsMapper.getPermissionsList - <==      Total: 0
+2021-07-19 15:28:42.536 [main] DEBUG c.s.w.a.p.mapper.OperationLogsMapper.insert - ==>  Preparing: INSERT INTO operation_logs ( description, action, request_path, json, ip_addr, created_on, created_by ) VALUES ( ?, ?, ?, ?, ?, ?, ? ) 
+2021-07-19 15:28:42.537 [main] DEBUG c.s.w.a.p.mapper.OperationLogsMapper.insert - ==> Parameters: 登录以后返回token(String), login(String), (String), com.sim.wifi.authority.dto.UsersLoginParam@41bbdd8a(String), 127.0.0.1(String), 2021-07-19 15:28:42.0(Timestamp), 8888(Integer)
+2021-07-19 15:28:42.575 [main] DEBUG c.s.w.a.p.mapper.OperationLogsMapper.insert - <==    Updates: 1
+2021-07-19 15:28:42.581 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.selectList - ==>  Preparing: SELECT id,username,password,employee_no,phone,department,name,status,locking_time,fail_login_count,created_on,changed_on,created_by,changed_by FROM users WHERE (username = ?) 
+2021-07-19 15:28:42.581 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.selectList - ==> Parameters: zl(String)
+2021-07-19 15:28:42.583 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.selectList - <==      Total: 1
+2021-07-19 15:28:42.583 [main] DEBUG c.s.w.a.p.m.PermissionsMapper.getPermissionsList - ==>  Preparing: SELECT b.id id, b.url url, b.`name` `name`, b.parent_id parent_id FROM user_permission_relation a LEFT JOIN permissions b ON a.permission_id = b.id WHERE a.user_id = ? AND b.type = ? AND b.`status` = 1 AND b.id IS NOT NULL ORDER BY b.sort 
+2021-07-19 15:28:42.584 [main] DEBUG c.s.w.a.p.m.PermissionsMapper.getPermissionsList - ==> Parameters: 9(Integer), 2(Integer)
+2021-07-19 15:28:42.585 [main] DEBUG c.s.w.a.p.m.PermissionsMapper.getPermissionsList - <==      Total: 0
+2021-07-19 15:28:42.587 [main] DEBUG c.s.w.a.p.mapper.OperationLogsMapper.insert - ==>  Preparing: INSERT INTO operation_logs ( description, action, request_path, json, ip_addr, created_on, created_by ) VALUES ( ?, ?, ?, ?, ?, ?, ? ) 
+2021-07-19 15:28:42.588 [main] DEBUG c.s.w.a.p.mapper.OperationLogsMapper.insert - ==> Parameters: 登录以后返回token(String), login(String), (String), com.sim.wifi.authority.dto.UsersLoginParam@41bbdd8a(String), 127.0.0.1(String), 2021-07-19 15:28:42.0(Timestamp), 8888(Integer)
+2021-07-19 15:28:42.610 [main] DEBUG c.s.w.a.p.mapper.OperationLogsMapper.insert - <==    Updates: 1
+2021-07-19 15:28:42.614 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.selectList - ==>  Preparing: SELECT id,username,password,employee_no,phone,department,name,status,locking_time,fail_login_count,created_on,changed_on,created_by,changed_by FROM users WHERE (username = ?) 
+2021-07-19 15:28:42.614 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.selectList - ==> Parameters: zl(String)
+2021-07-19 15:28:42.616 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.selectList - <==      Total: 1
+2021-07-19 15:28:42.616 [main] DEBUG c.s.w.a.p.m.PermissionsMapper.getPermissionsList - ==>  Preparing: SELECT b.id id, b.url url, b.`name` `name`, b.parent_id parent_id FROM user_permission_relation a LEFT JOIN permissions b ON a.permission_id = b.id WHERE a.user_id = ? AND b.type = ? AND b.`status` = 1 AND b.id IS NOT NULL ORDER BY b.sort 
+2021-07-19 15:28:42.617 [main] DEBUG c.s.w.a.p.m.PermissionsMapper.getPermissionsList - ==> Parameters: 9(Integer), 2(Integer)
+2021-07-19 15:28:42.617 [main] DEBUG c.s.w.a.p.m.PermissionsMapper.getPermissionsList - <==      Total: 0
+2021-07-19 15:28:42.620 [main] DEBUG c.s.w.a.p.mapper.OperationLogsMapper.insert - ==>  Preparing: INSERT INTO operation_logs ( description, action, request_path, json, ip_addr, created_on, created_by ) VALUES ( ?, ?, ?, ?, ?, ?, ? ) 
+2021-07-19 15:28:42.621 [main] DEBUG c.s.w.a.p.mapper.OperationLogsMapper.insert - ==> Parameters: 登录以后返回token(String), login(String), (String), com.sim.wifi.authority.dto.UsersLoginParam@41bbdd8a(String), 127.0.0.1(String), 2021-07-19 15:28:42.0(Timestamp), 8888(Integer)
+2021-07-19 15:28:42.650 [main] DEBUG c.s.w.a.p.mapper.OperationLogsMapper.insert - <==    Updates: 1
+2021-07-19 15:28:42.653 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.selectList - ==>  Preparing: SELECT id,username,password,employee_no,phone,department,name,status,locking_time,fail_login_count,created_on,changed_on,created_by,changed_by FROM users WHERE (username = ?) 
+2021-07-19 15:28:42.653 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.selectList - ==> Parameters: zl(String)
+2021-07-19 15:28:42.655 [main] DEBUG c.s.w.a.permission.mapper.UsersMapper.selectList - <==      Total: 1
+2021-07-19 15:28:42.655 [main] DEBUG c.s.w.a.p.m.PermissionsMapper.getPermissionsList - ==>  Preparing: SELECT b.id id, b.url url, b.`name` `name`, b.parent_id parent_id FROM user_permission_relation a LEFT JOIN permissions b ON a.permission_id = b.id WHERE a.user_id = ? AND b.type = ? AND b.`status` = 1 AND b.id IS NOT NULL ORDER BY b.sort 
+2021-07-19 15:28:42.656 [main] DEBUG c.s.w.a.p.m.PermissionsMapper.getPermissionsList - ==> Parameters: 9(Integer), 2(Integer)
+2021-07-19 15:28:42.657 [main] DEBUG c.s.w.a.p.m.PermissionsMapper.getPermissionsList - <==      Total: 0
+2021-07-19 15:28:42.660 [main] DEBUG c.s.w.a.p.mapper.OperationLogsMapper.insert - ==>  Preparing: INSERT INTO operation_logs ( description, action, request_path, json, ip_addr, created_on, created_by ) VALUES ( ?, ?, ?, ?, ?, ?, ? ) 
+2021-07-19 15:28:42.661 [main] DEBUG c.s.w.a.p.mapper.OperationLogsMapper.insert - ==> Parameters: 登录以后返回token(String), login(String), (String), com.sim.wifi.authority.dto.UsersLoginParam@41bbdd8a(String), 127.0.0.1(String), 2021-07-19 15:28:42.0(Timestamp), 8888(Integer)
+2021-07-19 15:28:42.685 [main] DEBUG c.s.w.a.p.mapper.OperationLogsMapper.insert - <==    Updates: 1

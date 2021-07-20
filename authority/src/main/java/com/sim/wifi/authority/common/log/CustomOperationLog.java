@@ -1,4 +1,4 @@
-package com.sim.wifi.authority.common.logSettle;
+package com.sim.wifi.authority.common.log;
 
 import java.lang.annotation.*;
 

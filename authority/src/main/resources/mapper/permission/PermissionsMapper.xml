@@ -21,13 +21,16 @@
             b.id id,
             b.url url,
             b.`name` `name`,
-            b.parent_id parent_id
+            b.parent_id parent_id,
+            b.type type
         FROM
             user_permission_relation a
                 LEFT JOIN permissions b ON a.permission_id = b.id
         WHERE
             a.user_id = #{userId}
-          AND b.type = #{type}
+        <if test="type !=null and type !=''">
+            AND b.type = #{type}
+        </if>
           AND b.`status` = 1
           AND b.id IS NOT NULL
         ORDER BY

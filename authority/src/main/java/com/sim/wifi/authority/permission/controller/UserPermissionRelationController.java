@@ -2,6 +2,7 @@ package com.sim.wifi.authority.permission.controller;
 
 
 import com.sim.wifi.authority.common.api.CommonResult;
+import com.sim.wifi.authority.common.log.CustomOperationLog;
 import com.sim.wifi.authority.permission.service.UserPermissionRelationService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -30,6 +31,7 @@ public class UserPermissionRelationController {
     @Autowired
     private UserPermissionRelationService userPermissionRelationService;
 
+    @CustomOperationLog
     @ApiOperation("给用户分配权限")
     @RequestMapping(value = "/allocPermission", method = RequestMethod.POST)
     @ResponseBody

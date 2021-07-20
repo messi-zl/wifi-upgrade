@@ -1,4 +1,4 @@
-package com.sim.wifi.authority.common.logSettle;
+package com.sim.wifi.authority.common.log;
 
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;
@@ -25,7 +25,10 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @Description: 日志
@@ -40,7 +43,7 @@ public class LogAspect {
     @Autowired
     private OperationLogsService operationLogsService;
 
-    @Pointcut("@annotation(com.sim.wifi.authority.common.logSettle.CustomOperationLog)")
+    @Pointcut("@annotation(com.sim.wifi.authority.common.log.CustomOperationLog)")
     public void pointCutPlace() {
     }
 
@@ -108,8 +111,8 @@ public class LogAspect {
         //operationLog.setIpAddr(getIp(request));
         operationLog.setAction(signature.getName());
         Object jsonParameter = getParameter(method, joinPoint.getArgs());
-        if (StrUtil.isEmptyIfStr(jsonParameter)){
-             jsonParameter = "";
+        if (StrUtil.isEmptyIfStr(jsonParameter)) {
+            jsonParameter = "";
         }
         operationLog.setJson(jsonParameter.toString());
         //operationLog.setRequestPath(request.getRequestURL().toString());
@@ -153,24 +156,24 @@ public class LogAspect {
     }
 
     /**
+     * @param request
+     * @return java.lang.String
      * @Description 得到真实ip
      * @Date 2021/7/12
-     * @param request
-     *@return java.lang.String
      **/
     public static String getIp(HttpServletRequest request) {
         String ip = request.getHeader("X-Forwarded-For");
-        if(StrUtil.isNotEmpty(ip) && !"unKnown".equalsIgnoreCase(ip)){
+        if (StrUtil.isNotEmpty(ip) && !"unKnown".equalsIgnoreCase(ip)) {
             //多次反向代理后会有多个ip值，第一个ip才是真实ip
             int index = ip.indexOf(",");
-            if(index != -1){
-                return ip.substring(0,index);
-            }else{
+            if (index != -1) {
+                return ip.substring(0, index);
+            } else {
                 return ip;
             }
         }
         ip = request.getHeader("X-Real-IP");
-        if(StrUtil.isNotEmpty(ip) && !"unKnown".equalsIgnoreCase(ip)){
+        if (StrUtil.isNotEmpty(ip) && !"unKnown".equalsIgnoreCase(ip)) {
             return ip;
         }
         return request.getRemoteAddr();

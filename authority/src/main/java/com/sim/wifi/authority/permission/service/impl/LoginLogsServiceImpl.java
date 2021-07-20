@@ -1,11 +1,10 @@
 package com.sim.wifi.authority.permission.service.impl;
 
-import cn.hutool.core.date.DateUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.sim.wifi.authority.permission.model.LoginLogs;
-import com.sim.wifi.authority.permission.mapper.LoginLogsMapper;
-import com.sim.wifi.authority.permission.service.LoginLogsService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.sim.wifi.authority.permission.mapper.LoginLogsMapper;
+import com.sim.wifi.authority.permission.model.LoginLogs;
+import com.sim.wifi.authority.permission.service.LoginLogsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -26,13 +25,13 @@ public class LoginLogsServiceImpl extends ServiceImpl<LoginLogsMapper, LoginLogs
     private static final Logger logger = LoggerFactory.getLogger(LoginLogsServiceImpl.class);
 
     @Override
-    public List<LoginLogs> lockNode(Integer userId,Integer rangeTime, Date endDate, Integer status) {
+    public List<LoginLogs> lockNode(Integer userId, Integer rangeTime, Date endDate, Integer status) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(endDate);
-        calendar.add(Calendar.MINUTE,~(rangeTime-1));
+        calendar.add(Calendar.MINUTE, ~(rangeTime - 1));
         Date beginDate = calendar.getTime();
         QueryWrapper<LoginLogs> wrapper = new QueryWrapper<>();
-        wrapper.lambda().eq(LoginLogs::getUseId,userId).between(LoginLogs::getLoginTime,beginDate,endDate);
+        wrapper.lambda().eq(LoginLogs::getUseId, userId).between(LoginLogs::getLoginTime, beginDate, endDate);
         List<LoginLogs> loginLogsList = list(wrapper);
         return loginLogsList;
     }

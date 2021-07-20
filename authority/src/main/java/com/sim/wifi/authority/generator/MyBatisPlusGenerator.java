@@ -25,7 +25,7 @@ import java.util.Scanner;
 public class MyBatisPlusGenerator {
 
     public static void main(String[] args) {
-        String projectPath = String.format("%s%s",System.getProperty("user.dir"),"\\authority");//src上一级 pakagemodify
+        String projectPath = String.format("%s%s", System.getProperty("user.dir"), "\\authority");//src上一级 pakagemodify
         String moduleName = scanner("模块名");
         String[] tableNames = scanner("表名，多个英文逗号分割").split(",");
         // 代码生成器

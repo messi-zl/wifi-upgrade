@@ -29,7 +29,7 @@ public class DynamicSecurityMetadataSource implements FilterInvocationSecurityMe
     public void loadDataSource() {
         logger.info("加载configAttributeMap……");
         configAttributeMap = dynamicSecurityService.loadDataSource();
-        logger.info("加载configAttributeMap完成,configAttributeMap={}",configAttributeMap.toString());
+        logger.info("加载configAttributeMap完成,configAttributeMap={}", configAttributeMap.toString());
     }
 
     public void clearDataSource() {
@@ -44,21 +44,21 @@ public class DynamicSecurityMetadataSource implements FilterInvocationSecurityMe
         List<ConfigAttribute> configAttributes = new ArrayList<>();
         //获取当前访问的路径
         String url = ((FilterInvocation) o).getRequestUrl();
-        logger.info("当前request的url={}",url);
+        logger.info("当前request的url={}", url);
         String path = URLUtil.getPath(url);
-        logger.info("当前url的path={}",path);
+        logger.info("当前url的path={}", path);
         PathMatcher pathMatcher = new AntPathMatcher();
         Iterator<String> iterator = configAttributeMap.keySet().iterator();
         //获取访问该路径所需资源
         while (iterator.hasNext()) {
             String pattern = iterator.next();
             if (pathMatcher.match(pattern, path)) {
-                logger.info("当前请求路径={},与configAttributeMap的key值={}，匹配，add all value",path,pattern);
+                logger.info("当前请求路径={},与configAttributeMap的key值={}，匹配，add all value", path, pattern);
                 configAttributes.add(configAttributeMap.get(pattern));
             }
         }
         // 未设置操作请求权限，返回空集合
-        logger.info("go each of them,the matching,configAttributes={}",configAttributes.toString());
+        logger.info("go each of them,the matching,configAttributes={}", configAttributes.toString());
         return configAttributes;
     }
 

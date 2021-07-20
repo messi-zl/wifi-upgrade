@@ -1,8 +1,7 @@
 package com.sim.wifi.authority.permission.service;
 
-import com.sim.wifi.authority.permission.model.UserPermissionRelation;
 import com.baomidou.mybatisplus.extension.service.IService;
-import org.springframework.transaction.annotation.Transactional;
+import com.sim.wifi.authority.permission.model.UserPermissionRelation;
 
 import java.util.List;
 

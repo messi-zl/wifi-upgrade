@@ -2,33 +2,28 @@ package com.sim.wifi.authority.permission.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.date.DatePattern;
-import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUnit;
 import cn.hutool.core.date.DateUtil;
-import cn.hutool.core.date.format.DateParser;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.sim.wifi.authority.common.exception.ApiException;
-import com.sim.wifi.authority.common.exception.Asserts;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.sim.wifi.authority.common.api.CommonResult;
 import com.sim.wifi.authority.dto.UpdateUsersPasswordParam;
 import com.sim.wifi.authority.dto.UsersParam;
+import com.sim.wifi.authority.permission.mapper.UsersMapper;
 import com.sim.wifi.authority.permission.model.LoginLogs;
 import com.sim.wifi.authority.permission.model.Permissions;
 import com.sim.wifi.authority.permission.model.Users;
-import com.sim.wifi.authority.permission.mapper.UsersMapper;
 import com.sim.wifi.authority.permission.service.LoginLogsService;
 import com.sim.wifi.authority.permission.service.PermissionsService;
 import com.sim.wifi.authority.permission.service.UsersService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.sim.wifi.authority.security.securityExpand.CustomUserDetails;
+import com.sim.wifi.authority.security.config.CustomUserDetails;
 import com.sim.wifi.authority.security.util.JwtTokenUtil;
-import io.lettuce.core.protocol.TransactionalCommand;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -36,14 +31,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.TransactionDefinition;
-import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
-import java.text.DateFormat;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * description: 用户表 服务实现类
@@ -167,7 +158,7 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
         //将密码进行加密操作
         String encodePassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encodePassword);
-        user.setCreatedOn(DateUtil.parse(DateUtil.now(),DatePattern.NORM_DATETIME_PATTERN));
+        user.setCreatedOn(DateUtil.parse(DateUtil.now(), DatePattern.NORM_DATETIME_PATTERN));
         baseMapper.insert(user);
         return user;
     }
@@ -175,6 +166,30 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
     @Override
     public String refreshToken(String oldToken) {
         return jwtTokenUtil.refreshHeadToken(oldToken);
+    }
+
+
+    @Override
+    public CommonResult getUserInfo(String username) {
+        if (StrUtil.isBlank(username)) {
+            return CommonResult.failed("用户名为空");
+        }
+        Users user = getUserByUserName(username);
+        Map<String, Object> data = new HashMap<>();
+        data.put("username", user.getUsername());
+        //得到该用户拥有的所有权限
+        List<Permissions> permissionsList = permissionsService.getPermissionsList(user.getId(), null);
+        data.put("directorys", permissionsList.stream().filter(permission -> permission.getType().compareTo(PermissionsService.TYPE_DIRECTORY) == 0).collect(Collectors.toList()));
+        data.put("menus", permissionsList.stream().filter(permission -> permission.getType().compareTo(PermissionsService.TYPE_MENU) == 0).collect(Collectors.toList()));
+        data.put("buttons", permissionsList.stream().filter(permission -> permission.getType().compareTo(PermissionsService.TYPE_BUTTON) == 0).collect(Collectors.toList()));
+/*        data.put("icon", umsAdmin.getIcon());
+        List<UmsRole> roleList = adminService.getRoleList(umsAdmin.getId());
+        if(CollUtil.isNotEmpty(roleList)){
+            List<String> roles = roleList.stream().map(UmsRole::getName).collect(Collectors.toList());
+            data.put("roles",roles);
+        }*/
+        logger.info("获取当前登录用户的信息成功");
+        return CommonResult.success(data);
     }
 
     @Override
@@ -192,7 +207,7 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
                 user.setPassword(passwordEncoder.encode(user.getPassword()));
             }
         }
-        user.setChangedOn(DateUtil.parse(DateUtil.now(),DatePattern.NORM_DATETIME_PATTERN));
+        user.setChangedOn(DateUtil.parse(DateUtil.now(), DatePattern.NORM_DATETIME_PATTERN));
         //todo 修改人
         boolean success = updateById(user);
         //userCacheService.delUser(userId);
@@ -217,7 +232,7 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
             return -3;
         }
         user.setPassword(passwordEncoder.encode(updateUsersPasswordParam.getNewPassword()));
-        user.setChangedOn(DateUtil.parse(DateUtil.now(),DatePattern.NORM_DATETIME_PATTERN));
+        user.setChangedOn(DateUtil.parse(DateUtil.now(), DatePattern.NORM_DATETIME_PATTERN));
         //todo  修改人
         updateById(user);
         //userCacheService.delUser(user.getId());

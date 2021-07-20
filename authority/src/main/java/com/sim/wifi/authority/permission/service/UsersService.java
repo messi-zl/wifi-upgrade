@@ -1,9 +1,10 @@
 package com.sim.wifi.authority.permission.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.sim.wifi.authority.common.api.CommonResult;
 import com.sim.wifi.authority.dto.UpdateUsersPasswordParam;
 import com.sim.wifi.authority.dto.UsersParam;
 import com.sim.wifi.authority.permission.model.Users;
-import com.baomidou.mybatisplus.extension.service.IService;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Map;
@@ -37,7 +38,7 @@ public interface UsersService extends IService<Users> {
      * @param password 密码
      * @return 生成的JWT的token
      */
-    Map<String,String> login(String username, String password);
+    Map<String, String> login(String username, String password);
 
     /**
      * 注册功能
@@ -60,4 +61,9 @@ public interface UsersService extends IService<Users> {
      * 修改密码
      */
     int updatePassword(UpdateUsersPasswordParam updateUsersPasswordParam);
+
+    /**
+     * 由用户名得到用户信息
+     **/
+    CommonResult getUserInfo(String username);
 }

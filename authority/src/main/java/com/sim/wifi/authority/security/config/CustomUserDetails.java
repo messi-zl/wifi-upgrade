@@ -1,4 +1,4 @@
-package com.sim.wifi.authority.security.securityExpand;
+package com.sim.wifi.authority.security.config;
 
 import com.sim.wifi.authority.permission.model.Permissions;
 import com.sim.wifi.authority.permission.model.Users;
@@ -64,7 +64,7 @@ public class CustomUserDetails implements UserDetails {
     @Override
     public boolean isEnabled() {
         Boolean flag = true;
-        if (UsersService.STATUS_DISABLE == users.getStatus()){
+        if (UsersService.STATUS_DISABLE == users.getStatus()) {
             flag = false;
         }
         return flag;
