@@ -267,13 +267,15 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
 
     //密码正确--失败次数清零,登录日志新加
     private void restoreFailLoginCount(Users user, Date now) {
-        user.setFailLoginCount(0);
-        updateById(user);
         LoginLogs loginLogs = new LoginLogs();
         loginLogs.setLoginTime(now);
         loginLogs.setUseId(user.getId());
         loginLogs.setStatus(LoginLogsService.STATUS_SUCCESS);
         loginLogsService.save(loginLogs);
+        if (user.getFailLoginCount() != 0){
+            user.setFailLoginCount(0);
+            updateById(user);
+        }
     }
 
 
