@@ -26,6 +26,8 @@
         <jjwt.version>0.9.0</jjwt.version>
         <mybatis-plus.version>3.3.2</mybatis-plus.version>
         <velocity.version>2.2</velocity.version>
+        <nacos-discovery.version>2.2.5.RELEASE</nacos-discovery.version>
+        <nacos-config.version>2.2.5.RELEASE</nacos-config.version>
     </properties>
 
     <parent>
@@ -143,6 +145,18 @@
             <groupId>org.apache.velocity</groupId>
             <artifactId>velocity-engine-core</artifactId>
             <version>${velocity.version}</version>
+        </dependency>
+        <!--nacos配置中心-->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+            <version>${nacos-config.version}</version>
+        </dependency>
+        <!--nacos服务注册中心-->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+            <version>${nacos-discovery.version}</version>
         </dependency>
     </dependencies>
 

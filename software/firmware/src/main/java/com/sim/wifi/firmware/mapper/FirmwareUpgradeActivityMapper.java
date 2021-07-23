@@ -9,8 +9,16 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * </p>
  *
  * @author wifi-upgrade
- * @since 2021-07-14
+ * @since 2021-07-19
  */
 public interface FirmwareUpgradeActivityMapper extends BaseMapper<FirmwareUpgradeActivity> {
+
+    int insertUpgradeActivity(FirmwareUpgradeActivity upgradeActivity);
+
+    int deleteByFirmwareId(int firmwareId);
+
+    FirmwareUpgradeActivity selectByFirmwareId(int firmwareId);
+
+    int updateByFirmwareId(FirmwareUpgradeActivity upgradeActivity);
 
 }

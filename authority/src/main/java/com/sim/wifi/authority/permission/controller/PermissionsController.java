@@ -13,7 +13,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.util.Enumeration;
 import java.util.Map;
 
 
@@ -105,6 +111,30 @@ public class PermissionsController {
         logger.info("开始查询所有权限");
         Map<String, Object> map = permissionsService.listAll();
         logger.info("查询所有权限成功");
+        return CommonResult.success(map);
+    }
+
+
+    @CustomOperationLog
+    @ApiOperation("测试gateway啊")
+    @RequestMapping(value = "/gatewayTest", method = RequestMethod.GET)
+    @ResponseBody
+    public CommonResult<Map<String, Object>> gatewayTest() {
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        Enumeration u = request.getHeaderNames();
+        while (u.hasMoreElements()) {
+            String header = (String) u.nextElement();
+            try {
+                System.out.println(header + ":" + URLDecoder.decode(request.getHeader(header), "UTF-8"));
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+        }
+        String hh = request.getHeader("userInfoHead");
+
+        logger.info("开始查询所有权限");
+        Map<String, Object> map = permissionsService.listAll();
+        logger.info("测试gateway成功");
         return CommonResult.success(map);
     }
 }

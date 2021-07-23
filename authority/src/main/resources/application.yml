@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: authority
+    name: wifi-upgrade-authority
   profiles:
     active: dev
 
@@ -48,6 +48,7 @@ secure:
       - /webjars/springfox-swagger-ui/**
       - /actuator/**
       - /druid/**
+      - /permission/permissions/gatewayTest
 
 # 禁止Actuator监控Redis连接
 management:

@@ -5,4 +5,11 @@ spring:
   application:
     name: wifi-upgrade-gateway
   profiles:
-    active: test
+    active: dev
+
+jwt:
+  tokenHeader: Authorization #JWT存储的请求头
+  secret: authority-secret #JWT加解密使用的密钥
+  expiration: 604800 #JWT的超期限时间(60*60*24*7)
+  tokenHead: 'theTest '  #JWT负载中拿到开头，token前缀
+  userInfoHead: userInfo #用户信息请求头

@@ -14,4 +14,43 @@
         <result column="changed_by" property="changedBy" />
     </resultMap>
 
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, firmware_id, province, city, created_on, changed_on, created_by, changed_by
+    </sql>
+
+    <!-- 插入地区列表数据 -->
+    <insert id="insertList" parameterType="java.util.List">
+        insert into firmware_upgrade_regions
+        (
+        firmware_id, province, city, created_on, changed_on, created_by, changed_by
+        )
+        VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{item.firmwareId,jdbcType=INTEGER},
+            #{item.province,jdbcType=VARCHAR},
+            #{item.city,jdbcType=VARCHAR},
+            #{item.createdOn,jdbcType=TIMESTAMP},
+            #{item.changedOn,jdbcType=TIMESTAMP},
+            #{item.createdBy,jdbcType=INTEGER},
+            #{item.changedBy,jdbcType=INTEGER}
+            )
+        </foreach>
+    </insert>
+
+    <!-- 根据固件 id 删除固件全部地区名单 -->
+    <delete id="deleteByFirmwareId" parameterType="java.lang.Integer">
+        delete from firmware_upgrade_regions
+        where firmware_id = #{firmwareId,jdbcType=INTEGER}
+    </delete>
+
+    <!-- 根据固件 id 查询固件地址名单 -->
+    <select id="selectByFirmwareId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from firmware_upgrade_regions
+        where firmware_id = #{firmwareId,jdbcType=INTEGER}
+    </select>
+
 </mapper>

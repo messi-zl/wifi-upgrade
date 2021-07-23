@@ -1,6 +1,6 @@
-package com.sim.wifi.authority.common.config;
+package com.sim.wifi.firmware.common.config;
 
-import com.sim.wifi.authority.common.domain.SwaggerProperties;
+import com.sim.wifi.firmware.common.domain.SwaggerProperties;
 import org.springframework.context.annotation.Bean;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
@@ -13,11 +13,8 @@ import springfox.documentation.spring.web.plugins.Docket;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
- * description: Swagger基础配置
- * create by: li.zheng871@sim.com
- * create time: 2021/6/29
+ * Swagger基础配置
  */
 public abstract class BaseSwaggerConfig {
 
@@ -25,7 +22,6 @@ public abstract class BaseSwaggerConfig {
     public Docket createRestApi() {
         SwaggerProperties swaggerProperties = swaggerProperties();
         Docket docket = new Docket(DocumentationType.SWAGGER_2)
-                .host("localhost:9001/theAuthority")
                 .apiInfo(apiInfo(swaggerProperties))
                 .select()
                 .apis(RequestHandlerSelectors.basePackage(swaggerProperties.getApiBasePackage()))
@@ -81,4 +77,5 @@ public abstract class BaseSwaggerConfig {
      * 自定义Swagger配置
      */
     public abstract SwaggerProperties swaggerProperties();
+
 }

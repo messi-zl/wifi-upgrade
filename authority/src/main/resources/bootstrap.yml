@@ -1,0 +1,7 @@
+spring:
+  cloud:
+    nacos:
+      #注册中心
+      discovery:
+        server-addr: localhost:8848
+        enabled: true

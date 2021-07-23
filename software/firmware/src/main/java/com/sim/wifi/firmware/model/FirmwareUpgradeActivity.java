@@ -16,7 +16,7 @@ import lombok.EqualsAndHashCode;
  * </p>
  *
  * @author wifi-upgrade
- * @since 2021-07-14
+ * @since 2021-07-19
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -26,19 +26,21 @@ public class FirmwareUpgradeActivity implements Serializable {
 
     private static final long serialVersionUID=1L;
 
+    @ApiModelProperty(value = "id")
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
+    @ApiModelProperty(value = "固件id")
     private Integer firmwareId;
 
     @ApiModelProperty(value = "活跃度限制适用范围:0->全部设备;1->仅适用于勾选自动升级设备;2->仅适用于未勾选自动升级设备")
     private Integer activityLimitRange;
 
     @ApiModelProperty(value = "激活起始时间")
-    private Date activationStartOn;
+    private String activationStartOn;
 
     @ApiModelProperty(value = "激活结束时间")
-    private Date activationEndOn;
+    private String activationEndOn;
 
     @ApiModelProperty(value = "在线天数限制")
     private Integer onlineDays;
@@ -50,7 +52,7 @@ public class FirmwareUpgradeActivity implements Serializable {
     private Integer manualDetectionTimes;
 
     @ApiModelProperty(value = "最近检测时间")
-    private Date lastDetectionOn;
+    private String lastDetectionOn;
 
     @ApiModelProperty(value = "本地升级次数符号:0->小于;1->大于")
     private Integer localUpgradeSymbol;
@@ -59,7 +61,7 @@ public class FirmwareUpgradeActivity implements Serializable {
     private Integer localUpgradeTimes;
 
     @ApiModelProperty(value = "最近升级时间")
-    private Date lastUpgradeOn;
+    private String lastUpgradeOn;
 
     @ApiModelProperty(value = "创建日期")
     private Date createdOn;

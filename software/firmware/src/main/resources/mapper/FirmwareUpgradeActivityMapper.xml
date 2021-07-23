@@ -22,4 +22,178 @@
         <result column="changed_by" property="changedBy" />
     </resultMap>
 
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, firmware_id, activity_limit_range, activation_start_on, activation_end_on, online_days, manual_detection_symbol, manual_detection_times, last_detection_on, local_upgrade_symbol, local_upgrade_times, last_upgrade_on, created_on, changed_on, created_by, changed_by
+    </sql>
+
+    <!-- 插入活跃度数据 -->
+    <insert id="insertUpgradeActivity" parameterType="com.sim.wifi.firmware.model.FirmwareUpgradeActivity">
+        insert into firmware_upgrade_activity
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="firmwareId != null">
+                firmware_id,
+            </if>
+            <if test="activityLimitRange != null">
+                activity_limit_range,
+            </if>
+            <if test="activationStartOn != null">
+                activation_start_on,
+            </if>
+            <if test="activationEndOn != null">
+                activation_end_on,
+            </if>
+            <if test="onlineDays != null">
+                online_days,
+            </if>
+            <if test="manualDetectionSymbol != null">
+                manual_detection_symbol,
+            </if>
+            <if test="manualDetectionTimes != null">
+                manual_detection_times,
+            </if>
+            <if test="lastDetectionOn != null">
+                last_detection_on,
+            </if>
+            <if test="localUpgradeSymbol != null">
+                local_upgrade_symbol,
+            </if>
+            <if test="localUpgradeTimes != null">
+                local_upgrade_times,
+            </if>
+            <if test="lastUpgradeOn != null">
+                last_upgrade_on,
+            </if>
+            <if test="createdOn != null">
+                created_on,
+            </if>
+            <if test="changedOn != null">
+                changed_on,
+            </if>
+            <if test="createdBy != null">
+                created_by,
+            </if>
+            <if test="changedBy != null">
+                changed_by,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="firmwareId != null">
+                #{firmwareId,jdbcType=INTEGER},
+            </if>
+            <if test="activityLimitRange != null">
+                #{activityLimitRange,jdbcType=INTEGER},
+            </if>
+            <if test="activationStartOn != null">
+                #{activationStartOn,jdbcType=VARCHAR},
+            </if>
+            <if test="activationEndOn != null">
+                #{activationEndOn,jdbcType=VARCHAR},
+            </if>
+            <if test="onlineDays != null">
+                #{onlineDays,jdbcType=INTEGER},
+            </if>
+            <if test="manualDetectionSymbol != null">
+                #{manualDetectionSymbol,jdbcType=INTEGER},
+            </if>
+            <if test="manualDetectionTimes != null">
+                #{manualDetectionTimes,jdbcType=INTEGER},
+            </if>
+            <if test="lastDetectionOn != null">
+                #{lastDetectionOn,jdbcType=VARCHAR},
+            </if>
+            <if test="localUpgradeSymbol != null">
+                #{localUpgradeSymbol,jdbcType=INTEGER},
+            </if>
+            <if test="localUpgradeTimes != null">
+                #{localUpgradeTimes,jdbcType=INTEGER},
+            </if>
+            <if test="lastUpgradeOn != null">
+                #{lastUpgradeOn,jdbcType=VARCHAR},
+            </if>
+            <if test="createdOn != null">
+                #{createdOn,jdbcType=TIMESTAMP},
+            </if>
+            <if test="changedOn != null">
+                #{changedOn,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createdBy != null">
+                #{createdBy,jdbcType=INTEGER},
+            </if>
+            <if test="changedBy != null">
+                #{changedBy,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+
+    <!-- 根据固件 id 删除活跃度数据 -->
+    <delete id="deleteByFirmwareId" parameterType="java.lang.Integer">
+        delete from firmware_upgrade_activity
+        where firmware_id = #{firmwareId,jdbcType=INTEGER}
+    </delete>
+
+    <!-- 根据固件 id 查询活跃度数据 -->
+    <select id="selectByFirmwareId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from firmware_upgrade_activity
+        where firmware_id = #{firmwareId,jdbcType=INTEGER}
+    </select>
+
+    <!-- 根据固件 id 更新活跃度数据 -->
+    <update id="updateByFirmwareId" parameterType="com.sim.wifi.firmware.model.FirmwareUpgradeActivity">
+        update firmware_upgrade_activity
+        <set>
+            <if test="activityLimitRange != null">
+                activity_limit_range = #{activityLimitRange,jdbcType=INTEGER},
+            </if>
+            <if test="activationStartOn != null">
+                activation_start_on = #{activationStartOn,jdbcType=VARCHAR},
+            </if>
+            <if test="activationEndOn != null">
+                activation_end_on = #{activationEndOn,jdbcType=VARCHAR},
+            </if>
+            <if test="onlineDays != null">
+                online_days = #{onlineDays,jdbcType=INTEGER},
+            </if>
+            <if test="manualDetectionSymbol != null">
+                manual_detection_symbol = #{manualDetectionSymbol,jdbcType=INTEGER},
+            </if>
+            <if test="manualDetectionTimes != null">
+                manual_detection_times = #{manualDetectionTimes,jdbcType=INTEGER},
+            </if>
+            <if test="lastDetectionOn != null">
+                last_detection_on = #{lastDetectionOn,jdbcType=VARCHAR},
+            </if>
+            <if test="localUpgradeSymbol != null">
+                local_upgrade_symbol = #{localUpgradeSymbol,jdbcType=INTEGER},
+            </if>
+            <if test="localUpgradeTimes != null">
+                local_upgrade_times = #{localUpgradeTimes,jdbcType=INTEGER},
+            </if>
+            <if test="lastUpgradeOn != null">
+                last_upgrade_on = #{lastUpgradeOn,jdbcType=VARCHAR},
+            </if>
+            <if test="createdOn != null">
+                created_on = #{createdOn,jdbcType=TIMESTAMP},
+            </if>
+            <if test="changedOn != null">
+                changed_on = #{changedOn,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createdBy != null">
+                created_by = #{createdBy,jdbcType=INTEGER},
+            </if>
+            <if test="changedBy != null">
+                changed_by = #{changedBy,jdbcType=INTEGER},
+            </if>
+        </set>
+        where firmware_id = #{firmwareId,jdbcType=INTEGER}
+    </update>
+
 </mapper>

@@ -21,6 +21,7 @@
         <result column="mac_limit" property="macLimit" />
         <result column="upgrade_dno" property="upgradeDno" />
         <result column="upgrade_detection" property="upgradeDetection" />
+        <result column="file_name" property="fileName" />
         <result column="url" property="url" />
         <result column="md5" property="md5" />
         <result column="created_on" property="createdOn" />
@@ -28,5 +29,10 @@
         <result column="created_by" property="createdBy" />
         <result column="changed_by" property="changedBy" />
     </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, model_id, real_version, show_version, update_description, status, upgrade_type, effect_on, upgrade_limit, day_auto_upgrade_limit, day_manual_upgrade_limit, lowest_version, highest_version, upgrade_region_blacklist_flag, mac_limit, upgrade_dno, upgrade_detection, file_name, url, md5, created_on, changed_on, created_by, changed_by
+    </sql>
 
 </mapper>
