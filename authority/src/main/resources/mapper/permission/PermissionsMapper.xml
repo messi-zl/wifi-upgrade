@@ -37,4 +37,23 @@
             b.sort
     </select>
 
+    <select id="getAllUserDePermissions" resultType="java.util.Map">
+        SELECT
+            c.username username,
+            b.url url,
+            b.`name` `name`
+        FROM
+            user_permission_relation a
+                LEFT JOIN permissions b ON a.permission_id = b.id
+                LEFT JOIN users c ON a.user_id = c.id
+        WHERE
+            b.type = 2
+          AND b.`status` = 1
+          AND c.`status` = 1
+          AND b.id IS NOT NULL
+          AND c.id IS NOT NULL
+        ORDER BY
+            b.sort
+    </select>
+
 </mapper>

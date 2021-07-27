@@ -1,17 +1,15 @@
-package com.sim.wifi.authority.security.config;
+package com.sim.wifi.gateway.security.config;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.sim.wifi.authority.permission.model.Permissions;
 import com.sim.wifi.authority.permission.service.PermissionsService;
 import com.sim.wifi.authority.permission.service.UsersService;
-import com.sim.wifi.authority.security.component.DynamicSecurityService;
+import com.sim.wifi.gateway.security.component.DynamicSecurityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.access.ConfigAttribute;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.List;

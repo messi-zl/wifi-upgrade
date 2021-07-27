@@ -62,4 +62,9 @@ public class PermissionsServiceImpl extends ServiceImpl<PermissionsMapper, Permi
         map.put("buttons", permissionsList.stream().filter(permission -> permission.getType().compareTo(PermissionsService.TYPE_BUTTON) == 0).collect(Collectors.toList()));
         return map;
     }
+
+    @Override
+    public List<Map<String, Object>> getAllUserDePermissions() {
+        return permissionsMapper.getAllUserDePermissions();
+    }
 }

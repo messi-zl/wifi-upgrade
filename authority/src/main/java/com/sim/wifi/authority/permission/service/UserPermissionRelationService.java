@@ -16,4 +16,8 @@ public interface UserPermissionRelationService extends IService<UserPermissionRe
      */
     int allocPermissionToUser(Integer userId, List<Integer> permissionIds);
 
+    /**
+     * 初始化用户所拥有权限的规则
+     */
+    void initPermissionUserRulesMap();
 }

@@ -2,10 +2,8 @@ package com.sim.wifi.gateway.filter;
 
 import cn.hutool.core.util.StrUtil;
 import com.nimbusds.jose.JWSObject;
-import com.sim.wifi.gateway.util.JwtTokenUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
@@ -36,11 +34,8 @@ public class ApiGlobalFilter implements GlobalFilter, Ordered {
     private String userInfo;
 
 
-    @Autowired
-    private JwtTokenUtil jwtTokenUtil;
-
     @Override
-    public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain){
+    public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         ServerHttpRequest requestInitially = exchange.getRequest();
         ServerHttpResponse response = exchange.getResponse();
         String token = requestInitially.getHeaders().getFirst(tokenHeader);
@@ -58,11 +53,11 @@ public class ApiGlobalFilter implements GlobalFilter, Ordered {
             String userStr = jwsObject.getPayload().toString();
             logger.info("AuthGlobalFilter.filter() user:{}", userStr);
             ServerHttpRequest requestModified = requestInitially.mutate().headers(httpHeaders -> {
-                    try {
-                        httpHeaders.set(userInfo, URLEncoder.encode(userStr,"UTF-8"));
-                    } catch (UnsupportedEncodingException e) {
-                        e.printStackTrace();
-                    }
+                try {
+                    httpHeaders.set(userInfo, URLEncoder.encode(userStr, "UTF-8"));
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
             }).build();
             exchange = exchange.mutate().request(requestModified).build();
         } catch (Exception e) {

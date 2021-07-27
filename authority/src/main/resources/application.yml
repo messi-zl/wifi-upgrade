@@ -6,6 +6,11 @@ spring:
     name: wifi-upgrade-authority
   profiles:
     active: dev
+  redis:
+    host: localhost # Redis服务器地址
+    database: 0 # Redis数据库索引（默认为0）
+    port: 6379 # Redis服务器连接端口
+    password: # Redis服务器连接密码（默认为空）
 
 mybatis-plus:
   mapper-locations: classpath:/mapper/**/*.xml
@@ -18,17 +23,25 @@ mybatis-plus:
 
 jwt:
   tokenHeader: Authorization #JWT存储的请求头
-  secret: authority-secret #JWT加解密使用的密钥
+  secret: wifi-secret #JWT加解密使用的密钥
   expiration: 604800 #JWT的超期限时间(60*60*24*7)
   tokenHead: 'theTest '  #JWT负载中拿到开头
 
+#redis:
+#  database: mall
+#  key:
+#    admin: 'ums:admin'
+#    resourceList: 'ums:resourceList'
+#  expire:
+#    common: 86400 # 24小时
 redis:
-  database: mall
   key:
-    admin: 'ums:admin'
-    resourceList: 'ums:resourceList'
+    allPermission: 'auth:AllPermission'
+    userPermissionRelation: 'auth:UserPermissionRelation'
   expire:
-    common: 86400 # 24小时
+    common: 86400
+
+
 
 secure:
   ignored:
@@ -48,13 +61,13 @@ secure:
       - /webjars/springfox-swagger-ui/**
       - /actuator/**
       - /druid/**
-      - /permission/permissions/gatewayTest
+      - /permission/permissions/gatewayTest #gate的路由转发测试
 
 # 禁止Actuator监控Redis连接
-management:
-  health:
-    redis:
-      enabled: false
+#management:
+#  health:
+#    redis:
+#      enabled: false
 
 #账户锁定配置信息 (eg:30min内5次失败，锁定60min)
 login-lock-info:

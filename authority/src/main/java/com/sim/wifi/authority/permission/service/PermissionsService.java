@@ -44,7 +44,13 @@ public interface PermissionsService extends IService<Permissions> {
     boolean delete(Integer permissionId);
 
     /**
-     *
+     *查询所有后台树形权限
      **/
     Map<String, Object> listAll();
+
+
+    /**
+     *得到所有用户的权限,存于redis
+     */
+    List<Map<String,Object>> getAllUserDePermissions();
 }

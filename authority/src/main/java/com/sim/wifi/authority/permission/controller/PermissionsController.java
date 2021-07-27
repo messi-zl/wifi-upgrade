@@ -116,7 +116,7 @@ public class PermissionsController {
 
 
     @CustomOperationLog
-    @ApiOperation("测试gateway啊")
+    @ApiOperation("测试gateway网关转发")
     @RequestMapping(value = "/gatewayTest", method = RequestMethod.GET)
     @ResponseBody
     public CommonResult<Map<String, Object>> gatewayTest() {
@@ -130,8 +130,6 @@ public class PermissionsController {
                 e.printStackTrace();
             }
         }
-        String hh = request.getHeader("userInfoHead");
-
         logger.info("开始查询所有权限");
         Map<String, Object> map = permissionsService.listAll();
         logger.info("测试gateway成功");
