@@ -24,8 +24,8 @@ import java.util.concurrent.ConcurrentHashMap;
  * create time: 2021/6/29
  */
 @Configuration
-//@EnableWebSecurity
-//@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WifiSecurityConfig extends SecurityConfig {
     @Autowired
     private UsersService usersService;

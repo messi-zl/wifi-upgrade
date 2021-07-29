@@ -4,6 +4,7 @@ import cn.hutool.core.util.StrUtil;
 import com.nimbusds.jose.JWSObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
@@ -42,12 +43,14 @@ public class ApiGlobalFilter implements GlobalFilter, Ordered {
         //todo 属于白名单，直接放行（无需token，无需权限筛查）
 
         if (StrUtil.isEmpty(token)) {
-            //不属于白名单，又无token，拒绝
+            //todo 不属于白名单，又无token，拒绝
             return chain.filter(exchange);
         }
-        //todo 判断token是否有效
+
         try {
             String realToken = token.replace(tokenHead, "");//认证信息请求头
+            //todo 判断token是否有效
+
             //String userStr = jwtTokenUtil.getUserNameFromToken(realToken);
             JWSObject jwsObject = JWSObject.parse(realToken);
             String userStr = jwsObject.getPayload().toString();
@@ -72,4 +75,6 @@ public class ApiGlobalFilter implements GlobalFilter, Ordered {
     public int getOrder() {
         return 0;
     }
+
+
 }

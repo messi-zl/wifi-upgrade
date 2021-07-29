@@ -34,6 +34,7 @@
         <mybatis-plus.version>3.3.2</mybatis-plus.version>
     </properties>
 
+
     <dependencies>
         <!--springboot通用模块-->
         <dependency>
@@ -55,10 +56,11 @@
             <artifactId>spring-cloud-starter-config</artifactId>
             <version>2.2.3.RELEASE</version>
         </dependency>
+        <!--webflux依赖-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-webflux</artifactId>
-            <version>${webflux.version}</version>
+            <version>2.3.0.RELEASE</version>
         </dependency>
         <!--gateway网关依赖-->
         <dependency>
@@ -78,11 +80,11 @@
             <artifactId>jjwt</artifactId>
             <version>${jjwt.version}</version>
         </dependency>
-        <!--SpringSecurity依赖配置-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
+        <!--        &lt;!&ndash;SpringSecurity依赖配置&ndash;&gt;-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.springframework.boot</groupId>-->
+        <!--            <artifactId>spring-boot-starter-security</artifactId>-->
+        <!--        </dependency>-->
 
         <dependency>
             <groupId>com.sim.wifi.authority</groupId>
@@ -133,26 +135,19 @@
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
-
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-oauth2-resource-server</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-oauth2-client</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-oauth2-jose</artifactId>
-        </dependency>
-
         <!--MyBatis Plus 依赖-->
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
             <version>${mybatis-plus.version}</version>
         </dependency>
+        <!--openfegin依赖-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+            <version>2.2.3.RELEASE</version>
+        </dependency>
+
     </dependencies>
 
 

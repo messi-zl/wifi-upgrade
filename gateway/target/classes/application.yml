@@ -19,7 +19,11 @@ jwt:
   tokenHead: 'theTest '  #JWT负载中拿到开头，token前缀
   userInfoHead: userInfo #用户信息请求头
 
+
+
 redis:
-  key:
+  key:                                #放入redis中的key
     allPermission: 'auth:AllPermission'
     userPermissionRelation: 'auth:UserPermissionRelation'
+
+
