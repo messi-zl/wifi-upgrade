@@ -1,7 +1,10 @@
 package com.sim.wifi.gateway.filter;
 
+import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;
 import com.nimbusds.jose.JWSObject;
+import com.sim.wifi.gateway.config.IgnoreUrlsConfig;
+import com.sim.wifi.gateway.util.JwtTokenUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,15 +12,20 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
+import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.stereotype.Component;
+import org.springframework.util.AntPathMatcher;
+import org.springframework.util.PathMatcher;
 import org.springframework.web.server.ServerWebExchange;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.Date;
 
 /**
  * @Description: 将登录用户的JWT转化成用户信息的全局过滤器
@@ -34,35 +42,53 @@ public class ApiGlobalFilter implements GlobalFilter, Ordered {
     @Value("${jwt.userInfoHead}")
     private String userInfo;
 
+    @Autowired
+    private IgnoreUrlsConfig ignoreUrlsConfig;
+    @Autowired
+    private JwtTokenUtil jwtTokenUtil;
+
+
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
-        ServerHttpRequest requestInitially = exchange.getRequest();
+        ServerHttpRequest requestOriginal = exchange.getRequest();
         ServerHttpResponse response = exchange.getResponse();
-        String token = requestInitially.getHeaders().getFirst(tokenHeader);
-        //todo 属于白名单，直接放行（无需token，无需权限筛查）
-
+        String token = requestOriginal.getHeaders().getFirst(tokenHeader);
+        String urlOriginal = requestOriginal.getPath().value(); //发给网关的url（与真实到服务的url有差别，不然网关无法识别转发到哪个服务）
+        //白名单请求直接放行，无需token
+        PathMatcher pathMatcher = new AntPathMatcher();
+        for (String path : ignoreUrlsConfig.getUrls()) {
+            if (pathMatcher.match(path, urlOriginal)) {
+                return chain.filter(exchange);
+            }
+        }
+        //不属于白名单，又无token，拒绝
         if (StrUtil.isEmpty(token)) {
-            //todo 不属于白名单，又无token，拒绝
-            return chain.filter(exchange);
+            return unauthorized(exchange);
         }
 
         try {
             String realToken = token.replace(tokenHead, "");//认证信息请求头
-            //todo 判断token是否有效
+            //解析token 得到用户名
+            String usename = jwtTokenUtil.getUserNameFromToken(realToken);
+            Date date = jwtTokenUtil.getExpiredDateFromToken(realToken);
+            //todo token是否有效
+
+            //todo 该token 对应的用户是否对该url有权限
+
 
             //String userStr = jwtTokenUtil.getUserNameFromToken(realToken);
             JWSObject jwsObject = JWSObject.parse(realToken);
             String userStr = jwsObject.getPayload().toString();
             logger.info("AuthGlobalFilter.filter() user:{}", userStr);
-            ServerHttpRequest requestModified = requestInitially.mutate().headers(httpHeaders -> {
+            ServerHttpRequest requestNow = requestOriginal.mutate().headers(httpHeaders -> {
                 try {
                     httpHeaders.set(userInfo, URLEncoder.encode(userStr, "UTF-8"));
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
                 }
             }).build();
-            exchange = exchange.mutate().request(requestModified).build();
+            exchange = exchange.mutate().request(requestNow).build();
         } catch (Exception e) {
             e.printStackTrace();
             response.setStatusCode(HttpStatus.UNAUTHORIZED);
@@ -77,4 +103,23 @@ public class ApiGlobalFilter implements GlobalFilter, Ordered {
     }
 
 
+    /**
+     * 网关拒绝，返回401
+     *
+     * @param
+     */
+    private Mono<Void> unauthorized(ServerWebExchange serverWebExchange) {
+        ServerHttpResponse response = serverWebExchange.getResponse();
+        return writeResonse(response, HttpStatus.UNAUTHORIZED, "老哥，你不属于白名单且无token，网关拒绝你");
+    }
+
+
+    /**
+     * 往ServerHttpResponse写信息+代码
+     **/
+    private Mono<Void> writeResonse(ServerHttpResponse response, HttpStatus httpStatus, String message) {
+        response.setStatusCode(httpStatus);
+        DataBuffer buffer = response.bufferFactory().wrap(message.getBytes());
+        return response.writeWith(Flux.just(buffer));
+    }
 }

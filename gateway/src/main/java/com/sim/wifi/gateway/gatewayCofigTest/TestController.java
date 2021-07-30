@@ -2,7 +2,6 @@ package com.sim.wifi.gateway.gatewayCofigTest;
 
 
 import com.sim.wifi.authority.common.service.RedisService;
-import com.sim.wifi.gateway.fegin.ConsumerProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,8 +34,6 @@ public class TestController {
     @Value("${redis.key.userPermissionRelation}")
     private String REDIS_KEY_ALL_USER_PERMISSION_RELATION;
 
-    /*    @Autowired
-        private RedisTemplate<String, Object> redisTemplate;*/
     @Autowired
     private RedisService redisService;
     @Autowired
@@ -63,7 +60,7 @@ public class TestController {
     }
 
 
-    //测试nacos配置文件的获取
+    //测试fegin调起微服务获取返回值
     @RequestMapping(value = "/testFegin", method = RequestMethod.GET)
     @ResponseBody
     public Object testfegin() {

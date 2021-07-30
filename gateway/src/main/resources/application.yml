@@ -27,3 +27,9 @@ redis:
     userPermissionRelation: 'auth:UserPermissionRelation'
 
 
+# ribbon超时时间
+ribbon:
+  ReadTimeout: 50000
+  ConnectTimeout: 50000
+#  MaxAutoRetries: 0
+#  MaxAutoRetriesNextServer: 0

@@ -1,6 +1,6 @@
 package com.sim.wifi.gateway.gatewayCofigTest;
 
-import com.sim.wifi.gateway.fegin.ConsumerProvider;
+import com.sim.wifi.gateway.feign.ConsumerProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

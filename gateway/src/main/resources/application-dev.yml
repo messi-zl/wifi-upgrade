@@ -14,13 +14,13 @@ spring:
             - Path=/theAuthority/permission/**
           filters:
             - StripPrefix=1
-#
-#        - id: device
-#          uri: lb://device
-#          predicates:
-#            - Path=/front-device/**
-#          filters:
-#            - StripPrefix=1
+
+        - id: device
+          uri: lb://device
+          predicates:
+            - Path=/testGateway/**
+          filters:
+            - StripPrefix=1
 
 #nacos配置中心test
 test-nacos:
@@ -30,6 +30,10 @@ test-nacos:
 secure:
   ignore:
     urls: #配置白名单路径
+      - /theAuthority/permission/users/register
+      - /theAuthority/permission/users/login
+      - /theAuthority/permission/users/logout
+      - /theAuthority/permission/test/**
       - "/doc.html"
       - "/swagger-resources/**"
       - "/swagger/**"

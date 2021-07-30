@@ -1,4 +1,4 @@
-package com.sim.wifi.gateway.fegin;
+package com.sim.wifi.gateway.feign;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Component;
@@ -20,9 +20,11 @@ public interface ConsumerProvider {
     @GetMapping("/permission/test/feginTest")
     List<String> feginTest();
 
+
+
     @Component
     class ConsumerProviderFallback implements ConsumerProvider {
-        //降级
+        //降级处理
         @Override
         public List<String> feginTest() {
             return Arrays.asList("hahaha");

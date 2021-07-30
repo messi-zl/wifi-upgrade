@@ -1,27 +1,27 @@
 package com.sim.wifi.authority.permission.controller;
 
 import com.sim.wifi.authority.common.api.CommonResult;
+import com.sim.wifi.authority.common.exception.Asserts;
 import com.sim.wifi.authority.common.log.CustomOperationLog;
+import com.sim.wifi.authority.dto.UsersLoginParam;
 import com.sim.wifi.authority.permission.service.PermissionsService;
+import com.sim.wifi.authority.permission.service.UsersService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
-import java.util.Arrays;
-import java.util.Enumeration;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @Description:
@@ -33,8 +33,13 @@ import java.util.Map;
 @RequestMapping("/permission/test")
 public class TestController {
     private static final Logger logger = LoggerFactory.getLogger(TestController.class);
+
+    @Value("${jwt.tokenHead}")
+    private String tokenHead;
     @Autowired
     private PermissionsService permissionsService;
+    @Autowired
+    private UsersService usersService;
 
     @CustomOperationLog
     @ApiOperation("测试gateway网关转发")
@@ -56,7 +61,7 @@ public class TestController {
         logger.info("测试gateway成功");
         return CommonResult.success(map);
     }
-    //网关转发登录 能否获取到返回值
+
 
 
 
@@ -68,5 +73,20 @@ public class TestController {
         System.out.printf("yeah我到了");
         List<String> list = Arrays.asList("111","222","333");
         return list;
+    }
+
+    @CustomOperationLog
+    @ApiOperation(value = "登录以后返回token")
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    @ResponseBody
+    public CommonResult login(@RequestParam String username, @RequestParam String password) {
+        Map<String, String> map = usersService.login(username,password);
+        if (map.get("errorMessage") != null) {
+            Asserts.fail(map.get("errorMessage"));
+        }
+        Map<String, String> tokenMap = new HashMap<>();
+        tokenMap.put("token", map.get("token"));
+        tokenMap.put("tokenHead", tokenHead);
+        return CommonResult.success(tokenMap);
     }
 }

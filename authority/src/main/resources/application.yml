@@ -61,8 +61,7 @@ secure:
       - /webjars/springfox-swagger-ui/**
       - /actuator/**
       - /druid/**
-      - /permission/test/gatewayTest #gate的路由转发测试
-      - /permission/test/feginTest #fegin调用测试
+      - /permission/test/**
 
 # 禁止Actuator监控Redis连接
 #management:
