@@ -28,6 +28,12 @@ public interface PermissionsService extends IService<Permissions> {
 
 
     /**
+     * 由用户名得到该用户不同权限类型的权限列表
+     **/
+    List<Permissions> getPermissionsListByUsername(String username, Integer type);
+
+
+    /**
      * 添加权限Permission
      */
     boolean create(Permissions permission);
@@ -44,13 +50,13 @@ public interface PermissionsService extends IService<Permissions> {
     boolean delete(Integer permissionId);
 
     /**
-     *查询所有后台树形权限
+     * 查询所有后台树形权限
      **/
     Map<String, Object> listAll();
 
 
     /**
-     *得到所有用户的权限,存于redis
+     * 得到所有用户的权限,存于redis
      */
-    List<Map<String,Object>> getAllUserDePermissions();
+    List<Map<String, Object>> getAllUserDePermissions();
 }

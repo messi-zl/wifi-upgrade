@@ -35,6 +35,12 @@ public class PermissionsServiceImpl extends ServiceImpl<PermissionsMapper, Permi
     }
 
     @Override
+    public List<Permissions> getPermissionsListByUsername(String username, Integer type) {
+        List<Permissions> permissionsList = permissionsMapper.getPermissionsListByUsername(username, type);
+        return permissionsList;
+    }
+
+    @Override
     public boolean create(Permissions permission) {
         return save(permission);
     }

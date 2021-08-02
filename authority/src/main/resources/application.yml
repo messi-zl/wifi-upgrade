@@ -26,6 +26,7 @@ jwt:
   secret: wifi-secret #JWT加解密使用的密钥
   expiration: 604800 #JWT的超期限时间(60*60*24*7)
   tokenHead: 'theTest '  #JWT负载中拿到开头
+  userInfoHead: userInfo
 
 #redis:
 #  database: mall
@@ -43,25 +44,25 @@ redis:
 
 
 
-secure:
-  ignored:
-    urls: #安全路径白名单
-      - /permission/users/register
-      - /permission/users/login
-      - /permission/users/logout
-      - /permission/users/info
-      - /swagger-ui.html
-      - /swagger-resources/**
-      - /swagger/**
-      - /**/v2/api-docs
-      - /**/*.js
-      - /**/*.css
-      - /**/*.png
-      - /**/*.ico
-      - /webjars/springfox-swagger-ui/**
-      - /actuator/**
-      - /druid/**
-      - /permission/test/**
+#secure:
+#  ignored:
+#    urls: #安全路径白名单
+#      - /permission/users/register
+#      - /permission/users/login
+#      - /permission/users/logout
+#      - /permission/users/info
+#      - /swagger-ui.html
+#      - /swagger-resources/**
+#      - /swagger/**
+#      - /**/v2/api-docs
+#      - /**/*.js
+#      - /**/*.css
+#      - /**/*.png
+#      - /**/*.ico
+#      - /webjars/springfox-swagger-ui/**
+#      - /actuator/**
+#      - /druid/**
+#      - /permission/test/**
 
 # 禁止Actuator监控Redis连接
 #management:

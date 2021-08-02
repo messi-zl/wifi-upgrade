@@ -4,14 +4,14 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.sim.wifi.authority.permission.model.Areas">
-        <id column="id" property="id" />
-        <result column="parent_id" property="parentId" />
-        <result column="code" property="code" />
-        <result column="name" property="name" />
-        <result column="created_on" property="createdOn" />
-        <result column="changed_on" property="changedOn" />
-        <result column="created_by" property="createdBy" />
-        <result column="changed_by" property="changedBy" />
+        <id column="id" property="id"/>
+        <result column="parent_id" property="parentId"/>
+        <result column="code" property="code"/>
+        <result column="name" property="name"/>
+        <result column="created_on" property="createdOn"/>
+        <result column="changed_on" property="changedOn"/>
+        <result column="created_by" property="createdBy"/>
+        <result column="changed_by" property="changedBy"/>
     </resultMap>
 
 </mapper>

@@ -6,7 +6,6 @@ import com.sim.wifi.authority.common.service.RedisService;
 import com.sim.wifi.authority.permission.mapper.UserPermissionRelationMapper;
 import com.sim.wifi.authority.permission.model.Permissions;
 import com.sim.wifi.authority.permission.model.UserPermissionRelation;
-import com.sim.wifi.authority.permission.model.Users;
 import com.sim.wifi.authority.permission.service.PermissionsService;
 import com.sim.wifi.authority.permission.service.UserPermissionRelationService;
 import org.slf4j.Logger;
@@ -34,7 +33,7 @@ public class UserPermissionRelationServiceImpl extends ServiceImpl<UserPermissio
     @Value("${redis.key.allPermission}")
     private String REDIS_KEY_ALL_PERMISSION;
     @Value("${redis.key.userPermissionRelation}")
-    private String  REDIS_KEY_ALL_USER_PERMISSION_RELATION;
+    private String REDIS_KEY_ALL_USER_PERMISSION_RELATION;
 
     @Autowired
     private RedisService redisService;
@@ -67,21 +66,21 @@ public class UserPermissionRelationServiceImpl extends ServiceImpl<UserPermissio
     public void initPermissionUserRulesMap() {
         //todo 用户 资源  用户与资源变动均需执行
         //将所有资源，and，用户与资源对应的关系，放入redis中
-        Map<String,String> allPermissionMap = new HashMap<>();
+        Map<String, String> allPermissionMap = new HashMap<>();
         QueryWrapper<Permissions> wrapper = new QueryWrapper<>();
-        wrapper.lambda().eq(Permissions::getStatus,1).eq(Permissions::getType,PermissionsService.TYPE_BUTTON);
+        wrapper.lambda().eq(Permissions::getStatus, 1).eq(Permissions::getType, PermissionsService.TYPE_BUTTON);
         List<Permissions> list = permissionsService.list(wrapper);
-        for (Permissions permission :list) {
-            allPermissionMap.put(permission.getName(),permission.getUrl());
+        for (Permissions permission : list) {
+            allPermissionMap.put(permission.getName(), permission.getUrl());
         }
         redisService.del(REDIS_KEY_ALL_PERMISSION);
-        redisService.hSetAll(REDIS_KEY_ALL_PERMISSION,allPermissionMap);
+        redisService.hSetAll(REDIS_KEY_ALL_PERMISSION, allPermissionMap);
 
 
         //得到所有的用户 对应的权限
-        List<Map<String,Object>> mapList = permissionsService.getAllUserDePermissions();
-        Map<String,List<Map<String,Object>>> usernamePermissionsMap = mapList.stream().collect(Collectors.groupingBy(item->item.get("username").toString()));
+        List<Map<String, Object>> mapList = permissionsService.getAllUserDePermissions();
+        Map<String, List<Map<String, Object>>> usernamePermissionsMap = mapList.stream().collect(Collectors.groupingBy(item -> item.get("username").toString()));
         redisService.del(REDIS_KEY_ALL_USER_PERMISSION_RELATION);
-        redisService.hSetAll(REDIS_KEY_ALL_USER_PERMISSION_RELATION,usernamePermissionsMap);
+        redisService.hSetAll(REDIS_KEY_ALL_USER_PERMISSION_RELATION, usernamePermissionsMap);
     }
 }

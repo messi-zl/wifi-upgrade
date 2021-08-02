@@ -5,7 +5,6 @@ import com.sim.wifi.authority.common.api.CommonResult;
 import com.sim.wifi.authority.common.log.CustomOperationLog;
 import com.sim.wifi.authority.permission.model.Permissions;
 import com.sim.wifi.authority.permission.service.PermissionsService;
-import com.sim.wifi.authority.security.component.DynamicSecurityMetadataSource;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -35,8 +34,8 @@ public class PermissionsController {
     private static final Logger logger = LoggerFactory.getLogger(PermissionsController.class);
     @Autowired
     private PermissionsService permissionsService;
-    @Autowired
-    private DynamicSecurityMetadataSource dynamicSecurityMetadataSource;
+//    @Autowired
+//    private DynamicSecurityMetadataSource dynamicSecurityMetadataSource;
 
 
     @CustomOperationLog
@@ -46,7 +45,7 @@ public class PermissionsController {
     public CommonResult create(@RequestBody Permissions permission) {
         logger.info("添加权限开始，参数为{}", permission.toString());
         boolean success = permissionsService.create(permission);
-        dynamicSecurityMetadataSource.clearDataSource();
+        //dynamicSecurityMetadataSource.clearDataSource();
         if (success) {
             logger.info("添加权限成功");
             return CommonResult.success(null);
@@ -63,7 +62,7 @@ public class PermissionsController {
     public CommonResult delete(@PathVariable Integer permissionId) {
         logger.info("开始删除permissionId为{}，的权限", permissionId);
         boolean success = permissionsService.delete(permissionId);
-        dynamicSecurityMetadataSource.clearDataSource();
+        // dynamicSecurityMetadataSource.clearDataSource();
         if (success) {
             logger.info("删除资源成功");
             return CommonResult.success(null);
@@ -81,7 +80,7 @@ public class PermissionsController {
                                @RequestBody Permissions permission) {
         logger.info("开始修改permissionId为{}的权限，参数Permission{}", permissionId, permission.toString());
         boolean success = permissionsService.update(permissionId, permission);
-        dynamicSecurityMetadataSource.clearDataSource();
+        //dynamicSecurityMetadataSource.clearDataSource();
         if (success) {
             logger.info("修改权限成功");
             return CommonResult.success(null);
@@ -111,28 +110,6 @@ public class PermissionsController {
         logger.info("开始查询所有权限");
         Map<String, Object> map = permissionsService.listAll();
         logger.info("查询所有权限成功");
-        return CommonResult.success(map);
-    }
-
-
-    @CustomOperationLog
-    @ApiOperation("测试gateway网关转发")
-    @RequestMapping(value = "/gatewayTest", method = RequestMethod.GET)
-    @ResponseBody
-    public CommonResult<Map<String, Object>> gatewayTest() {
-        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-        Enumeration u = request.getHeaderNames();
-        while (u.hasMoreElements()) {
-            String header = (String) u.nextElement();
-            try {
-                System.out.println(header + ":" + URLDecoder.decode(request.getHeader(header), "UTF-8"));
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            }
-        }
-        logger.info("开始查询所有权限");
-        Map<String, Object> map = permissionsService.listAll();
-        logger.info("测试gateway成功");
         return CommonResult.success(map);
     }
 }

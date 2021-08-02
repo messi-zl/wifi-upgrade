@@ -64,7 +64,7 @@ public class TestController {
     @RequestMapping(value = "/testFegin", method = RequestMethod.GET)
     @ResponseBody
     public Object testfegin() {
-        List<String> list =  testService.testFegin();
+        List<String> list = testService.testFegin();
         return list;
     }
 

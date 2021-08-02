@@ -3,6 +3,7 @@ package com.sim.wifi.gateway.feign;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Arrays;
 import java.util.List;
@@ -13,14 +14,15 @@ import java.util.List;
  * @DateTime: 2021/7/29
  */
 @Component
-@FeignClient(name = "wifi-upgrade-authority", fallback = ConsumerProvider.ConsumerProviderFallback.class)
+@FeignClient(name = "${auth-server.name}", fallback = ConsumerProvider.ConsumerProviderFallback.class)
 public interface ConsumerProvider {
 
     // 配置需要调用的服务地址及参数
     @GetMapping("/permission/test/feginTest")
     List<String> feginTest();
 
-
+    @GetMapping("/permission/test/judgePermission")
+    Boolean judgePermission(@RequestParam("username") String username, @RequestParam("url") String url);
 
     @Component
     class ConsumerProviderFallback implements ConsumerProvider {
@@ -28,6 +30,12 @@ public interface ConsumerProvider {
         @Override
         public List<String> feginTest() {
             return Arrays.asList("hahaha");
+        }
+
+        @Override
+        public Boolean judgePermission(String username, String url) {
+            System.out.println("报错了应该");
+            return null;
         }
     }
 }

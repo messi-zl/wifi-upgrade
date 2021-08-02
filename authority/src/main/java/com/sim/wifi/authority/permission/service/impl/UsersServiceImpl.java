@@ -8,6 +8,7 @@ import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.sim.wifi.authority.common.api.CommonResult;
+import com.sim.wifi.authority.common.exception.ApiException;
 import com.sim.wifi.authority.dto.UpdateUsersPasswordParam;
 import com.sim.wifi.authority.dto.UsersParam;
 import com.sim.wifi.authority.permission.mapper.UsersMapper;
@@ -17,19 +18,13 @@ import com.sim.wifi.authority.permission.model.Users;
 import com.sim.wifi.authority.permission.service.LoginLogsService;
 import com.sim.wifi.authority.permission.service.PermissionsService;
 import com.sim.wifi.authority.permission.service.UsersService;
-import com.sim.wifi.authority.security.config.CustomUserDetails;
+import com.sim.wifi.authority.security.util.CryptoUtil;
 import com.sim.wifi.authority.security.util.JwtTokenUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -55,8 +50,8 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
     private Integer maintainLockTime;
     @Autowired
     private PermissionsService permissionsService;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    //    @Autowired
+//    private PasswordEncoder passwordEncoder;
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
     @Autowired
@@ -64,13 +59,10 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
 
 
     @Override
-    public UserDetails loadUserByUsername(String username) {
+    public Users loadUsersByUsername(String username) {
         Users users = getUserByUserName(username);
-        if (users != null) {
-            List<Permissions> permissionsList = permissionsService.getPermissionsList(users.getId(), PermissionsService.TYPE_BUTTON);
-            return new CustomUserDetails(users, permissionsList);
-        }
-        throw new UsernameNotFoundException("用户名错误，请重新输入！");
+        if (users != null) return users;
+        throw new ApiException("由用户名找不到用户！");
     }
 
     @Override
@@ -92,17 +84,15 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
         Map<String, String> map = new HashMap<>();
         String token = null;
         //密码需要客户端加密后传递
-        UserDetails userDetails = null;
+        Users user = null;
         try {
-            userDetails = loadUserByUsername(username);
-        } catch (AuthenticationException e) {
+            user = loadUsersByUsername(username);
+        } catch (ApiException e) {
             map.put("errorMessage", e.getMessage());
             return map;
         }
         Date now = DateUtil.parse(DateUtil.now(), DatePattern.NORM_DATETIME_PATTERN);
         //判断是否在锁定时间内
-        CustomUserDetails customUserDetails = (CustomUserDetails) userDetails;
-        Users user = customUserDetails.getUsers();
         Integer flag = checkInLockingTime(user, now);
         switch (flag) {
             case -1:
@@ -121,20 +111,21 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
                 break;
             default:
         }
-        if (!passwordEncoder.matches(password, userDetails.getPassword())) {
+        //if (!passwordEncoder.matches(password, user.getPassword())) {
+        if (!CryptoUtil.encode(password).equals(user.getPassword())) {
             passwordFailDeal(user, now);
             //Asserts.fail("密码错误，请重新输入！");移到controller，否则事务会回滚,登录日志不会save
             map.put("errorMessage", "密码错误，请重新输入！");
             return map;
         }
         restoreFailLoginCount(user, now);
-        if (!userDetails.isEnabled()) {
+        if (user.getStatus() == UsersService.STATUS_DISABLE) {
             map.put("errorMessage", "您的账户已禁用，如需恢复请与管理员联系！");
             return map;
         }
-        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        token = jwtTokenUtil.generateToken(userDetails);
+//        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+//        SecurityContextHolder.getContext().setAuthentication(authentication);
+        token = jwtTokenUtil.generateToken(user);
         map.put("token", token);
         return map;
     }
@@ -156,7 +147,7 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
             return null;
         }
         //将密码进行加密操作
-        String encodePassword = passwordEncoder.encode(user.getPassword());
+        String encodePassword = CryptoUtil.encode(user.getPassword());
         user.setPassword(encodePassword);
         user.setCreatedOn(DateUtil.parse(DateUtil.now(), DatePattern.NORM_DATETIME_PATTERN));
         baseMapper.insert(user);
@@ -196,7 +187,7 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
     public boolean update(Integer userId, Users user) {
         user.setId(userId);
         Users rawUser = getById(userId);
-        if (rawUser.getPassword().equals(user.getPassword())) {
+        if (rawUser.getPassword().equals(CryptoUtil.encode(user.getPassword()))) {
             //与原加密密码相同的不需要修改
             user.setPassword(null);
         } else {
@@ -204,7 +195,7 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
             if (StrUtil.isEmpty(user.getPassword())) {
                 user.setPassword(null);
             } else {
-                user.setPassword(passwordEncoder.encode(user.getPassword()));
+                user.setPassword(CryptoUtil.encode(user.getPassword()));
             }
         }
         user.setChangedOn(DateUtil.parse(DateUtil.now(), DatePattern.NORM_DATETIME_PATTERN));
@@ -228,10 +219,11 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
             return -2;
         }
         Users user = userList.get(0);
-        if (!passwordEncoder.matches(updateUsersPasswordParam.getOldPassword(), user.getPassword())) {
+        //if (!passwordEncoder.matches(updateUsersPasswordParam.getOldPassword(), user.getPassword())) {
+        if (!CryptoUtil.encode(updateUsersPasswordParam.getOldPassword()).equals(user.getPassword())) {
             return -3;
         }
-        user.setPassword(passwordEncoder.encode(updateUsersPasswordParam.getNewPassword()));
+        user.setPassword(CryptoUtil.encode(updateUsersPasswordParam.getNewPassword()));
         user.setChangedOn(DateUtil.parse(DateUtil.now(), DatePattern.NORM_DATETIME_PATTERN));
         //todo  修改人
         updateById(user);
@@ -272,7 +264,7 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
         loginLogs.setUseId(user.getId());
         loginLogs.setStatus(LoginLogsService.STATUS_SUCCESS);
         loginLogsService.save(loginLogs);
-        if (user.getFailLoginCount() != 0){
+        if (user.getFailLoginCount() != 0) {
             user.setFailLoginCount(0);
             updateById(user);
         }

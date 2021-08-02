@@ -10,6 +10,7 @@ import com.sim.wifi.authority.dto.UsersParam;
 import com.sim.wifi.authority.permission.model.Users;
 import com.sim.wifi.authority.permission.service.PermissionsService;
 import com.sim.wifi.authority.permission.service.UsersService;
+import com.sim.wifi.authority.security.util.RequestUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -21,7 +22,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.security.Principal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -83,7 +83,7 @@ public class UsersController {
     }
 
 
-    @CustomOperationLog
+/*    @CustomOperationLog
     @ApiOperation(value = "获取当前登录用户的信息")//用户渲染
     @RequestMapping(value = "/info", method = RequestMethod.GET)
     @ResponseBody
@@ -93,6 +93,16 @@ public class UsersController {
             return CommonResult.unauthorized(null);
         }
         String username = principal.getName();
+        return usersService.getUserInfo(username);
+    }*/
+
+    @CustomOperationLog
+    @ApiOperation(value = "获取当前登录用户的信息")//用户渲染
+    @RequestMapping(value = "/info", method = RequestMethod.GET)
+    @ResponseBody
+    public CommonResult getUserInfo() {
+        logger.info("开始获取当前登录用户的信息");
+        String username = RequestUtil.getUserInfo();
         return usersService.getUserInfo(username);
     }
 

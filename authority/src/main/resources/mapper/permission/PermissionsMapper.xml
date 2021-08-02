@@ -4,56 +4,77 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.sim.wifi.authority.permission.model.Permissions">
-        <id column="id" property="id" />
-        <result column="parent_id" property="parentId" />
-        <result column="name" property="name" />
-        <result column="url" property="url" />
-        <result column="type" property="type" />
-        <result column="status" property="status" />
-        <result column="sort" property="sort" />
-        <result column="created_on" property="createdOn" />
-        <result column="changed_on" property="changedOn" />
-        <result column="created_by" property="createdBy" />
-        <result column="changed_by" property="changedBy" />
+        <id column="id" property="id"/>
+        <result column="parent_id" property="parentId"/>
+        <result column="name" property="name"/>
+        <result column="url" property="url"/>
+        <result column="type" property="type"/>
+        <result column="status" property="status"/>
+        <result column="sort" property="sort"/>
+        <result column="created_on" property="createdOn"/>
+        <result column="changed_on" property="changedOn"/>
+        <result column="created_by" property="createdBy"/>
+        <result column="changed_by" property="changedBy"/>
     </resultMap>
     <select id="getPermissionsList" resultType="com.sim.wifi.authority.permission.model.Permissions">
         SELECT
-            b.id id,
-            b.url url,
-            b.`name` `name`,
-            b.parent_id parent_id,
-            b.type type
+        b.id id,
+        b.url url,
+        b.`name` `name`,
+        b.parent_id parent_id,
+        b.type type
         FROM
-            user_permission_relation a
-                LEFT JOIN permissions b ON a.permission_id = b.id
+        user_permission_relation a
+        LEFT JOIN permissions b ON a.permission_id = b.id
         WHERE
-            a.user_id = #{userId}
+        a.user_id = #{userId}
         <if test="type !=null and type !=''">
             AND b.type = #{type}
         </if>
-          AND b.`status` = 1
-          AND b.id IS NOT NULL
+        AND b.`status` = 1
+        AND b.id IS NOT NULL
         ORDER BY
-            b.sort
+        b.sort
     </select>
 
-    <select id="getAllUserDePermissions" resultType="java.util.Map">
+    <select id="getPermissionsListByUsername" resultType="com.sim.wifi.authority.permission.model.Permissions">
         SELECT
-            c.username username,
-            b.url url,
-            b.`name` `name`
+        b.id id,
+        b.url url,
+        b.`name` `name`,
+        b.parent_id parent_id,
+        b.type type
         FROM
-            user_permission_relation a
-                LEFT JOIN permissions b ON a.permission_id = b.id
-                LEFT JOIN users c ON a.user_id = c.id
+        user_permission_relation a
+        LEFT JOIN permissions b ON a.permission_id = b.id
+        LEFT JOIN users c ON a.user_id = c.id
         WHERE
-            b.type = 2
+        c.username = #{username}
+        <if test="type !=null and type !=''">
+            AND b.type = #{type}
+        </if>
+        AND b.`status` = 1
+        and c.`status` = 1
+        AND b.id IS NOT NULL
+        AND c.id IS NOT NULL
+        ORDER BY
+        b.sort
+    </select>
+
+
+    <select id="getAllUserDePermissions" resultType="java.util.Map">
+        SELECT c.username username,
+               b.url      url,
+               b.`name`   `name`
+        FROM user_permission_relation a
+                 LEFT JOIN permissions b ON a.permission_id = b.id
+                 LEFT JOIN users c ON a.user_id = c.id
+        WHERE b.type = 2
           AND b.`status` = 1
           AND c.`status` = 1
           AND b.id IS NOT NULL
           AND c.id IS NOT NULL
-        ORDER BY
-            b.sort
+        ORDER BY b.sort
     </select>
 
 </mapper>

@@ -4,15 +4,15 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.sim.wifi.authority.permission.model.OperationLogs">
-        <id column="id" property="id" />
-        <result column="description" property="description" />
-        <result column="action" property="action" />
-        <result column="request_path" property="requestPath" />
-        <result column="json" property="json" />
-        <result column="ip_addr" property="ipAddr" />
-        <result column="duration_ms" property="durationMs" />
-        <result column="created_on" property="createdOn" />
-        <result column="created_by" property="createdBy" />
+        <id column="id" property="id"/>
+        <result column="description" property="description"/>
+        <result column="action" property="action"/>
+        <result column="request_path" property="requestPath"/>
+        <result column="json" property="json"/>
+        <result column="ip_addr" property="ipAddr"/>
+        <result column="duration_ms" property="durationMs"/>
+        <result column="created_on" property="createdOn"/>
+        <result column="created_by" property="createdBy"/>
     </resultMap>
 
 </mapper>

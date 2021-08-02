@@ -2,15 +2,9 @@ package com.sim.wifi.authority.permission.controller;
 
 import com.sim.wifi.authority.dto.UsersLoginParam;
 import com.sim.wifi.common.BaseTest;
-import lombok.extern.slf4j.Slf4j;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-
-import static org.junit.Assert.*;
 
 /**
  * @Description:
@@ -40,4 +34,6 @@ public class UsersControllerTest extends BaseTest {
         }
         //Assert.assertSame(,,usersController.login(usersLoginParam));
     }
+
+
 }

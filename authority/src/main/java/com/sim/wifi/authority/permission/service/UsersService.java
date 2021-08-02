@@ -5,7 +5,6 @@ import com.sim.wifi.authority.common.api.CommonResult;
 import com.sim.wifi.authority.dto.UpdateUsersPasswordParam;
 import com.sim.wifi.authority.dto.UsersParam;
 import com.sim.wifi.authority.permission.model.Users;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Map;
 
@@ -19,9 +18,10 @@ public interface UsersService extends IService<Users> {
     public static Integer STATUS_ENABLE = 1;
 
     /**
-     * 根据用户名获取信息，实际对UserDetailsService中loadUserByUsername进行overwite
+     * 根据用户名获取信息
      */
-    UserDetails loadUserByUsername(String username);
+
+    Users loadUsersByUsername(String username);
 
     /**
      * @param userName

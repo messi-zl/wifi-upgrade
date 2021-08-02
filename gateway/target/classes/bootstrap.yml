@@ -1,0 +1,12 @@
+spring:
+  cloud:
+    nacos:
+      #注册中心
+      discovery:
+        server-addr: localhost:8848
+        enabled: true
+      #配置中心
+      config:
+        server-addr: localhost:8848
+        group: DEFAULT_GROUP
+        file-extension: yml

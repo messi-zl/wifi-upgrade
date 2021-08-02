@@ -22,7 +22,12 @@ public interface PermissionsMapper extends BaseMapper<Permissions> {
     List<Permissions> getPermissionsList(@Param("userId") Integer userId, @Param("type") Integer type);
 
     /**
+     * 由用户名得到该用户不同权限类型的权限列表
+     */
+    List<Permissions> getPermissionsListByUsername(@Param("username") String username, @Param("type") Integer type);
+
+    /**
      * 得到所有用户的权限
      */
-    List<Map<String,Object>> getAllUserDePermissions();
+    List<Map<String, Object>> getAllUserDePermissions();
 }

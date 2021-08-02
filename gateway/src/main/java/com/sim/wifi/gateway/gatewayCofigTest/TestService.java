@@ -16,7 +16,7 @@ public class TestService {
     @Autowired
     private ConsumerProvider consumerProvider;
 
-    public List<String> testFegin(){
+    public List<String> testFegin() {
         List<String> list = consumerProvider.feginTest();
         return list;
     }
