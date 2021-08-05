@@ -25,7 +25,6 @@ import reactor.core.publisher.Mono;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.util.Date;
 
 /**
  * @Description: 将登录用户的JWT转化成用户信息的全局过滤器
@@ -75,12 +74,11 @@ public class ApiGlobalFilter implements GlobalFilter, Ordered {
             }
             //解析token得到用户名
             String username = jwtTokenUtil.getUserNameFromToken(realToken);
-            Date date = jwtTokenUtil.getExpiredDateFromToken(realToken);
-            String dataString = DatePattern.NORM_DATETIME_FORMAT.format(date);
+            String dataString = DatePattern.NORM_DATETIME_FORMAT.format(jwtTokenUtil.getExpiredDateFromToken(realToken));
             //判断该token对应的用户是否对该url有权限
-            String urlReal = urlOriginal.substring(urlOriginal.indexOf("/", 1));
-            Boolean flag = consumerProvider.judgePermission(username, urlReal);
-            if (!flag) return urlNoPermission(exchange, urlReal);
+            //String urlReal = urlOriginal.substring(urlOriginal.indexOf("/", 1));
+            Boolean flag = consumerProvider.judgePermission(username, urlOriginal);
+            if (!flag) return urlNoPermission(exchange, urlOriginal);
 
             //String userStr = jwtTokenUtil.getUserNameFromToken(realToken);
 /*            JWSObject jwsObject = JWSObject.parse(realToken);

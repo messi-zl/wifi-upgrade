@@ -1,6 +1,8 @@
 package com.sim.wifi.authority.permission.controller;
 
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.sim.wifi.authority.common.api.CommonPage;
 import com.sim.wifi.authority.common.api.CommonResult;
 import com.sim.wifi.authority.common.exception.Asserts;
 import com.sim.wifi.authority.common.log.CustomOperationLog;
@@ -33,7 +35,7 @@ import java.util.Map;
  */
 @Controller
 @Api(tags = "UsersController", description = "后台用户管理")
-@RequestMapping("/permission/users")
+@RequestMapping("/system/users")
 public class UsersController {
     private static final Logger logger = LoggerFactory.getLogger(UsersController.class);
 
@@ -46,18 +48,6 @@ public class UsersController {
     @Autowired
     private PermissionsService permissionsService;
 
-    @CustomOperationLog
-    @ApiOperation(value = "用户注册")
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
-    @ResponseBody
-    public CommonResult<Users> register(@Validated @RequestBody UsersParam usersParam) {
-        Users user = usersService.register(usersParam);
-        if (user == null) {
-            return CommonResult.failed();
-        }
-        logger.info("用户注册成功！！！");
-        return CommonResult.success(user);
-    }
 
     @CustomOperationLog
     @ApiOperation(value = "登录以后返回token")
@@ -73,6 +63,44 @@ public class UsersController {
         tokenMap.put("tokenHead", tokenHead);
         return CommonResult.success(tokenMap);
     }
+
+
+    @CustomOperationLog
+    @ApiOperation(value = "获取当前登录用户的信息")//登录之后进行用户渲染
+    @RequestMapping(value = "/info", method = RequestMethod.GET)
+    @ResponseBody
+    public CommonResult getUserInfo() {
+        logger.info("开始获取当前登录用户的信息");
+        String username = RequestUtil.getUserInfo();
+        return usersService.getUserInfo(username);
+    }
+
+
+    //用户管理-分页显示所有用户信息
+    @CustomOperationLog
+    @ApiOperation("分页显示所有用户列表")
+    @RequestMapping(value = "/pageListUsers", method = RequestMethod.GET)
+    @ResponseBody
+    public CommonResult<CommonPage<Users>> pageListUsers(@RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
+                                                         @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum) {
+        Page<Users> userList = usersService.pageListUsers(pageSize, pageNum);
+        return CommonResult.success(CommonPage.restPage(userList));
+    }
+
+
+    @CustomOperationLog
+    @ApiOperation(value = "用户注册")
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    @ResponseBody
+    public CommonResult<Users> register(@Validated @RequestBody UsersParam usersParam) {
+        Users user = usersService.register(usersParam);
+        if (user == null) {
+            return CommonResult.failed();
+        }
+        logger.info("用户注册成功！！！");
+        return CommonResult.success(user);
+    }
+
 
     @CustomOperationLog
     @ApiOperation(value = "登出")
@@ -96,15 +124,6 @@ public class UsersController {
         return usersService.getUserInfo(username);
     }*/
 
-    @CustomOperationLog
-    @ApiOperation(value = "获取当前登录用户的信息")//用户渲染
-    @RequestMapping(value = "/info", method = RequestMethod.GET)
-    @ResponseBody
-    public CommonResult getUserInfo() {
-        logger.info("开始获取当前登录用户的信息");
-        String username = RequestUtil.getUserInfo();
-        return usersService.getUserInfo(username);
-    }
 
     @CustomOperationLog
     @ApiOperation(value = "刷新token")

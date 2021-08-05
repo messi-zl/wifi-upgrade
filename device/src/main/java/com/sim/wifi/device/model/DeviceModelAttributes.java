@@ -16,7 +16,7 @@ import lombok.EqualsAndHashCode;
  * </p>
  *
  * @author wifi-upgrade
- * @since 2021-07-14
+ * @since 2021-07-19
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -26,9 +26,11 @@ public class DeviceModelAttributes implements Serializable {
 
     private static final long serialVersionUID=1L;
 
+    @ApiModelProperty(value = "id")
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
+    @ApiModelProperty(value = "设备型号id")
     private Integer modelId;
 
     @ApiModelProperty(value = "是否在全局统计中展示:0->展示;1->不展示")
@@ -51,6 +53,5 @@ public class DeviceModelAttributes implements Serializable {
 
     @ApiModelProperty(value = "更改者")
     private Integer changedBy;
-
 
 }

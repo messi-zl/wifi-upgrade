@@ -12,4 +12,35 @@
         <result column="changed_by" property="changedBy" />
     </resultMap>
 
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, name, created_on, changed_on, created_by, changed_by
+    </sql>
+
+    <!-- 通过设备类型id查询设备型号列表 -->
+    <select id="getDeviceModelsListByTypeId" parameterType="java.lang.Integer" resultType="com.sim.wifi.device.dto.DeviceModelsParam">
+        select m.id as model_id, m.name as model_name
+        from device_type_model_relation tm left join device_models m on tm.model_id = m.id
+        where tm.type_id = #{typeId,jdbcType=INTEGER}
+    </select>
+
+<!--    &lt;!&ndash; 查询设备类型及其对应的所有设备型号列表 &ndash;&gt;-->
+<!--    <select id="getDeviceTypesModelsList" resultType="java.util.Map">-->
+<!--        select tm.type_id, m.id, m.name, m.created_on, m.changed_on, m.created_by, m.changed_by-->
+<!--        from device_type_model_relation tm inner join device_models m on tm.model_id = m.id-->
+<!--    </select>-->
+    <!-- 查询设备类型及其对应的所有设备型号列表 -->
+    <select id="getDeviceTypesModelsList" resultType="com.sim.wifi.device.dto.DeviceTypeModelParam">
+        select dtm.type_id, dt.name as type_name, dtm.model_id, dm.name as model_name
+        from device_type_model_relation dtm, device_types dt, device_models dm
+        where dtm.type_id = dt.id and dtm.model_id = dm.id
+    </select>
+
+    <!-- 通过设备类型id查询设备类型和型号信息 -->
+    <select id="getDeviceTypeModelByModelId" parameterType="java.lang.Integer" resultType="com.sim.wifi.device.dto.DeviceTypeModelParam">
+        select dtm.type_id, dt.name as type_name, dtm.model_id, dm.name as model_name
+        from device_type_model_relation dtm, device_types dt, device_models dm
+        where dtm.type_id = dt.id and dtm.model_id = dm.id and dm.id = #{modelId,jdbcType=INTEGER}
+    </select>
+
 </mapper>

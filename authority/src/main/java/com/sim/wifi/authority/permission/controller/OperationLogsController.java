@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 @Api(tags = "OperationLogsController", description = "操作日志信息管理")
-@RequestMapping("/permission/operationLogs")
+@RequestMapping("/system/operationLogs")
 public class OperationLogsController {
     private static final Logger logger = LoggerFactory.getLogger(OperationLogsController.class);
 

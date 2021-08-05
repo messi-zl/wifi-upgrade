@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -25,7 +26,7 @@ import java.util.List;
  */
 @Controller
 @Api(tags = "UserPermissionRelationController", description = "用户与权限对应关系管理")
-@RequestMapping("/permission/userPermissionRelation")
+@RequestMapping("/auth/userPermissionRelation")
 public class UserPermissionRelationController {
     private static final Logger logger = LoggerFactory.getLogger(UserPermissionRelationController.class);
     @Autowired
@@ -38,6 +39,15 @@ public class UserPermissionRelationController {
     public CommonResult allocPermissionToUser(@RequestParam Integer userId, @RequestParam List<Integer> permissionIds) {
         int count = userPermissionRelationService.allocPermissionToUser(userId, permissionIds);
         return CommonResult.success(count);
+    }
+
+    @CustomOperationLog
+    @ApiOperation("给用户分配操作权限及型号权限")
+    @RequestMapping(value = "/allocLimits", method = RequestMethod.POST)
+    @ResponseBody
+    public CommonResult allocLimits(@RequestParam Integer userId, @RequestParam Map<String, List<Integer>> limitIdMap) {
+        userPermissionRelationService.allocLimits(userId, limitIdMap);
+        return CommonResult.success(true);
     }
 }
 

@@ -36,7 +36,7 @@ import java.util.*;
  */
 @Controller
 @Api(tags = "TestController", description = "相关测试")
-@RequestMapping("/permission/test")
+@RequestMapping("/auth/test")
 public class TestController {
     private static final Logger logger = LoggerFactory.getLogger(TestController.class);
 
@@ -62,8 +62,8 @@ public class TestController {
                 e.printStackTrace();
             }
         }
-        logger.info("开始查询所有权限");
-        Map<String, Object> map = permissionsService.listAll();
+        logger.info("开始查询所有权限结构");
+        Map<String, Object> map = permissionsService.getAllStructure();
         logger.info("测试gateway成功");
         return CommonResult.success(map);
     }

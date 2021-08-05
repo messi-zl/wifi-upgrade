@@ -25,7 +25,7 @@ import java.util.List;
  */
 @Controller
 @Api(tags = "UserModelRelationController", description = "用户与型号对应关系管理")
-@RequestMapping("/permission/userModelRelation")
+@RequestMapping("/auth/userModelRelation")
 public class UserModelRelationController {
     private static final Logger logger = LoggerFactory.getLogger(UserModelRelationController.class);
 

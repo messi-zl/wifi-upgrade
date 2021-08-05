@@ -40,7 +40,7 @@ public class UserModelRelationServiceImpl extends ServiceImpl<UserModelRelationM
         }
         saveBatch(relationList);
         //userCacheService.delResourceListByRole(userId);
-        logger.info("给用户分配权限成功");
+        logger.info("给用户分配型号权限成功");
         return modelIds.size();
     }
 }

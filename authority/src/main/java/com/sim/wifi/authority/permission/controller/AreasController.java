@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 @Api(tags = "AreasController", description = "地区管理")
-@RequestMapping("/permission/areas")
+@RequestMapping("/system/areas")
 public class AreasController {
     private static final Logger logger = LoggerFactory.getLogger(AreasController.class);
 

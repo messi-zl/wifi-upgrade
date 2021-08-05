@@ -1,5 +1,6 @@
 package com.sim.wifi.authority.permission.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.sim.wifi.authority.common.api.CommonResult;
 import com.sim.wifi.authority.dto.UpdateUsersPasswordParam;
@@ -63,7 +64,12 @@ public interface UsersService extends IService<Users> {
     int updatePassword(UpdateUsersPasswordParam updateUsersPasswordParam);
 
     /**
-     * 由用户名得到用户信息
+     * 由用户名得到用户操作权限
      **/
     CommonResult getUserInfo(String username);
+
+    /**
+     * 分页展示所有用户信息
+     **/
+    Page<Users> pageListUsers(Integer pageSize, Integer pageNum);
 }

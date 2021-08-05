@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
  * </p>
  *
  * @author wifi-upgrade
- * @since 2021-07-14
+ * @since 2021-07-19
  */
 @Service
 public class DeviceActivateLogsServiceImpl extends ServiceImpl<DeviceActivateLogsMapper, DeviceActivateLogs> implements DeviceActivateLogsService {

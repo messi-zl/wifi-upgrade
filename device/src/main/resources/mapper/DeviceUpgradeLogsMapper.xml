@@ -6,10 +6,54 @@
     <resultMap id="BaseResultMap" type="com.sim.wifi.device.model.DeviceUpgradeLogs">
         <id column="id" property="id" />
         <result column="device_id" property="deviceId" />
-        <result column="auto_detection_flag" property="autoDetectionFlag" />
-        <result column="manual_detection_flag" property="manualDetectionFlag" />
-        <result column="local_upgrade_flag" property="localUpgradeFlag" />
+        <result column="detected_flag" property="detectedFlag" />
+        <result column="upgrade_flag" property="upgradeFlag" />
         <result column="created_on" property="createdOn" />
     </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, device_id, detected_flag, upgrade_flag, created_on
+    </sql>
+
+    <!-- 根据设备 id 查询自动检测次数 -->
+    <select id="getAutoDetectedTimesByDeviceId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        select
+            count(detected_flag)
+        from device_upgrade_logs
+        where device_id = #{deviceId,jdbcType=VARCHAR} and detected_flag = 1
+    </select>
+
+    <!-- 根据设备 id 查询手动检测次数 -->
+    <select id="getManualDetectedTimesByDeviceId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        select
+            count(detected_flag)
+        from device_upgrade_logs
+        where device_id = #{deviceId,jdbcType=INTEGER} and detected_flag = 2
+    </select>
+
+    <!-- 根据设备 id 查询最近检测时间 -->
+    <select id="getLastDetectedDateByDeviceId" parameterType="java.lang.Integer" resultType="java.util.Date">
+        select created_on
+        from device_upgrade_logs
+        where device_id = #{deviceId,jdbcType=INTEGER} and detected_flag > 0
+        order by created_on desc limit 1
+    </select>
+
+    <!-- 根据设备 id 查询本地升级次数 -->
+    <select id="getLocalUpgradeTimesByDeviceId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        select
+            count(upgrade_flag)
+        from device_upgrade_logs
+        where device_id = #{deviceId,jdbcType=INTEGER} and upgrade_flag = 2
+    </select>
+
+    <!-- 根据设备 id 查询最近升级时间 -->
+    <select id="getLastUpgradeDateByDeviceId" parameterType="java.lang.Integer" resultType="java.util.Date">
+        select created_on
+        from device_upgrade_logs
+        where device_id = #{deviceId,jdbcType=INTEGER} and upgrade_flag > 0
+        order by created_on desc limit 1
+    </select>
 
 </mapper>

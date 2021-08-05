@@ -25,7 +25,7 @@ public abstract class BaseSwaggerConfig {
     public Docket createRestApi() {
         SwaggerProperties swaggerProperties = swaggerProperties();
         Docket docket = new Docket(DocumentationType.SWAGGER_2)
-                .host("localhost:9001/theAuthority")
+                //.host("localhost:9001/theAuthority")
                 .apiInfo(apiInfo(swaggerProperties))
                 .select()
                 .apis(RequestHandlerSelectors.basePackage(swaggerProperties.getApiBasePackage()))

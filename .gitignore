@@ -28,3 +28,4 @@ HELP.md
 ### VS Code ###
 .vscode/
 /authority/logs/
+/gateway/target/

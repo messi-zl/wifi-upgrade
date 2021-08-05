@@ -2,11 +2,13 @@ package com.sim.wifi.authority.permission.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.sim.wifi.authority.common.exception.Asserts;
 import com.sim.wifi.authority.common.service.RedisService;
 import com.sim.wifi.authority.permission.mapper.UserPermissionRelationMapper;
 import com.sim.wifi.authority.permission.model.Permissions;
 import com.sim.wifi.authority.permission.model.UserPermissionRelation;
 import com.sim.wifi.authority.permission.service.PermissionsService;
+import com.sim.wifi.authority.permission.service.UserModelRelationService;
 import com.sim.wifi.authority.permission.service.UserPermissionRelationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,11 +41,13 @@ public class UserPermissionRelationServiceImpl extends ServiceImpl<UserPermissio
     private RedisService redisService;
     @Autowired
     private PermissionsService permissionsService;
+    @Autowired
+    private UserModelRelationService userModelRelationService;
 
 
     @Override
     public int allocPermissionToUser(Integer userId, List<Integer> permissionIds) {
-        logger.info("开始给用户分配权限。用户id：{}，分配的权限id集{}", userId, permissionIds.toString());
+        logger.info("开始给用户分配操作权限。用户id：{}，分配的操作权限id集{}", userId, permissionIds.toString());
         //先删除原有关系
         QueryWrapper<UserPermissionRelation> wrapper = new QueryWrapper<>();
         wrapper.lambda().eq(UserPermissionRelation::getUserId, userId);
@@ -58,7 +62,7 @@ public class UserPermissionRelationServiceImpl extends ServiceImpl<UserPermissio
         }
         saveBatch(relationList);
         //userCacheService.delResourceListByRole(userId);
-        logger.info("给用户分配权限成功");
+        logger.info("给用户分配操作权限成功");
         return permissionIds.size();
     }
 
@@ -82,5 +86,14 @@ public class UserPermissionRelationServiceImpl extends ServiceImpl<UserPermissio
         Map<String, List<Map<String, Object>>> usernamePermissionsMap = mapList.stream().collect(Collectors.groupingBy(item -> item.get("username").toString()));
         redisService.del(REDIS_KEY_ALL_USER_PERMISSION_RELATION);
         redisService.hSetAll(REDIS_KEY_ALL_USER_PERMISSION_RELATION, usernamePermissionsMap);
+    }
+
+    @Override
+    public void allocLimits(Integer userId, Map<String, List<Integer>> limitIdMap) {
+        if (limitIdMap == null) Asserts.fail("传入limitIdMap为null");
+        List<Integer> permissionIds = limitIdMap.get("permissionIds");
+        List<Integer> modelIds = limitIdMap.get("modelIds");
+        allocPermissionToUser(userId, permissionIds);
+        userModelRelationService.allocModelToUser(userId, modelIds);
     }
 }

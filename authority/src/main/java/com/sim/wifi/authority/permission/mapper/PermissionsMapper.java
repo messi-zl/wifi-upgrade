@@ -17,17 +17,36 @@ import java.util.Map;
 public interface PermissionsMapper extends BaseMapper<Permissions> {
 
     /**
-     * 由UserId得到该用户不同权限类型的权限列表
+     * 由UserId得到该用户不同权限类型的操作列表（该用户已启用的操作权限，渲染）
      */
     List<Permissions> getPermissionsList(@Param("userId") Integer userId, @Param("type") Integer type);
 
     /**
-     * 由用户名得到该用户不同权限类型的权限列表
+     * 由用户名得到该用户不同权限类型的操作权限列表
      */
     List<Permissions> getPermissionsListByUsername(@Param("username") String username, @Param("type") Integer type);
 
     /**
-     * 得到所有用户的权限
+     * 得到所有用户的操作权限
      */
     List<Map<String, Object>> getAllUserDePermissions();
+
+
+    /**
+     * 得到所有型号权限结构
+     */
+    List<Map<String, Object>> getModelStructure();
+
+
+    /**
+     * 得到所有用户对应的操作权限(包含未启用的用户)
+     */
+    List<Map<String, Object>> getAllUsersPermissionLimits();
+
+    /**
+     * 得到所有用户对应的型号权限(包含未启用的用户)
+     */
+    List<Map<String, Object>> getAllUsersModelLimits();
+
+
 }

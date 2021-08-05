@@ -12,4 +12,16 @@
         <result column="changed_by" property="changedBy" />
     </resultMap>
 
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, name, created_on, changed_on, created_by, changed_by
+    </sql>
+
+    <!-- 查询设备类型列表 -->
+    <select id="getDeviceTypesList" resultType="com.sim.wifi.device.dto.DeviceTypesParam">
+        select
+        id as type_id, name as type_name
+        from device_types
+    </select>
+
 </mapper>

@@ -16,7 +16,7 @@ import lombok.EqualsAndHashCode;
  * </p>
  *
  * @author wifi-upgrade
- * @since 2021-07-14
+ * @since 2021-07-21
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -26,11 +26,14 @@ public class DeviceUpgradeAttributes implements Serializable {
 
     private static final long serialVersionUID=1L;
 
+    @ApiModelProperty(value = "id")
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
+    @ApiModelProperty(value = "设备类型id")
     private Integer typeId;
 
+    @ApiModelProperty(value = "设备型号id")
     private Integer modelId;
 
     @ApiModelProperty(value = "升级状态:0->允许升级;1->禁止升级;2->禁止升级,只统计数据")
@@ -48,8 +51,10 @@ public class DeviceUpgradeAttributes implements Serializable {
     @ApiModelProperty(value = "强制版本与更新的推荐版本:0->升级到强制版本后推荐最新版本;1->直接强制升级到当前最新版本")
     private Integer forcedUpgrade;
 
+    @ApiModelProperty(value = "自动升级开始时间")
     private String autoUpgradeStart;
 
+    @ApiModelProperty(value = "自动升级结束时间")
     private String autoUpgradeEnd;
 
     @ApiModelProperty(value = "自动升级条件:0->流量小于100k时执行;1->没有无线连接时执行")

@@ -40,7 +40,6 @@ public class RequestUtil {
     }
 
 
-
     public void getAllHeader() {
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         Enumeration u = request.getHeaderNames();

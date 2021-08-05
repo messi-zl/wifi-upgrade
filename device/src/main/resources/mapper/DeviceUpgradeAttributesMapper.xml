@@ -21,4 +21,166 @@
         <result column="changed_by" property="changedBy" />
     </resultMap>
 
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, type_id, model_id, status, check_way, check_period, checked_period, forced_upgrade, auto_upgrade_start, auto_upgrade_end, auto_upgrade_condition, created_on, changed_on, created_by, changed_by
+    </sql>
+
+    <!-- 选择性插入有效的设备升级属性 -->
+    <insert id="insertSelective" parameterType="com.sim.wifi.device.model.DeviceUpgradeAttributes">
+        insert into device_upgrade_attributes
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="typeId != null">
+                type_id,
+            </if>
+            <if test="modelId != null">
+                model_id,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="checkWay != null">
+                check_way,
+            </if>
+            <if test="checkPeriod != null">
+                check_period,
+            </if>
+            <if test="checkedPeriod != null">
+                checked_period,
+            </if>
+            <if test="forcedUpgrade != null">
+                forced_upgrade,
+            </if>
+            <if test="autoUpgradeStart != null">
+                auto_upgrade_start,
+            </if>
+            <if test="autoUpgradeEnd != null">
+                auto_upgrade_end,
+            </if>
+            <if test="autoUpgradeCondition != null">
+                auto_upgrade_condition,
+            </if>
+            <if test="createdOn != null">
+                created_on,
+            </if>
+            <if test="changedOn != null">
+                changed_on,
+            </if>
+            <if test="createdBy != null">
+                created_by,
+            </if>
+            <if test="changedBy != null">
+                changed_by,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="typeId != null">
+                #{typeId,jdbcType=INTEGER},
+            </if>
+            <if test="modelId != null">
+                #{modelId,jdbcType=INTEGER},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+            <if test="checkWay != null">
+                #{checkWay,jdbcType=INTEGER},
+            </if>
+            <if test="checkPeriod != null">
+                #{checkPeriod,jdbcType=INTEGER},
+            </if>
+            <if test="checkedPeriod != null">
+                #{checkedPeriod,jdbcType=INTEGER},
+            </if>
+            <if test="forcedUpgrade != null">
+                #{forcedUpgrade,jdbcType=INTEGER},
+            </if>
+            <if test="autoUpgradeStart != null">
+                #{autoUpgradeStart,jdbcType=VARCHAR},
+            </if>
+            <if test="autoUpgradeEnd != null">
+                #{autoUpgradeEnd,jdbcType=VARCHAR},
+            </if>
+            <if test="autoUpgradeCondition != null">
+                #{autoUpgradeCondition,jdbcType=INTEGER},
+            </if>
+            <if test="createdOn != null">
+                #{createdOn,jdbcType=TIMESTAMP},
+            </if>
+            <if test="changedOn != null">
+                #{changedOn,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createdBy != null">
+                #{createdBy,jdbcType=INTEGER},
+            </if>
+            <if test="changedBy != null">
+                #{changedBy,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+
+    <!-- 根据型号 id 删除设备升级属性 -->
+    <delete id="deleteByModelId" parameterType="java.lang.Integer">
+        delete from device_upgrade_attributes
+        where model_id = #{modelId,jdbcType=INTEGER}
+    </delete>
+
+    <!-- 根据型号 id 查询设备升级属性 -->
+    <select id="selectByModelId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from device_upgrade_attributes
+        where model_id = #{modelId,jdbcType=INTEGER}
+    </select>
+
+    <!-- 根据型号 id 选择性更新有效的设备升级属性 -->
+    <update id="updateByModelIdSelective" parameterType="com.sim.wifi.device.model.DeviceUpgradeAttributes">
+        update device_upgrade_attributes
+        <set>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="checkWay != null">
+                check_way = #{checkWay,jdbcType=INTEGER},
+            </if>
+            <if test="checkPeriod != null">
+                check_period = #{checkPeriod,jdbcType=INTEGER},
+            </if>
+            <if test="checkedPeriod != null">
+                checked_period = #{checkedPeriod,jdbcType=INTEGER},
+            </if>
+            <if test="forcedUpgrade != null">
+                forced_upgrade = #{forcedUpgrade,jdbcType=INTEGER},
+            </if>
+            <if test="autoUpgradeStart != null">
+                auto_upgrade_start = #{autoUpgradeStart,jdbcType=VARCHAR},
+            </if>
+            <if test="autoUpgradeEnd != null">
+                auto_upgrade_end = #{autoUpgradeEnd,jdbcType=VARCHAR},
+            </if>
+            <if test="autoUpgradeCondition != null">
+                auto_upgrade_condition = #{autoUpgradeCondition,jdbcType=INTEGER},
+            </if>
+            <if test="createdOn != null">
+                created_on = #{createdOn,jdbcType=TIMESTAMP},
+            </if>
+            <if test="changedOn != null">
+                changed_on = #{changedOn,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createdBy != null">
+                created_by = #{createdBy,jdbcType=INTEGER},
+            </if>
+            <if test="changedBy != null">
+                changed_by = #{changedBy,jdbcType=INTEGER},
+            </if>
+        </set>
+        where model_id = #{modelId,jdbcType=INTEGER}
+    </update>
+
 </mapper>

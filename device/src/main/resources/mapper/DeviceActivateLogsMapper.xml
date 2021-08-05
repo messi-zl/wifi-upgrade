@@ -13,4 +13,27 @@
         <result column="created_on" property="createdOn" />
     </resultMap>
 
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, device_id, activated_on, activated_version, activated_ip, activated_dno, created_on
+    </sql>
+
+    <!-- 根据设备 id 查询设备首次激活信息 -->
+    <select id="getDeviceFirstActivateByDeviceId" parameterType="java.lang.Integer" resultType="com.sim.wifi.device.dto.DeviceActivateParam">
+        select
+        <include refid="Base_Column_List" />
+        from device_activate_logs
+        where device_id = #{deviceId,jdbcType=INTEGER}
+        order by created_on asc limit 1
+    </select>
+
+    <!-- 根据设备 id 查询设备最近激活信息 -->
+    <select id="getDeviceLastActivateByDeviceId" parameterType="java.lang.Integer" resultType="com.sim.wifi.device.dto.DeviceActivateParam">
+        select
+        <include refid="Base_Column_List" />
+        from device_activate_logs
+        where device_id = #{deviceId,jdbcType=INTEGER}
+        order by created_on desc limit 1
+    </select>
+
 </mapper>

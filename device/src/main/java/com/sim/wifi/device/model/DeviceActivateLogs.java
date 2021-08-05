@@ -16,7 +16,7 @@ import lombok.EqualsAndHashCode;
  * </p>
  *
  * @author wifi-upgrade
- * @since 2021-07-14
+ * @since 2021-07-19
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -26,13 +26,15 @@ public class DeviceActivateLogs implements Serializable {
 
     private static final long serialVersionUID=1L;
 
+    @ApiModelProperty(value = "id")
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
+    @ApiModelProperty(value = "设备id")
     private Integer deviceId;
 
     @ApiModelProperty(value = "激活时间")
-    private Date activatedOn;
+    private String activatedOn;
 
     @ApiModelProperty(value = "激活版本")
     private String activatedVersion;

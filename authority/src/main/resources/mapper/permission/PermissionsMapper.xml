@@ -77,4 +77,28 @@
         ORDER BY b.sort
     </select>
 
+
+    <select id="getModelStructure" resultType="java.util.Map">
+        SELECT d.type_name,
+               c.NAME AS model_name,
+               c.id   AS id
+        FROM (SELECT a.NAME AS type_name, b.*
+              FROM device_types a
+                       LEFT JOIN device_type_model_relation b ON a.id = b.type_id) AS d
+                 LEFT JOIN device_models c ON d.model_id = c.id
+    </select>
+
+
+    <select id="getAllUsersPermissionLimits" resultType="java.util.Map">
+        SELECT a.user_id, a.permission_id, b.name, b.type
+        from user_permission_relation a
+                 LEFT JOIN permissions b on a.permission_id = b.id and b.STATUS = 1;
+
+    </select>
+
+    <select id="getAllUsersModelLimits" resultType="java.util.Map">
+        SELECT a.user_id, a.model_id, b.name
+        from user_model_relation a
+                 LEFT JOIN device_models b on a.model_id = b.id;
+    </select>
 </mapper>

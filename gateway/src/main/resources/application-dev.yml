@@ -1,6 +1,12 @@
 spring:
   #  security:
   #    enable-csrf: false
+  redis:
+    host: localhost # Redis服务器地址
+    database: 0 # Redis数据库索引（默认为0）
+    port: 6379 # Redis服务器连接端口
+    password: # Redis服务器连接密码（默认为空）
+
   cloud:
     gateway:
       discovery:
@@ -9,18 +15,18 @@ spring:
           lower-case-service-id: true
       routes:
         - id: authority #路由ID，唯一即可
-          uri: lb://wifi-upgrade-authority   #要转到的地址（静态路由：ip地址http://localhost:8086  动态路由：注册后的服务名称）
+          uri: lb://${auth-server.name}   #要转到的地址（静态路由：ip地址http://localhost:8086  动态路由：注册后的服务名称）
           predicates:
-            - Path=/theAuthority/permission/**
-          filters:
-            - StripPrefix=1
+            - Path=/system/**,/auth/**
+        #          filters:
+        #            - StripPrefix=1
 
         - id: device
           uri: lb://device
           predicates:
-            - Path=/testGateway/**
-          filters:
-            - StripPrefix=1
+            - Path=/device/**
+
+
 
 #nacos配置中心test
 test-nacos:
@@ -30,10 +36,10 @@ test-nacos:
 secure:
   ignore:
     urls: #配置白名单路径
-      - /theAuthority/permission/users/register
-      - /theAuthority/permission/users/login
-      - /theAuthority/permission/users/logout
-      - /theAuthority/permission/test/**
+      - /system/users/register
+      - /system/users/login
+      - /system/users/logout
+      - /auth/test/**
       - /swagger-ui.html
       - /swagger-resources/**
       - /swagger/**
@@ -50,3 +56,7 @@ secure:
 
 auth-server:
   name: wifi-upgrade-authority  #注册中心注册的auth模块名字
+
+logging:
+  level:
+    com.alibaba.nacos.client.*: WARN

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2021-07-15
  */
 @RestController
-@RequestMapping("/permission/loginLogs")
+@RequestMapping("/system/loginLogs")
 public class LoginLogsController {
 
 }

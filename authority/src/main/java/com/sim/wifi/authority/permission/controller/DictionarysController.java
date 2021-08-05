@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 @Api(tags = "DictionarysController", description = "数据字典管理")
-@RequestMapping("/permission/dictionarys")
+@RequestMapping("/system/dictionarys")
 public class DictionarysController {
     private static final Logger logger = LoggerFactory.getLogger(DictionarysController.class);
 

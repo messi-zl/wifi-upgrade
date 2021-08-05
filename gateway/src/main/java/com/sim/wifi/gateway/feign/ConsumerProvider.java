@@ -18,10 +18,10 @@ import java.util.List;
 public interface ConsumerProvider {
 
     // 配置需要调用的服务地址及参数
-    @GetMapping("/permission/test/feginTest")
+    @GetMapping("/auth/test/feginTest")
     List<String> feginTest();
 
-    @GetMapping("/permission/test/judgePermission")
+    @GetMapping("/auth/permissions/judgePermission")
     Boolean judgePermission(@RequestParam("username") String username, @RequestParam("url") String url);
 
     @Component

@@ -16,7 +16,7 @@ import lombok.EqualsAndHashCode;
  * </p>
  *
  * @author wifi-upgrade
- * @since 2021-07-14
+ * @since 2021-07-23
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -26,19 +26,18 @@ public class DeviceUpgradeLogs implements Serializable {
 
     private static final long serialVersionUID=1L;
 
+    @ApiModelProperty(value = "id")
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
+    @ApiModelProperty(value = "设备id")
     private Integer deviceId;
 
-    @ApiModelProperty(value = "自动检测:0->未自动检测;1->自动检测")
-    private Integer autoDetectionFlag;
+    @ApiModelProperty(value = "检测标志:0->未检测;1->自动检测;2->手动检测")
+    private Integer detectedFlag;
 
-    @ApiModelProperty(value = "web手动检测:0->未手动检测;1->手动检测")
-    private Integer manualDetectionFlag;
-
-    @ApiModelProperty(value = "本地升级:0->非本地升级;1->本地升级")
-    private Integer localUpgradeFlag;
+    @ApiModelProperty(value = "升级标志:0->未升级;1->远程升级;2->本地升级")
+    private Integer upgradeFlag;
 
     @ApiModelProperty(value = "创建日期")
     private Date createdOn;

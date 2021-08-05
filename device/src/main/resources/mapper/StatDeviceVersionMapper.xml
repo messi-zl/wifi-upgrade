@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sim.wifi.device.mapper.StatDeviceVersionMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.sim.wifi.device.model.StatDeviceVersion">
+        <id column="id" property="id" />
+        <result column="device_id" property="deviceId" />
+        <result column="version" property="version" />
+        <result column="version_update_on" property="versionUpdateOn" />
+        <result column="online_days" property="onlineDays" />
+        <result column="last_online_on" property="lastOnlineOn" />
+        <result column="created_on" property="createdOn" />
+        <result column="changed_on" property="changedOn" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, device_id, version, version_update_on, online_days, last_online_on, created_on, changed_on
+    </sql>
+
+    <!-- 根据设备 id 查询设备版本统计信息 -->
+    <select id="getDeviceVersionByDeviceId" parameterType="java.lang.Integer" resultType="com.sim.wifi.device.dto.DeviceVersionParam">
+        select
+        <include refid="Base_Column_List" />
+        from stat_device_version
+        where device_id = #{deviceId,jdbcType=INTEGER}
+    </select>
+
+</mapper>

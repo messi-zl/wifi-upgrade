@@ -15,4 +15,144 @@
         <result column="changed_by" property="changedBy" />
     </resultMap>
 
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, model_id, show_in_statistics, operator_device, sales_area, created_on, changed_on, created_by, changed_by
+    </sql>
+
+    <!-- 选择性插入有效的设备型号属性 -->
+    <insert id="insertSelective" parameterType="com.sim.wifi.device.model.DeviceModelAttributes">
+        insert into device_model_attributes
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="modelId != null">
+                model_id,
+            </if>
+            <if test="showInStatistics != null">
+                show_in_statistics,
+            </if>
+            <if test="operatorDevice != null">
+                operator_device,
+            </if>
+            <if test="salesArea != null">
+                sales_area,
+            </if>
+            <if test="createdOn != null">
+                created_on,
+            </if>
+            <if test="changedOn != null">
+                changed_on,
+            </if>
+            <if test="createdBy != null">
+                created_by,
+            </if>
+            <if test="changedBy != null">
+                changed_by,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="modelId != null">
+                #{modelId,jdbcType=INTEGER},
+            </if>
+            <if test="showInStatistics != null">
+                #{showInStatistics,jdbcType=INTEGER},
+            </if>
+            <if test="operatorDevice != null">
+                #{operatorDevice,jdbcType=INTEGER},
+            </if>
+            <if test="salesArea != null">
+                #{salesArea,jdbcType=INTEGER},
+            </if>
+            <if test="createdOn != null">
+                #{createdOn,jdbcType=TIMESTAMP},
+            </if>
+            <if test="changedOn != null">
+                #{changedOn,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createdBy != null">
+                #{createdBy,jdbcType=INTEGER},
+            </if>
+            <if test="changedBy != null">
+                #{changedBy,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+
+    <!-- 根据型号 id 删除设备型号属性 -->
+    <delete id="deleteByModelId" parameterType="java.lang.Integer">
+        delete from device_model_attributes
+        where model_id = #{modelId,jdbcType=INTEGER}
+    </delete>
+
+    <!-- 根据型号 id 查询设备型号属性 -->
+    <select id="selectByModelId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from device_model_attributes
+        where model_id = #{modelId,jdbcType=INTEGER}
+    </select>
+
+    <!-- 分页查询设备升级属性 -->
+    <select id="selectUpgradeAttributes" resultType="com.sim.wifi.device.dto.DeviceModelAttributesParam">
+        select dtm.type_id, dt.name as type_name, dtm.model_id,
+               dm.name as model_name, dua.status, dua.check_way,
+               dua.check_period, dua.checked_period, dua.forced_upgrade,
+               dua.auto_upgrade_start, dua.auto_upgrade_end, dua.auto_upgrade_condition,
+               dma.show_in_statistics, dma.operator_device, dma.sales_area
+        from device_type_model_relation dtm
+            inner join device_types dt on dtm.type_id = dt.id
+            inner join device_models dm on dtm.model_id = dm.id
+            inner join device_upgrade_attributes dua on dua.model_id = dm.id
+            inner join device_model_attributes dma on dma.model_id = dm.id
+    </select>
+
+    <!-- 根据型号 id 查询设备型号属性 -->
+    <select id="selectModelAttributes" parameterType="java.lang.Integer" resultType="com.sim.wifi.device.dto.DeviceModelAttributesParam">
+        select dtm.type_id, dt.name as type_name, dtm.model_id,
+               dm.name as model_name, dua.status, dua.check_way,
+               dua.check_period, dua.checked_period, dua.forced_upgrade,
+               dua.auto_upgrade_start, dua.auto_upgrade_end, dua.auto_upgrade_condition,
+               dma.show_in_statistics, dma.operator_device, dma.sales_area
+        from device_type_model_relation dtm
+            inner join device_types dt on dtm.type_id = dt.id
+            inner join device_models dm on dtm.model_id = dm.id
+            inner join device_upgrade_attributes dua on dua.model_id = dm.id
+            inner join device_model_attributes dma on dma.model_id = dm.id
+        where dm.id = #{modelId,jdbcType=INTEGER}
+    </select>
+
+    <!-- 根据型号 id 选择性更新有效的设备型号属性 -->
+    <update id="updateByModelIdSelective" parameterType="com.sim.wifi.device.model.DeviceModelAttributes">
+        update device_model_attributes
+        <set>
+            <if test="showInStatistics != null">
+                show_in_statistics = #{showInStatistics,jdbcType=INTEGER},
+            </if>
+            <if test="operatorDevice != null">
+                operator_device = #{operatorDevice,jdbcType=INTEGER},
+            </if>
+            <if test="salesArea != null">
+                sales_area = #{salesArea,jdbcType=INTEGER},
+            </if>
+            <if test="createdOn != null">
+                created_on = #{createdOn,jdbcType=TIMESTAMP},
+            </if>
+            <if test="changedOn != null">
+                changed_on = #{changedOn,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createdBy != null">
+                created_by = #{createdBy,jdbcType=INTEGER},
+            </if>
+            <if test="changedBy != null">
+                changed_by = #{changedBy,jdbcType=INTEGER},
+            </if>
+        </set>
+        where model_id = #{modelId,jdbcType=INTEGER}
+    </update>
+
 </mapper>

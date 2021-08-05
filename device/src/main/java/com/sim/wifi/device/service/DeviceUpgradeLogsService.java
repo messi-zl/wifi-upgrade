@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * </p>
  *
  * @author wifi-upgrade
- * @since 2021-07-14
+ * @since 2021-07-23
  */
 public interface DeviceUpgradeLogsService extends IService<DeviceUpgradeLogs> {
 

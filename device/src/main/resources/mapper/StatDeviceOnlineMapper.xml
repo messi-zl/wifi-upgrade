@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sim.wifi.device.mapper.StatDeviceOnlineMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.sim.wifi.device.model.StatDeviceOnline">
+        <id column="id" property="id" />
+        <result column="device_id" property="deviceId" />
+        <result column="recently_online_days" property="recentlyOnlineDays" />
+        <result column="online_days" property="onlineDays" />
+        <result column="seven_day_online_days" property="sevenDayOnlineDays" />
+        <result column="thirty_day_online_days" property="thirtyDayOnlineDays" />
+        <result column="created_on" property="createdOn" />
+        <result column="changed_on" property="changedOn" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, device_id, recently_online_days, online_days, seven_day_online_days, thirty_day_online_days, created_on, changed_on
+    </sql>
+
+    <!-- 根据设备 id 查询设备在线统计信息 -->
+    <select id="getDeviceOnlineByDeviceId" parameterType="java.lang.Integer" resultType="com.sim.wifi.device.dto.DeviceOnlineParam">
+        select
+        <include refid="Base_Column_List" />
+        from stat_device_online
+        where device_id = #{deviceId,jdbcType=INTEGER}
+    </select>
+
+</mapper>

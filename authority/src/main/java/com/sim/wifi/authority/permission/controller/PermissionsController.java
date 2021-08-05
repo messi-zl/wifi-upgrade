@@ -1,6 +1,8 @@
 package com.sim.wifi.authority.permission.controller;
 
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.sim.wifi.authority.common.api.CommonPage;
 import com.sim.wifi.authority.common.api.CommonResult;
 import com.sim.wifi.authority.common.log.CustomOperationLog;
 import com.sim.wifi.authority.permission.model.Permissions;
@@ -12,13 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
-import javax.servlet.http.HttpServletRequest;
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.util.Enumeration;
 import java.util.Map;
 
 
@@ -29,13 +25,36 @@ import java.util.Map;
  */
 @Controller
 @Api(tags = "PermissionsController", description = "权限管理")
-@RequestMapping("/permission/permissions")
+@RequestMapping("/auth/permissions")
 public class PermissionsController {
     private static final Logger logger = LoggerFactory.getLogger(PermissionsController.class);
     @Autowired
     private PermissionsService permissionsService;
-//    @Autowired
-//    private DynamicSecurityMetadataSource dynamicSecurityMetadataSource;
+
+
+    //权限管理-分页显示所有各用户对应的权限列表
+    @CustomOperationLog
+    @ApiOperation("分页显示所有各用户对应的权限列表")
+    @RequestMapping(value = "/pageAllUsersLimits", method = RequestMethod.GET)
+    @ResponseBody
+    public CommonResult<CommonPage<Map<String, Object>>> pageAllUsersLimits(@RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
+                                                                            @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum) {
+        Page<Map<String, Object>> limitList = permissionsService.pageAllUsersLimits(pageSize, pageNum);
+        return CommonResult.success(CommonPage.restPage(limitList));
+    }
+
+
+    //编辑权限后-展示所有权限(操作权限+型号权限)
+    @CustomOperationLog
+    @ApiOperation("查询所有后台权限结构供前端树形展示")
+    @RequestMapping(value = "/getAllStructure", method = RequestMethod.GET)
+    @ResponseBody
+    public CommonResult<Map<String, Object>> getAllStructure() {
+        logger.info("开始查询所有权限结构");
+        Map<String, Object> map = permissionsService.getAllStructure();
+        logger.info("查询所有权限结构成功");
+        return CommonResult.success(map);
+    }
 
 
     @CustomOperationLog
@@ -55,6 +74,7 @@ public class PermissionsController {
         }
     }
 
+
     @CustomOperationLog
     @ApiOperation("根据ID删除后台权限")
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
@@ -71,6 +91,7 @@ public class PermissionsController {
             return CommonResult.failed();
         }
     }
+
 
     @CustomOperationLog
     @ApiOperation("由权限id修改权限")
@@ -93,7 +114,7 @@ public class PermissionsController {
 
     @CustomOperationLog
     @ApiOperation("根据资源的ID获取权限详情")
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/getInfo/{id}", method = RequestMethod.GET)
     @ResponseBody
     public CommonResult<Permissions> getItem(@PathVariable Integer resourceId) {
         logger.info("开始获取permissionId为{}，的权限详情", resourceId);
@@ -102,15 +123,16 @@ public class PermissionsController {
         return CommonResult.success(permission);
     }
 
+
+    //由token信息及访问的url地址，看其是否具有权限
     @CustomOperationLog
-    @ApiOperation("查询所有后台树形权限")//权限页面展示所有权限
-    @RequestMapping(value = "/listAll", method = RequestMethod.GET)
+    @ApiOperation("判断用户对某请求是否具有权限")
+    @RequestMapping(value = "/judgePermission", method = RequestMethod.GET)
     @ResponseBody
-    public CommonResult<Map<String, Object>> listAll() {
-        logger.info("开始查询所有权限");
-        Map<String, Object> map = permissionsService.listAll();
-        logger.info("查询所有权限成功");
-        return CommonResult.success(map);
+    public boolean judgePermission(@RequestParam String username, @RequestParam String url) {
+        return permissionsService.getPermission(username, url);
     }
+
+
 }
 

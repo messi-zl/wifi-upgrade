@@ -6,6 +6,7 @@ import cn.hutool.core.date.DateUnit;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.sim.wifi.authority.common.api.CommonResult;
 import com.sim.wifi.authority.common.exception.ApiException;
@@ -62,7 +63,7 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
     public Users loadUsersByUsername(String username) {
         Users users = getUserByUserName(username);
         if (users != null) return users;
-        throw new ApiException("由用户名找不到用户！");
+        throw new ApiException("用户名错误，请重新输入！");
     }
 
     @Override
@@ -119,7 +120,7 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
             return map;
         }
         restoreFailLoginCount(user, now);
-        if (user.getStatus() == UsersService.STATUS_DISABLE) {
+        if (user.getStatus() == STATUS_DISABLE) {
             map.put("errorMessage", "您的账户已禁用，如需恢复请与管理员联系！");
             return map;
         }
@@ -168,7 +169,7 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
         Users user = getUserByUserName(username);
         Map<String, Object> data = new HashMap<>();
         data.put("username", user.getUsername());
-        //得到该用户拥有的所有权限
+        //得到该用户拥有的所有启用的操作权限进行渲染
         List<Permissions> permissionsList = permissionsService.getPermissionsList(user.getId(), null);
         data.put("directorys", permissionsList.stream().filter(permission -> permission.getType().compareTo(PermissionsService.TYPE_DIRECTORY) == 0).collect(Collectors.toList()));
         data.put("menus", permissionsList.stream().filter(permission -> permission.getType().compareTo(PermissionsService.TYPE_MENU) == 0).collect(Collectors.toList()));
@@ -231,6 +232,11 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
         return 1;
     }
 
+    @Override
+    public Page<Users> pageListUsers(Integer pageSize, Integer pageNum) {
+        Page<Users> page = new Page<>(pageNum, pageSize);
+        return page(page);
+    }
 
     //入口校验，由用户名判断其是否在登录截止时间之内
     private Integer checkInLockingTime(Users user, Date now) {

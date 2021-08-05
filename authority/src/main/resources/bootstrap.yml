@@ -5,3 +5,10 @@ spring:
       discovery:
         server-addr: localhost:8848
         enabled: true
+      #        namespace: 8313977f-6d06-4117-ab9f-c97f1b0ff4e5
+      #配置中心
+      config:
+        server-addr: localhost:8848
+        group: DEFAULT_GROUP
+        file-extension: yml
+#        namespace: 8313977f-6d06-4117-ab9f-c97f1b0ff4e5

@@ -13,4 +13,36 @@
         <result column="created_on" property="createdOn" />
     </resultMap>
 
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, type_id, model_id, mac, sn, uuid, created_on
+    </sql>
+
+    <!-- 根据 mac 查询设备基本信息 -->
+    <select id="selectDeviceByMac" parameterType="com.sim.wifi.device.model.DeviceInstances" resultType="com.sim.wifi.device.dto.DeviceBasicParam">
+        select di.id as device_id, di.type_id, dt.name as type_name, di.model_id, dm.name as model_name, di.mac, di.sn, di.uuid
+        from device_instances di
+            inner join device_types dt on di.type_id = dt.id
+            inner join device_models dm on di.model_id = dm.id
+        where di.mac = #{mac,jdbcType=VARCHAR} and di.type_id = #{typeId,jdbcType=INTEGER} and di.model_id = #{modelId,jdbcType=INTEGER}
+    </select>
+
+    <!-- 根据 sn 查询设备基本信息 -->
+    <select id="selectDeviceBySn" parameterType="com.sim.wifi.device.model.DeviceInstances" resultType="com.sim.wifi.device.dto.DeviceBasicParam">
+        select di.id as device_id, di.type_id, dt.name as type_name, di.model_id, dm.name as model_name, di.mac, di.sn, di.uuid
+        from device_instances di
+            inner join device_types dt on di.type_id = dt.id
+            inner join device_models dm on di.model_id = dm.id
+        where di.sn = #{sn,jdbcType=VARCHAR} and di.type_id = #{typeId,jdbcType=INTEGER} and di.model_id = #{modelId,jdbcType=INTEGER}
+    </select>
+
+    <!-- 根据 uuid 查询设备基本信息 -->
+    <select id="selectDeviceByUuid" parameterType="com.sim.wifi.device.model.DeviceInstances" resultType="com.sim.wifi.device.dto.DeviceBasicParam">
+        select di.id as device_id, di.type_id, dt.name as type_name, di.model_id, dm.name as model_name, di.mac, di.sn, di.uuid
+        from device_instances di
+            inner join device_types dt on di.type_id = dt.id
+            inner join device_models dm on di.model_id = dm.id
+        where di.uuid = #{uuid,jdbcType=VARCHAR} and di.type_id = #{typeId,jdbcType=INTEGER} and di.model_id = #{modelId,jdbcType=INTEGER}
+    </select>
+
 </mapper>
