@@ -77,7 +77,7 @@ public class PermissionsController {
 
     @CustomOperationLog
     @ApiOperation("根据ID删除后台权限")
-    @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "/delete/{permissionId}", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult delete(@PathVariable Integer permissionId) {
         logger.info("开始删除permissionId为{}，的权限", permissionId);
@@ -95,7 +95,7 @@ public class PermissionsController {
 
     @CustomOperationLog
     @ApiOperation("由权限id修改权限")
-    @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "/update/{permissionId}", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult update(@PathVariable Integer permissionId,
                                @RequestBody Permissions permission) {
@@ -114,7 +114,7 @@ public class PermissionsController {
 
     @CustomOperationLog
     @ApiOperation("根据资源的ID获取权限详情")
-    @RequestMapping(value = "/getInfo/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/getInfo/{resourceId}", method = RequestMethod.GET)
     @ResponseBody
     public CommonResult<Permissions> getItem(@PathVariable Integer resourceId) {
         logger.info("开始获取permissionId为{}，的权限详情", resourceId);

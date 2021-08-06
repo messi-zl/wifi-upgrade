@@ -145,7 +145,7 @@ public class UsersController {
 
     @CustomOperationLog
     @ApiOperation("根据UserId修改用户信息")
-    @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "/update/{userId}", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult update(@PathVariable Integer userId, @RequestBody Users user) {
         boolean success = usersService.update(userId, user);
