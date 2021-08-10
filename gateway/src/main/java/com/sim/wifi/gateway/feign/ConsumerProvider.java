@@ -34,7 +34,6 @@ public interface ConsumerProvider {
 
         @Override
         public Boolean judgePermission(String username, String url) {
-            System.out.println("报错了应该");
             return null;
         }
     }

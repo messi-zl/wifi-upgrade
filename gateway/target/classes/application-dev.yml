@@ -18,8 +18,8 @@ spring:
           uri: lb://${auth-server.name}   #要转到的地址（静态路由：ip地址http://localhost:8086  动态路由：注册后的服务名称）
           predicates:
             - Path=/system/**,/auth/**
-#          filters:
-#            - StripPrefix=1
+        #          filters:
+        #            - StripPrefix=1
 
         - id: device
           uri: lb://device

@@ -1,6 +1,7 @@
 package com.sim.wifi.gateway.gatewayCofigTest;
 
 
+import com.sim.wifi.authority.common.log.CustomOperationLog;
 import com.sim.wifi.authority.common.service.RedisService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,6 +42,7 @@ public class TestController {
 
 
     //测试nacos配置文件的获取
+    @CustomOperationLog
     @RequestMapping(value = "/testNacos", method = RequestMethod.POST)
     @ResponseBody
     public String testNacos() {

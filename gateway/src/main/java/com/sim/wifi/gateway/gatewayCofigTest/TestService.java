@@ -21,4 +21,12 @@ public class TestService {
         return list;
     }
 
+
+    //型号权限（？？在哪里进行拦截，操作方法内部进行型号权限相关的判断）
+
+    //升级策略
+
+
+
+
 }

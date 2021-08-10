@@ -5,7 +5,7 @@ spring:
       discovery:
         server-addr: localhost:8848
         enabled: true
-#        namespace: 4fd3bc66-8d65-4c68-9210-379a3a9118d6
+      #        namespace: 4fd3bc66-8d65-4c68-9210-379a3a9118d6
       #配置中心
       config:
         server-addr: localhost:8848
