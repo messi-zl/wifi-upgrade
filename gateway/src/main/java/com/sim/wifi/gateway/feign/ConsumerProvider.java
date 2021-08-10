@@ -1,5 +1,6 @@
 package com.sim.wifi.gateway.feign;
 
+import com.sim.wifi.authority.common.exception.ApiException;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,12 +30,12 @@ public interface ConsumerProvider {
         //降级处理
         @Override
         public List<String> feginTest() {
-            return Arrays.asList("hahaha");
+            throw new ApiException("openfeign occurred error！");
         }
 
         @Override
         public Boolean judgePermission(String username, String url) {
-            return null;
+            throw new ApiException("openfeign occurred error！");
         }
     }
 }

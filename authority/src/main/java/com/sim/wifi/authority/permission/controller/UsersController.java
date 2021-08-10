@@ -95,7 +95,7 @@ public class UsersController {
     public CommonResult<Users> register(@Validated @RequestBody UsersParam usersParam) {
         Users user = usersService.register(usersParam);
         if (user == null) {
-            return CommonResult.failed();
+            return CommonResult.failed("用户名重复，请重新输入！");
         }
         logger.info("用户注册成功！！！");
         return CommonResult.success(user);

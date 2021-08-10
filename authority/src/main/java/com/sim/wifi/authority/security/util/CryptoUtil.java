@@ -1,10 +1,13 @@
 package com.sim.wifi.authority.security.util;
 
-import org.apache.commons.codec.binary.Base64;
+import sun.misc.BASE64Decoder;
+import sun.misc.BASE64Encoder;
 
 import javax.crypto.Cipher;
-import javax.crypto.KeyGenerator;
-import java.security.Key;
+import javax.crypto.SecretKey;
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.DESKeySpec;
+import java.io.IOException;
 import java.security.SecureRandom;
 
 /**
@@ -12,128 +15,136 @@ import java.security.SecureRandom;
  * @CreateBy: li.zheng871@sim.com
  * @DateTime: 2021/8/2
  */
+@SuppressWarnings("restriction")
 public class CryptoUtil {
-    private static Key DEFAULT_KEY;
-    /**
-     * 默认密钥
-     */
-//    private static final String DEFAULT_SECRET_KEY = "1qaz2wsx3edc$RFV%TGB^YHN&UJM";
-    private static final String DEFAULT_SECRET_KEY = "wifiauthority@$%$&%hfsj34896ebdabd";
-    /**
-     * 加密模式
-     */
-    private static final String DES = "DES";
-    /**
-     * 加密解密格式
-     */
-    private static final String format = "DES/ECB/PKCS5Padding";
+
+    private final static String DES = "DES";
+    private final static String ENCODE = "GBK";
+    private final static String defaultKey = "wifiauthority@$%$&%hfsj34896ebdabd";
+
 
     /**
-     * 优先加载获得key
+     * 使用 默认key 加密
+     *
+     * @return String
      */
-    static {
-        DEFAULT_KEY = obtainKey(DEFAULT_SECRET_KEY);
-    }
-
-    /**
-     * 获得key
-     **/
-    private static Key obtainKey(String key) {
-        //如果key等于null 使用默认密钥
-        if (key == null) {
-            return DEFAULT_KEY;
-        }
-        KeyGenerator generator = null;
+    public static String encode(String data) {
+        byte[] bt = new byte[0];
         try {
-            generator = KeyGenerator.getInstance(DES);
-            //防止linux下 随机生成key
-            SecureRandom secureRandom = SecureRandom.getInstance("SHA1PRNG");
-            secureRandom.setSeed(key.getBytes("UTF-8"));
-            generator.init(secureRandom);
+            bt = encrypt(data.getBytes(ENCODE), defaultKey.getBytes(ENCODE));
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        return generator.generateKey();
-    }
-
-
-    /**
-     * null key 加密 使用默认密钥加密
-     * String明文输入,String密文输出
-     */
-    public static String encode(String str) {
-        return encode(null, str);
+        String strs = new BASE64Encoder().encode(bt);
+        return strs;
     }
 
     /**
-     * 加密
-     * String明文输入,String密文输出
+     * 使用 默认key 解密
+     *
+     * @return String
      */
-    public static String encode(String key, String str) {
-        return Base64.encodeBase64URLSafeString(obtainEncode(key, str.getBytes()));
-        // return Hex.encodeHexString(obtainEncode(key, str.getBytes()));
-        // 可以转化为16进制数据
-    }
-
-    /**
-     * null key 解密 使用默认密钥解密
-     * 以String密文输入,String明文输出
-     */
-    public static String decode(String str) {
-        return decode(null, str);
-    }
-
-    /**
-     * 解密
-     * 以String密文输入,String明文输出
-     */
-    public static String decode(String key, String str) {
-        return new String(obtainDecode(key, Base64.decodeBase64(str)));
-        // 可以转化为16进制的数据
-//      try {
-//          return new String(obtainDecode(key, Hex.decodeHex(str.toCharArray())));
-//      } catch (DecoderException e) {
-//          // TODO Auto-generated catch block
-//          e.printStackTrace();
-//      }
-    }
-
-
-    /**
-     * 底层加密方法
-     * 以byte[]明文输入,byte[]密文输出
-     */
-    private static byte[] obtainEncode(String key, byte[] str) {
-        byte[] byteFina = null;
-        Cipher cipher;
+    public static String decode(String data) {
+        if (data == null)
+            return null;
+        BASE64Decoder decoder = new BASE64Decoder();
+        byte[] buf = new byte[0];
         try {
-            Key key1 = obtainKey(key);
-            cipher = Cipher.getInstance(format);
-            cipher.init(Cipher.ENCRYPT_MODE, key1);
-            byteFina = cipher.doFinal(str);
+            buf = decoder.decodeBuffer(data);
+            byte[] bt = decrypt(buf, defaultKey.getBytes(ENCODE));
+            return new String(bt, ENCODE);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return byteFina;
+        return null;
     }
 
     /**
-     * 底层解密方法
-     * 以byte[]密文输入,以byte[]明文输出
+     * Description 根据键值进行加密
+     *
+     * @param data
+     * @param key  加密键byte数组
+     * @return
+     * @throws Exception
      */
-    private static byte[] obtainDecode(String key, byte[] str) {
-        Cipher cipher;
-        byte[] byteFina = null;
-        try {
-            Key key1 = obtainKey(key);
-            cipher = Cipher.getInstance(format);
-            cipher.init(Cipher.DECRYPT_MODE, key1);
-            byteFina = cipher.doFinal(str);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return byteFina;
+    public static String encrypt(String data, String key) throws Exception {
+        byte[] bt = encrypt(data.getBytes(ENCODE), defaultKey.getBytes(ENCODE));
+        String strs = new BASE64Encoder().encode(bt);
+        return strs;
     }
 
+    /**
+     * Description 根据键值进行解密
+     *
+     * @param data
+     * @param key  加密键byte数组
+     * @return
+     * @throws IOException
+     * @throws Exception
+     */
+    public static String decrypt(String data, String key) throws IOException,
+            Exception {
+        if (data == null)
+            return null;
+        BASE64Decoder decoder = new BASE64Decoder();
+        byte[] buf = decoder.decodeBuffer(data);
+        byte[] bt = decrypt(buf, key.getBytes(ENCODE));
+        return new String(bt, ENCODE);
+    }
+
+    /**
+     * Description 根据键值进行加密
+     *
+     * @param data
+     * @param key  加密键byte数组
+     * @return
+     * @throws Exception
+     */
+    private static byte[] encrypt(byte[] data, byte[] key) throws Exception {
+        // 生成一个可信任的随机数源
+        SecureRandom sr = new SecureRandom();
+
+        // 从原始密钥数据创建DESKeySpec对象
+        DESKeySpec dks = new DESKeySpec(key);
+
+        // 创建一个密钥工厂，然后用它把DESKeySpec转换成SecretKey对象
+        SecretKeyFactory keyFactory = SecretKeyFactory.getInstance(DES);
+        SecretKey securekey = keyFactory.generateSecret(dks);
+
+        // Cipher对象实际完成加密操作
+        Cipher cipher = Cipher.getInstance(DES);
+
+        // 用密钥初始化Cipher对象
+        cipher.init(Cipher.ENCRYPT_MODE, securekey, sr);
+
+        return cipher.doFinal(data);
+    }
+
+    /**
+     * Description 根据键值进行解密
+     *
+     * @param data
+     * @param key  加密键byte数组
+     * @return
+     * @throws Exception
+     */
+    private static byte[] decrypt(byte[] data, byte[] key) throws Exception {
+        // 生成一个可信任的随机数源
+        SecureRandom sr = new SecureRandom();
+
+        // 从原始密钥数据创建DESKeySpec对象
+        DESKeySpec dks = new DESKeySpec(key);
+
+        // 创建一个密钥工厂，然后用它把DESKeySpec转换成SecretKey对象
+        SecretKeyFactory keyFactory = SecretKeyFactory.getInstance(DES);
+        SecretKey securekey = keyFactory.generateSecret(dks);
+
+        // Cipher对象实际完成解密操作
+        Cipher cipher = Cipher.getInstance(DES);
+
+        // 用密钥初始化Cipher对象
+        cipher.init(Cipher.DECRYPT_MODE, securekey, sr);
+
+        return cipher.doFinal(data);
+    }
 }

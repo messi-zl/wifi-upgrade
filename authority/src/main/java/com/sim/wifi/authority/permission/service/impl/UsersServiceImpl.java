@@ -137,7 +137,6 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
         logger.info("开始注册！！！注册参数为{}", usersParam.toString());
         Users user = new Users();
         BeanUtils.copyProperties(usersParam, user);
-        user.setStatus(UsersService.STATUS_ENABLE);//设为启用
         user.setFailLoginCount(0);//设登录失败次数为0
         //查询是否有相同用户名的用户
         QueryWrapper<Users> wrapper = new QueryWrapper<>();

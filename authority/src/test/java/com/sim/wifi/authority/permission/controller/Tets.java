@@ -10,15 +10,15 @@ import com.sim.wifi.authority.security.util.CryptoUtil;
 public class Tets {
     public static void main(String[] args) {
 
-        String password = "123";
+        String password = "11111111";
         String jiami1 = CryptoUtil.encode(password); //加密
-        System.out.println("加密1" + jiami1);
+        System.out.println("加密1---" + jiami1);
         String jiemi1 = CryptoUtil.decode(jiami1);//解密
-        System.out.println("解密1" + jiemi1);
+        System.out.println("解密1---" + jiemi1);
         String jiami2 = CryptoUtil.encode(password); //加密
-        System.out.println("加密2" + jiami2);
+        System.out.println("加密2---" + jiami2);
         String jiemi2 = CryptoUtil.decode(jiami2);//解密
-        System.out.println("解密2" + jiemi2);
+        System.out.println("解密2---" + jiemi2);
         System.out.printf("结束");
     }
 }
